@@ -1,0 +1,22 @@
+{
+  "name": "helpdesk-project",
+  "version": "1.0.0",
+  "description": "Helpdesk project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robziel95/helpdesk-project.git"
+  },
+  "keywords": [
+    "Helpdesk"
+  ],
+  "author": "Robert Zieliński",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robziel95/helpdesk-project/issues"
+  },
+  "homepage": "https://github.com/robziel95/helpdesk-project#readme"
+}
