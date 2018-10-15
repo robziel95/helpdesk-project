@@ -1,10 +1,41 @@
+@import '../shared/variables.scss';
+nav{
+  background-color: $color-purple;
+
+  ul li a{
+    color: $color-white-90;
+    font-weight: 500;
+    transition: all 0.15s;
+    padding: 10px 20px;
+    font-size: 1.4rem;
+
+    @media screen and (min-width: $breakpoint-sm){
+      font-size: 1.8rem;
+    }
+
+    &:hover{
+      color: #FFF;
+    }
+  }
+}
 .navbar{
+  &-top{
+    .navbar-brand{
+      font-size: 2.4rem;
+    }
+    .navbar-toggler{
+      font-size: 1.6rem;
+    }
+  }
   &-bottom{
     padding-top: 0;
     padding-bottom: 0;
 
-    @media screen and (min-width: 576px){
-      border-top: 1px solid #787878;
+    @media screen and (min-width: $breakpoint-sm){
+
+      > div {
+        border-top: 1px solid $color-white-80;
+      }
 
       ul li:first-of-type a{
         padding-left: 0;
@@ -12,9 +43,13 @@
     }
 
     .navbar-collapse.show{
-      @media screen and (max-width: 576px){
+      @media screen and (max-width: $breakpoint-sm){
         border-top: 1px solid #787878;
       }
     }
+  }
+
+  &-toggler{
+    border: 1px solid $color-white-60;
   }
 }
