@@ -1,0 +1,13 @@
+<mat-accordion *ngIf="users.length > 0">
+  <mat-expansion-panel *ngFor="let user of users">
+    <mat-expansion-panel-header>
+      {{ user.id }}, {{ user.name }}, {{ user.surname }}
+    </mat-expansion-panel-header>
+      <p>Esse tempor nisi anim officia aliqua ullamco officia enim voluptate.</p>
+    <mat-action-row>
+      <button mat-button color="primary">EDIT</button>
+      <button mat-button color="accent">DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<p *ngIf="users.length <= 0">No users were added</p>

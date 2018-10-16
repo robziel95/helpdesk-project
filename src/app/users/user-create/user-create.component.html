@@ -1,0 +1,24 @@
+<mat-card>
+    <form (submit)="onAddUser(postForm)" #postForm="ngForm">
+      <mat-form-field>
+          <input matInput type="text"
+          name="userName"
+          ngModel
+          required
+          placeholder= "Name"
+          #title="ngModel">
+          <mat-error *ngIf="title.invalid">Please enter a post title</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput
+          name="userSurname"
+          ngModel
+          required
+          placeholder="Surname"
+          #content="ngModel">
+
+          <mat-error *ngIf="content.invalid">Please enter a post content</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="accent" type="submit">Save Post</button>
+    </form>
+  </mat-card>
