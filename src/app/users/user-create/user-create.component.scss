@@ -1,4 +1,14 @@
+.usersInputArea{
+  margin: 10px 0;
+  form{
 
-textarea, mat-form-field, input{
-  width: 100%;
+    .mat-form-field{
+      display: block;
+      margin-bottom: 10px;
+      &:last-of-type{
+        margin-bottom: 25px;
+      }
+    }
+  }
 }
+

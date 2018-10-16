@@ -26,9 +26,13 @@ export class UsersService {
     return this.usersUpdated.asObservable();
   }
 
-  addUser(inputId: number, inputName: string, inputSurname: string){
-    const newUser: User = { id: inputId, name: inputName, surname: inputSurname};
+  addUser(inputUser: User){
+    const newUser: User = inputUser;
     this.users.push(newUser);
     this.usersUpdated.next([...this.users]);
+  }
+
+  getId(){
+    return this.users.length + 1;
   }
 }

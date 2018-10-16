@@ -1,7 +1,8 @@
 <mat-accordion *ngIf="users.length > 0">
   <mat-expansion-panel *ngFor="let user of users">
     <mat-expansion-panel-header>
-      {{ user.id }}, {{ user.name }}, {{ user.surname }}
+      <div class="mat-content-id">Id: {{ user.id }}</div>
+      <div class="mat-content-text">{{ user.name }} {{ user.surname }}</div>
     </mat-expansion-panel-header>
       <p>Esse tempor nisi anim officia aliqua ullamco officia enim voluptate.</p>
     <mat-action-row>

@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="usersInputArea">
     <form (submit)="onAddUser(postForm)" #postForm="ngForm">
       <mat-form-field>
           <input matInput type="text"
@@ -6,8 +6,8 @@
           ngModel
           required
           placeholder= "Name"
-          #title="ngModel">
-          <mat-error *ngIf="title.invalid">Please enter a post title</mat-error>
+          #name="ngModel">
+          <mat-error *ngIf="name.invalid">Please enter a Name</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input matInput
@@ -15,10 +15,10 @@
           ngModel
           required
           placeholder="Surname"
-          #content="ngModel">
+          #surname="ngModel">
 
-          <mat-error *ngIf="content.invalid">Please enter a post content</mat-error>
+          <mat-error *ngIf="surname.invalid">Please enter a Surname</mat-error>
         </mat-form-field>
-        <button mat-raised-button color="accent" type="submit">Save Post</button>
+        <button mat-raised-button color="accent" type="submit">Add User</button>
     </form>
   </mat-card>

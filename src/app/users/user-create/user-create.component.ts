@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { UsersService } from '../users.service';
+import { User } from '../user.model';
 
 @Component({
   selector: 'app-user-create',
@@ -7,13 +9,18 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./user-create.component.scss']
 })
 export class UserCreateComponent implements OnInit {
+  newUser: User;
 
-  constructor() { }
+  constructor( public usersService: UsersService) { }
 
   ngOnInit() {
   }
 
   onAddUser(form: NgForm){
-
+    if(form.invalid){
+      return
+    }
+    this.newUser = {id: this.usersService.getId(), name: form.value.userName, surname: form.value.userSurname},
+    this.usersService.addUser(this.newUser);
   }
 }
