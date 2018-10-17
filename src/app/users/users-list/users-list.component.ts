@@ -15,7 +15,7 @@ export class UsersListComponent implements OnInit {
   constructor(public usersService: UsersService) { }
 
   ngOnInit() {
-    this.users = this.usersService.getUsers();
+    this.usersService.getUsers();
 
     //update users on change
     this.usersSubscription = this.usersService.getUsersUpdateListener().subscribe(
