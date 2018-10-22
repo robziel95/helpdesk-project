@@ -40,7 +40,4 @@ export class UsersService {
     );
   }
 
-  getId(){
-    return this.users.length + 1;
-  }
 }

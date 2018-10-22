@@ -20,7 +20,7 @@ export class UserCreateComponent implements OnInit {
     if(form.invalid){
       return
     }
-    this.newUser = {id: this.usersService.getId(), name: form.value.userName, surname: form.value.userSurname},
+    this.newUser = {id: 'id', name: form.value.userName, surname: form.value.userSurname},
     this.usersService.addUser(this.newUser);
   }
 }
