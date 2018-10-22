@@ -28,6 +28,10 @@ export class UsersListComponent implements OnInit {
     )
   }
 
+  onDelete(postId: string){
+    this.usersService.deleteUser(postId);
+  }
+
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.

@@ -37,38 +37,30 @@ app.post("/api/users", (req, res, next) => {
     surname: req.body.surname
   });
   //.body is from body parser
-  user.save().then(createdPost => {
+  user.save().then(createdUser => {
     res.status(201).json({
       message: 'User added successfully',
-      postId: createdPost._id
+      //send with response auto generated user id
+      userId: createdUser._id
     });
   });
 });
-/*
-app.post("/api/posts", (req, res, next) => {
-  const post = new Post({
-    title: req.body.title,
-    content: req.body.content
-  });
-  post.save().then(createdPost => {
-    res.status(201).json({
-      message: 'Post added successfully',
-      postId: createdPost._id
-    });
-  });
-});
-*/
 app.get('/api/users', (req, res, next) => {
-  const users = [
-    {id: '1', name: 'John', surname: 'Doe'},
-    {id: '2', name: 'Scarlet', surname: 'Johanson'},
-    {id: '3', name: 'John', surname: 'Snow'},
-    {id: '4', name: 'Tom', surname: 'Cruze'}
-  ];
-  res.status(200).json({
-    message: 'Users fetched succesfully',
-    users: users
+  User.find().then(documents => {
+    res.status(200).json({
+      message: 'Users fetched succesfully',
+      users: documents
+    });
   });
 })
+
+app.delete("/api/users/:id", (req, res, next) => {
+  User.deleteOne({ _id: req.params.id }).then(
+    result => {
+      console.log(result);
+      res.status(200).json({message: 'User deleted!'});
+    }
+  )
+});
 
 module.exports = app;
