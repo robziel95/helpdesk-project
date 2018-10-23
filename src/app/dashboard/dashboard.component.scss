@@ -1,0 +1,28 @@
+.section-info{
+  margin-top: 100px;
+  &__title{
+    margin-bottom: 80px;
+  }
+  &__block{
+    padding: 20px;
+    &__title{
+      text-align: center;
+    }
+    &__content{
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-align: center;
+      > div {
+        font-size: 170px;
+        position: relative;
+        span{
+          font-size: 2.4rem;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+}
