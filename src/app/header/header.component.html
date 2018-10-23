@@ -1,7 +1,7 @@
 <nav class="navbar-expand-sm navbar-dark">
   <div class="container">
     <div class="navbar navbar-top">
-      <a class="navbar-brand" href="#">Helpdesk Project</a>
+      <a class="navbar-brand" routerLink="">Helpdesk Project</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hamburgerCollapse"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -9,10 +9,10 @@
       <div class="collapse navbar-collapse" id="hamburgerCollapse">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#">Login</a>
+              <a class="nav-link" routerLink="/login">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Logout</a>
+              <a class="nav-link" routerLink="/logout">Logout</a>
             </li>
           </ul>
         </div>
@@ -22,16 +22,19 @@
       <div class="collapse navbar-collapse" id="hamburgerCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
+            <a class="nav-link" routerLink="">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Users</a>
+            <a class="nav-link" routerLink="/users">Users List</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="#">Tickets</a>
+            <a class="nav-link" routerLink="/user-create">Create User</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="#">Submit Ticket</a>
+              <a class="nav-link" routerLink="/tickets">Tickets</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/ticket-submit">Submit Ticket</a>
           </li>
         </ul>
       </div>

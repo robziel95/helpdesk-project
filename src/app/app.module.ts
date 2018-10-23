@@ -9,26 +9,38 @@ import { HeaderComponent } from './header/header.component';
 import { UserCreateComponent } from './users/user-create/user-create.component';
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TicketListComponent } from './tickets/ticket-list/ticket-list.component';
+import { TicketComponent } from './tickets/ticket/ticket.component';
+import { TicketSubmitComponent } from './tickets/ticket-submit/ticket-submit.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    UserCreateComponent,
-    UsersListComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatExpansionModule,
-    HttpClientModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+   declarations: [
+      AppComponent,
+      HeaderComponent,
+      UserCreateComponent,
+      UsersListComponent,
+      TicketListComponent,
+      TicketComponent,
+      TicketSubmitComponent,
+      DashboardComponent
+   ],
+   imports: [
+      BrowserModule,
+      AppRoutingModule,
+      BrowserAnimationsModule,
+      FormsModule,
+      MatInputModule,
+      MatCardModule,
+      MatButtonModule,
+      MatExpansionModule,
+      HttpClientModule
+   ],
+   providers: [],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule { }
