@@ -1,6 +1,7 @@
 <h2 class="heading">Create new user:</h2>
+<mat-spinner *ngIf="spinnerLoading"></mat-spinner>
 <mat-card class="usersInputArea">
-    <form (submit)="onSaveUser(postForm)" #postForm="ngForm">
+    <form (submit)="onSaveUser(postForm)" #postForm="ngForm"  *ngIf="!spinnerLoading">
       <mat-form-field>
           <input matInput type="text"
           name="userName"

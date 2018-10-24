@@ -3,6 +3,8 @@ import { User } from './user.model';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { stringify } from 'querystring';
 
 
 @Injectable({
@@ -12,7 +14,7 @@ export class UsersService {
   private users: User [] = [];
   private usersUpdated = new Subject<User[]>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   getUsers(){
     this.http.get<{message: string, users: any}>('http://localhost:3000/api/users')
@@ -51,18 +53,26 @@ export class UsersService {
         this.users.push(newUser);
         this.usersUpdated.next([...this.users]);
         //push only on success
+        this.router.navigate(['/users']);
       }
     );
   }
 
   getUser(id: string){
-    return {...this.users.find(user => user.id === id)};
+    return this.http.get<{_id: string; name: string; surname: string;}>('http://localhost:3000/api/users/' + id);
   }
 
   updateUser(inputUser: User){
     const userToUpdate: User = {id: inputUser.id, name: inputUser.name, surname: inputUser.surname};
     this.http.put('http://localhost:3000/api/users/' + userToUpdate.id, userToUpdate).subscribe(
-      response => console.log(response)
+      (response) => {
+        const usersUpdated = [...this.users];
+        const oldUserIndex = usersUpdated.findIndex( u => u.id === userToUpdate.id);
+        usersUpdated[oldUserIndex] = userToUpdate;
+        this.users = usersUpdated;
+        this.usersUpdated.next([...this.users]);
+        this.router.navigate(['/users']);
+      }
     );
   }
 

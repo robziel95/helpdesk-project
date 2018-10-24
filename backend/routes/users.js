@@ -27,7 +27,6 @@ router.put("/api/users/:id", (req, res, next) => {
   //.body is from body parser
   User.updateOne({_id: req.params.id}, user).then(
     result => {
-      console.log(result);
       res.status(200).json({message: 'Update successful!'})
     }
   );
@@ -41,6 +40,19 @@ router.get('/api/users', (req, res, next) => {
     });
   });
 })
+
+router.get('/api/users/:id', (req, res, next) => {
+  User.findById(req.params.id).then(
+    user =>{
+      if (user) {
+        res.status(200).json(user);
+      } else{
+        res.status(404).json({message: 'User not found!'});
+      }
+    }
+
+  );
+});
 
 router.delete("/api/users/:id", (req, res, next) => {
   User.deleteOne({ _id: req.params.id }).then(

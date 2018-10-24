@@ -10,11 +10,13 @@ import { Subscription } from 'rxjs';
 })
 export class UsersListComponent implements OnInit {
   users: User [] = [];
+  spinnerLoading = false;
   private usersSubscription: Subscription;
 
   constructor(public usersService: UsersService) { }
 
   ngOnInit() {
+    this.spinnerLoading = true;
     this.usersService.getUsers();
 
     //update users on change
@@ -23,6 +25,7 @@ export class UsersListComponent implements OnInit {
       //.subscribe listens for chamnge in users service array
 
       (usersChanged: User[]) => {
+        this.spinnerLoading = false;
         this.users = usersChanged;
       }
     )

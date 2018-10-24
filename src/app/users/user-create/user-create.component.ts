@@ -13,6 +13,7 @@ export class UserCreateComponent implements OnInit {
   inputUserData: User;
   editedUser: User;
   mode = 'create';
+  spinnerLoading = false;
   private userId: string;
 
   constructor( public usersService: UsersService, public route: ActivatedRoute) { }
@@ -23,7 +24,13 @@ export class UserCreateComponent implements OnInit {
         if (paramMap.has('userId')){
           this.mode = 'edit';
           this.userId = paramMap.get('userId');
-          this.editedUser = this.usersService.getUser(this.userId);
+          this.spinnerLoading = true;
+          this.usersService.getUser(this.userId).subscribe(userData => {
+            this.spinnerLoading = false;
+            this.editedUser = {
+              id: userData._id, name: userData.name, surname: userData.surname
+            }
+          });
         }else{
           this.mode = 'create';
           this.userId = null;
@@ -33,6 +40,9 @@ export class UserCreateComponent implements OnInit {
   }
 
   onSaveUser(form: NgForm){
+    if (form.invalid){
+      return;
+    }
     this.inputUserData = {id: 'id', name: form.value.userName, surname: form.value.userSurname};
     if (this.mode === 'create'){
       this.usersService.addUser(this.inputUserData);

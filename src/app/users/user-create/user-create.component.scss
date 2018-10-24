@@ -1,7 +1,6 @@
 .usersInputArea{
   margin: 10px 0;
   form{
-
     .mat-form-field{
       display: block;
       margin-bottom: 10px;
@@ -10,5 +9,9 @@
       }
     }
   }
+}
+
+mat-spinner {
+  margin: auto;
 }
 
