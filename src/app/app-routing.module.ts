@@ -10,9 +10,9 @@ import { TicketSubmitComponent } from "./tickets/ticket-submit/ticket-submit.com
 const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'users', component: UsersListComponent },
-  { path: 'user-create', component: UserCreateComponent },
+  { path: 'create-user', component: UserCreateComponent },
   { path: 'tickets', component: TicketListComponent },
-  { path: 'ticket-submit', component: TicketSubmitComponent },
+  { path: 'submit-ticket', component: TicketSubmitComponent },
   { path: 'login', component: DashboardComponent },
   { path: 'logout', component: DashboardComponent },
 ];
