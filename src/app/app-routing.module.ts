@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'users', component: UsersListComponent },
   { path: 'create-user', component: UserCreateComponent },
+  { path: 'edit/:userId', component: UserCreateComponent },
   { path: 'tickets', component: TicketListComponent },
   { path: 'submit-ticket', component: TicketSubmitComponent },
   { path: 'login', component: DashboardComponent },

@@ -1,9 +1,10 @@
+<h2 class="heading">Create new user:</h2>
 <mat-card class="usersInputArea">
-    <form (submit)="onAddUser(postForm)" #postForm="ngForm">
+    <form (submit)="onSaveUser(postForm)" #postForm="ngForm">
       <mat-form-field>
           <input matInput type="text"
           name="userName"
-          ngModel
+          [ngModel] = "editedUser?.name"
           required
           placeholder= "Name"
           #name="ngModel">
@@ -12,7 +13,7 @@
         <mat-form-field>
           <input matInput
           name="userSurname"
-          ngModel
+          [ngModel] = "editedUser?.surname"
           required
           placeholder="Surname"
           #surname="ngModel">

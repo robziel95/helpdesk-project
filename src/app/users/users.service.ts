@@ -55,6 +55,17 @@ export class UsersService {
     );
   }
 
+  getUser(id: string){
+    return {...this.users.find(user => user.id === id)};
+  }
+
+  updateUser(inputUser: User){
+    const userToUpdate: User = {id: inputUser.id, name: inputUser.name, surname: inputUser.surname};
+    this.http.put('http://localhost:3000/api/users/' + userToUpdate.id, userToUpdate).subscribe(
+      response => console.log(response)
+    );
+  }
+
   deleteUser(userId: string){
     this.http.delete('http://localhost:3000/api/users/' + userId)
     .subscribe(

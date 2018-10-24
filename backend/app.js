@@ -45,6 +45,22 @@ app.post("/api/users", (req, res, next) => {
     });
   });
 });
+
+app.put("/api/users/:id", (req, res, next) => {
+  const user = new User({
+    _id: req.body.id,
+    name: req.body.name,
+    surname: req.body.surname
+  });
+  //.body is from body parser
+  User.updateOne({_id: req.params.id}, user).then(
+    result => {
+      console.log(result);
+      res.status(200).json({message: 'Update successful!'})
+    }
+  );
+});
+
 app.get('/api/users', (req, res, next) => {
   User.find().then(documents => {
     res.status(200).json({
