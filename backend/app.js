@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-const User = require('./models/user');
+const userRoutes = require("./routes/users")
 
 const app = express();
 
@@ -30,53 +30,6 @@ app.use((req, res, next) => {
   next();
 });
 
-//npm install --save body-parser
-app.post("/api/users", (req, res, next) => {
-  const user = new User({
-    name: req.body.name,
-    surname: req.body.surname
-  });
-  //.body is from body parser
-  user.save().then(createdUser => {
-    res.status(201).json({
-      message: 'User added successfully',
-      //send with response auto generated user id
-      userId: createdUser._id
-    });
-  });
-});
-
-app.put("/api/users/:id", (req, res, next) => {
-  const user = new User({
-    _id: req.body.id,
-    name: req.body.name,
-    surname: req.body.surname
-  });
-  //.body is from body parser
-  User.updateOne({_id: req.params.id}, user).then(
-    result => {
-      console.log(result);
-      res.status(200).json({message: 'Update successful!'})
-    }
-  );
-});
-
-app.get('/api/users', (req, res, next) => {
-  User.find().then(documents => {
-    res.status(200).json({
-      message: 'Users fetched succesfully',
-      users: documents
-    });
-  });
-})
-
-app.delete("/api/users/:id", (req, res, next) => {
-  User.deleteOne({ _id: req.params.id }).then(
-    result => {
-      console.log(result);
-      res.status(200).json({message: 'User deleted!'});
-    }
-  )
-});
+app.use(userRoutes);
 
 module.exports = app;
