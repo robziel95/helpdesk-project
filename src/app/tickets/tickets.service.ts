@@ -63,8 +63,24 @@ export class TicketsService {
     return this.ticketsUpdated.asObservable();
   }
 
-  updateTicket(ads: any){
+  updateTicket(inputTicket: Ticket){
+    const ticketToUpdate: Ticket = {
+      id: inputTicket.id,
+      title: inputTicket.title,
+      priority: inputTicket.priority,
+      description: inputTicket.description
+    };
 
+    this.http.put('http://localhost:3000/api/tickets/' + ticketToUpdate.id, ticketToUpdate).subscribe(
+      (response) => {
+        const ticketsUpdate = [...this.tickets];
+        const ticketArrayIndex = ticketsUpdate.findIndex( ticket => ticket.id === ticketToUpdate.id);
+        ticketsUpdate[ticketArrayIndex] = ticketToUpdate;
+        this.tickets = ticketsUpdate;
+        this.ticketsUpdated.next([...this.tickets]);
+        this.router.navigate(['/tickets']);
+      }
+    );
   }
 
   deleteTicket(ads: any){

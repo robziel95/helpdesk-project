@@ -18,6 +18,21 @@ router.post("/api/tickets", (req, res, next) => {
   });
 });
 
+router.put("/api/tickets/:id", (req, res, next) => {
+  const ticket = new Ticket({
+    _id: req.body.id,
+    title: req.body.title,
+    priority: req.body.priority,
+    description: req.body.description
+  });
+  //.body is from body parser
+  Ticket.updateOne({_id: req.params.id}, ticket).then(
+    result => {
+      res.status(200).json({message: 'Update successful!'})
+    }
+  );
+});
+
 router.get('/api/tickets', (req, res, next) => {
   Ticket.find().then(documents => {
     res.status(200).json({
