@@ -83,7 +83,14 @@ export class TicketsService {
     );
   }
 
-  deleteTicket(ads: any){
-
+  deleteTicket(ticketId: string){
+    this.http.delete('http://localhost:3000/api/tickets/' + ticketId)
+    .subscribe(
+      () => {
+        const ticketsUpdate = this.tickets.filter(ticket => ticket.id !== ticketId)
+        this.tickets = ticketsUpdate;
+        this.ticketsUpdated.next([...this.tickets]);
+      }
+    );
   }
 }
