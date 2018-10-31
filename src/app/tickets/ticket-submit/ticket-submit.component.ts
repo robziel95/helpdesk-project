@@ -21,37 +21,43 @@ export class TicketSubmitComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(
       (paramMap: ParamMap) => {
+        console.log("subscibed");
         if (paramMap.has('ticketId')){
           this.mode = 'edit';
           this.ticketId = paramMap.get('userId');
           this.spinnerLoading = true;
-          this.ticketsService.getTicket(this.ticketId).subscribe(ticketData => {
-            this.spinnerLoading = false;
-            this.editedTicket = {
-              id: ticketData._id, title: ticketData.title, priority: ticketData.priority, description: ticketData.description
-            }
-          });
+          // this.ticketsService.getTicket(this.ticketId).subscribe(ticketData => {
+          //   this.spinnerLoading = false;
+          //   this.editedTicket = {
+          //     id: ticketData._id, title: ticketData.title, priority: ticketData.priority, description: ticketData.description
+          //   }
+          // });
+          console.log("edit mode");
         }else{
           this.mode = 'create';
           this.ticketId = null;
+          console.log("create mode");
         }
       }
     );
   }
 
   onSaveTicket(form: NgForm){
+    console.log("ticket save");
     if (form.invalid){
       return;
     }
-    this.inputTicketData = {id: null, title: form.value.title, priority: form.value.priority ,description: form.value.description};
+    this.inputTicketData = {id: null, title: form.value.title, priority: form.value.priority, description: form.value.description};
+    console.log("Ticket input:");
     console.log(this.inputTicketData);
-    this.spinnerLoading = true;
-    if (this.mode === 'create'){
-      this.ticketsService.addTicket(this.inputTicketData);
-    } else{
-      this.inputTicketData.id = this.ticketId;
-      this.ticketsService.updateTicket(this.inputTicketData);
-    }
+    //this.spinnerLoading = true;
+    this.ticketsService.addTicket(this.inputTicketData);
+    // if (this.mode === 'create'){
+    //   this.ticketsService.addTicket(this.inputTicketData);
+    // } else{
+    //   this.inputTicketData.id = this.ticketId;
+    //   this.ticketsService.updateTicket(this.inputTicketData);
+    // }
   }
 
 }

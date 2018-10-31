@@ -7,7 +7,7 @@
           name="title"
           [ngModel] = "editedTicket?.title"
           required
-          placeholder= "Name"
+          placeholder= "Title"
           #title="ngModel">
           <mat-error *ngIf="title.invalid">Please enter a title</mat-error>
         </mat-form-field>
@@ -28,7 +28,7 @@
           name="description"
           [ngModel] = "editedTicket?.description"
           required
-          placeholder="Surname"
+          placeholder="Description"
           #description="ngModel">
           <mat-error *ngIf="description.invalid">Please enter a description</mat-error>
         </mat-form-field>
