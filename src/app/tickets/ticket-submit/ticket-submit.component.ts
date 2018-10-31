@@ -26,12 +26,12 @@ export class TicketSubmitComponent implements OnInit {
           this.mode = 'edit';
           this.ticketId = paramMap.get('userId');
           this.spinnerLoading = true;
-          // this.ticketsService.getTicket(this.ticketId).subscribe(ticketData => {
-          //   this.spinnerLoading = false;
-          //   this.editedTicket = {
-          //     id: ticketData._id, title: ticketData.title, priority: ticketData.priority, description: ticketData.description
-          //   }
-          // });
+          this.ticketsService.getTicket(this.ticketId).subscribe(ticketData => {
+            this.spinnerLoading = false;
+            this.editedTicket = {
+              id: ticketData._id, title: ticketData.title, priority: ticketData.priority, description: ticketData.description
+            }
+          });
           console.log("edit mode");
         }else{
           this.mode = 'create';
@@ -50,14 +50,14 @@ export class TicketSubmitComponent implements OnInit {
     this.inputTicketData = {id: null, title: form.value.title, priority: form.value.priority, description: form.value.description};
     console.log("Ticket input:");
     console.log(this.inputTicketData);
-    //this.spinnerLoading = true;
+    this.spinnerLoading = true;
     this.ticketsService.addTicket(this.inputTicketData);
-    // if (this.mode === 'create'){
-    //   this.ticketsService.addTicket(this.inputTicketData);
-    // } else{
-    //   this.inputTicketData.id = this.ticketId;
-    //   this.ticketsService.updateTicket(this.inputTicketData);
-    // }
+    if (this.mode === 'create'){
+      this.ticketsService.addTicket(this.inputTicketData);
+    } else{
+      this.inputTicketData.id = this.ticketId;
+      this.ticketsService.updateTicket(this.inputTicketData);
+    }
   }
 
 }

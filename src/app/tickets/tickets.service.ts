@@ -24,20 +24,51 @@ export class TicketsService {
         newTicket.id = generatedTicketId;
         this.tickets.push(newTicket);
         this.ticketsUpdated.next([...this.tickets]);
-        console.log(this.tickets);
         //push only on success
         this.router.navigate(['/tickets']);
       }
     );
   }
 
+  getTickets(){
+    this.http.get<{message: string, tickets: any}>('http://localhost:3000/api/tickets')
+    //pipe changes _id into id
+    .pipe(map(
+      (ticketData) => {
+        return ticketData.tickets.map(ticket => {
+          return{
+            id: ticket._id,
+            title: ticket.title,
+            priority: ticket.priority,
+            description: ticket.description
+          };
+        });
+      }
+    ))
+    .subscribe(
+      //update transformed data after map
+      (transformedTicketData) => {
+        this.tickets = transformedTicketData;
+        this.ticketsUpdated.next([...this.tickets]);
+        //return by copy
+        console.log(this.tickets);
+      }
+    );
+  }
 
+  getTicket(id: string){
+    return this.http.get<{_id: string; title: string; priority: string; description: string;}>('http://localhost:3000/api/users/' + id);
+  }
+
+  getTicketsUpdateListener(){
+    return this.ticketsUpdated.asObservable();
+  }
 
   updateTicket(ads: any){
 
   }
 
-  getTicket(asda: any){
+  deleteTicket(ads: any){
 
   }
 }
