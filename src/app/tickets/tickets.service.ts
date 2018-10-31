@@ -51,13 +51,12 @@ export class TicketsService {
         this.tickets = transformedTicketData;
         this.ticketsUpdated.next([...this.tickets]);
         //return by copy
-        console.log(this.tickets);
       }
     );
   }
 
   getTicket(id: string){
-    return this.http.get<{_id: string; title: string; priority: string; description: string;}>('http://localhost:3000/api/users/' + id);
+    return this.http.get<{_id: string; title: string; priority: string; description: string;}>('http://localhost:3000/api/tickets/' + id);
   }
 
   getTicketsUpdateListener(){

@@ -12,7 +12,7 @@ router.post("/api/tickets", (req, res, next) => {
   ticket.save().then(createdTicket => {
     res.status(201).json({
       message: 'Ticket added successfully',
-      //send with response auto generated user id
+      //send with response auto generated ticket id
       ticketId: createdTicket._id
     });
   });
@@ -27,5 +27,16 @@ router.get('/api/tickets', (req, res, next) => {
   });
 })
 
+router.get('/api/tickets/:id', (req, res, next) => {
+  Ticket.findById(req.params.id).then(
+    ticket =>{
+      if (ticket) {
+        res.status(200).json(ticket);
+      } else{
+        res.status(404).json({message: 'Ticket not found!'});
+      }
+    }
+  );
+});
 
 module.exports = router;

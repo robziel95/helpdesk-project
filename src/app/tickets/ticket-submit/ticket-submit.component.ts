@@ -16,15 +16,14 @@ export class TicketSubmitComponent implements OnInit {
   spinnerLoading = false;
   private ticketId: string;
 
-  constructor( public ticketsService: TicketsService,public route: ActivatedRoute) { }
+  constructor( public ticketsService: TicketsService, public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(
       (paramMap: ParamMap) => {
-        console.log("subscibed");
         if (paramMap.has('ticketId')){
           this.mode = 'edit';
-          this.ticketId = paramMap.get('userId');
+          this.ticketId = paramMap.get('ticketId');
           this.spinnerLoading = true;
           this.ticketsService.getTicket(this.ticketId).subscribe(ticketData => {
             this.spinnerLoading = false;
@@ -32,26 +31,20 @@ export class TicketSubmitComponent implements OnInit {
               id: ticketData._id, title: ticketData.title, priority: ticketData.priority, description: ticketData.description
             }
           });
-          console.log("edit mode");
         }else{
           this.mode = 'create';
-          this.ticketId = null;
-          console.log("create mode");
+          this.ticketId = 'null1';
         }
       }
     );
   }
 
   onSaveTicket(form: NgForm){
-    console.log("ticket save");
     if (form.invalid){
       return;
     }
-    this.inputTicketData = {id: null, title: form.value.title, priority: form.value.priority, description: form.value.description};
-    console.log("Ticket input:");
-    console.log(this.inputTicketData);
+    this.inputTicketData = {id: 'null2', title: form.value.title, priority: form.value.priority, description: form.value.description};
     this.spinnerLoading = true;
-    this.ticketsService.addTicket(this.inputTicketData);
     if (this.mode === 'create'){
       this.ticketsService.addTicket(this.inputTicketData);
     } else{

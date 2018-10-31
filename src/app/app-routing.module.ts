@@ -11,11 +11,12 @@ const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'users', component: UsersListComponent },
   { path: 'create-user', component: UserCreateComponent },
-  { path: 'edit/:userId', component: UserCreateComponent },
+  { path: 'edit-user/:userId', component: UserCreateComponent },
   { path: 'tickets', component: TicketListComponent },
   { path: 'submit-ticket', component: TicketSubmitComponent },
   { path: 'login', component: DashboardComponent },
   { path: 'logout', component: DashboardComponent },
+  { path: 'edit-ticket/:ticketId', component: TicketSubmitComponent },
 ];
 
 @NgModule({
