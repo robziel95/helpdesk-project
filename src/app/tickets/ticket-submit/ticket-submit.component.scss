@@ -1,0 +1,17 @@
+.usersInputArea{
+  margin: 10px 0;
+  form{
+    .mat-form-field{
+      display: block;
+      margin-bottom: 10px;
+      &:last-of-type{
+        margin-bottom: 25px;
+      }
+    }
+  }
+}
+
+mat-spinner {
+  margin: auto;
+}
+

@@ -44,6 +44,7 @@ export class UserCreateComponent implements OnInit {
       return;
     }
     this.inputUserData = {id: 'id', name: form.value.userName, surname: form.value.userSurname};
+    this.spinnerLoading = true;
     if (this.mode === 'create'){
       this.usersService.addUser(this.inputUserData);
     } else{

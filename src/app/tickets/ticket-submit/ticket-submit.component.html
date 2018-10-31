@@ -1,3 +1,37 @@
-<p>
-  ticket-submit works!
-</p>
+<h2 class="heading">Create a new ticket:</h2>
+<mat-spinner *ngIf="spinnerLoading"></mat-spinner>
+<mat-card class="usersInputArea">
+    <form (submit)="onSaveTicket(postForm)" #postForm="ngForm"  *ngIf="!spinnerLoading">
+      <mat-form-field>
+          <input matInput type="text"
+          name="title"
+          [ngModel] = "editedTicket?.title"
+          required
+          placeholder= "Name"
+          #title="ngModel">
+          <mat-error *ngIf="title.invalid">Please enter a title</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select
+          name="priority"
+          [ngModel] = "editedTicket?.priority"
+          required
+          placeholder="Select priority"
+          >
+            <mat-option value="Low">Low</mat-option>
+            <mat-option value="Normal">Normal</mat-option>
+            <mat-option value="High">High</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput
+          name="description"
+          [ngModel] = "editedTicket?.description"
+          required
+          placeholder="Surname"
+          #description="ngModel">
+          <mat-error *ngIf="description.invalid">Please enter a description</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="accent" type="submit">Add Ticket</button>
+    </form>
+  </mat-card>
