@@ -22,16 +22,21 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  // onLogin(form: NgForm){
-  //   if (form.invalid){
-  //     return;
-  //   }
-  //   this.isLoading = true;
-  //   this.authService.login(form.value.email, form.value.password);
-  // }
+  onLogin(form: NgForm){
+    if (form.invalid){
+      return;
+    }
+    this.isLoading = true;
+    this.authService.login(
+      form.value.name,
+      form.value.surname,
+      form.value.email,
+      form.value.password
+    );
+  }
 
-  // ngOnDestroy() {
-  //   this.authStatusSub.unsubscribe();
-  // }
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
+  }
 
 }
