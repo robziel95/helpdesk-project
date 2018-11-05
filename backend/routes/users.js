@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/user');
 
 //npm install --save body-parser
-router.post("/api/users", (req, res, next) => {
+router.post("/api/users/create", (req, res, next) => {
   const user = new User({
     name: req.body.name,
     surname: req.body.surname,

@@ -5,6 +5,7 @@ import { UsersListComponent } from "./users/users-list/users-list.component";
 import { UserCreateComponent } from "./users/user-create/user-create.component";
 import { TicketListComponent } from "./tickets/ticket-list/ticket-list.component";
 import { TicketSubmitComponent } from "./tickets/ticket-submit/ticket-submit.component";
+import { LoginComponent } from "./auth/login/login.component";
 
 
 const routes: Routes = [
@@ -14,8 +15,7 @@ const routes: Routes = [
   { path: 'edit-user/:userId', component: UserCreateComponent },
   { path: 'tickets', component: TicketListComponent },
   { path: 'submit-ticket', component: TicketSubmitComponent },
-  { path: 'login', component: DashboardComponent },
-  { path: 'logout', component: DashboardComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'edit-ticket/:ticketId', component: TicketSubmitComponent },
 ];
 

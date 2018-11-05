@@ -13,6 +13,8 @@ import { TicketListComponent } from './tickets/ticket-list/ticket-list.component
 import { TicketSubmitComponent } from './tickets/ticket-submit/ticket-submit.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { AppRoutingModule } from './app-routing.module';
       UsersListComponent,
       TicketListComponent,
       TicketSubmitComponent,
-      DashboardComponent
+      DashboardComponent,
+      LoginComponent,
+      SignupComponent
    ],
    imports: [
       BrowserModule,
