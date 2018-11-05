@@ -10,8 +10,12 @@ router.post("/api/tickets", checkAuth, (req, res, next) => {
     priority: req.body.priority,
     description: req.body.description,
 <<<<<<< HEAD
+<<<<<<< HEAD
     //we get userid from check-auth middleware
     creator: req.userData.userId
+=======
+    status: req.body.status
+>>>>>>> Tickets status added
 =======
     status: req.body.status
 >>>>>>> Tickets status added
@@ -33,8 +37,12 @@ router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
     priority: req.body.priority,
     description: req.body.description,
 <<<<<<< HEAD
+<<<<<<< HEAD
     //get from checkauth
     creator: req.userData.userId
+=======
+    status: req.body.status
+>>>>>>> Tickets status added
 =======
     status: req.body.status
 >>>>>>> Tickets status added
