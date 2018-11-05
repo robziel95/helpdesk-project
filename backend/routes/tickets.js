@@ -6,7 +6,8 @@ router.post("/api/tickets", (req, res, next) => {
   const ticket = new Ticket({
     title: req.body.title,
     priority: req.body.priority,
-    description: req.body.description
+    description: req.body.description,
+    status: req.body.status
   });
   //.body is from body parser
   ticket.save().then(createdTicket => {
@@ -23,7 +24,8 @@ router.put("/api/tickets/:id", (req, res, next) => {
     _id: req.body.id,
     title: req.body.title,
     priority: req.body.priority,
-    description: req.body.description
+    description: req.body.description,
+    status: req.body.status
   });
   //.body is from body parser
   Ticket.updateOne({_id: req.params.id}, ticket).then(

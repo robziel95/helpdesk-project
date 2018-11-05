@@ -29,8 +29,8 @@ export class TicketListComponent implements OnInit {
     )
   }
 
-  onDelete(postId: string){
-    this.ticketsService.deleteTicket(postId);
+  onDelete(ticketId: string){
+    this.ticketsService.deleteTicket(ticketId);
   }
 
   ngOnDestroy(): void {

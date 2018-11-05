@@ -28,12 +28,16 @@ export class TicketSubmitComponent implements OnInit {
           this.ticketsService.getTicket(this.ticketId).subscribe(ticketData => {
             this.spinnerLoading = false;
             this.editedTicket = {
-              id: ticketData._id, title: ticketData.title, priority: ticketData.priority, description: ticketData.description
+              id: ticketData._id,
+              title: ticketData.title,
+              priority: ticketData.priority,
+              description: ticketData.description,
+              status: ticketData.status
             }
           });
         }else{
           this.mode = 'create';
-          this.ticketId = 'null1';
+          this.ticketId = null;
         }
       }
     );
@@ -43,7 +47,12 @@ export class TicketSubmitComponent implements OnInit {
     if (form.invalid){
       return;
     }
-    this.inputTicketData = {id: 'null2', title: form.value.title, priority: form.value.priority, description: form.value.description};
+    this.inputTicketData = {id: null,
+      title: form.value.title,
+      priority: form.value.priority,
+      description: form.value.description,
+      status: 'Unassigned'};
+    if(this.mode=='edit'){this.inputTicketData.status = form.value.status }
     this.spinnerLoading = true;
     if (this.mode === 'create'){
       this.ticketsService.addTicket(this.inputTicketData);

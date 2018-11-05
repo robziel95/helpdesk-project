@@ -3,4 +3,5 @@ export interface Ticket {
   title: string;
   priority: string;
   description: string;
+  status: string
 }
