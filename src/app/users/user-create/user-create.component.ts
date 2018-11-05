@@ -28,7 +28,11 @@ export class UserCreateComponent implements OnInit {
           this.usersService.getUser(this.userId).subscribe(userData => {
             this.spinnerLoading = false;
             this.editedUser = {
-              id: userData._id, name: userData.name, surname: userData.surname
+              id: userData._id,
+              name: userData.name,
+              surname: userData.surname,
+              email: userData.email,
+              password: userData.password
             }
           });
         }else{
@@ -43,7 +47,13 @@ export class UserCreateComponent implements OnInit {
     if (form.invalid){
       return;
     }
-    this.inputUserData = {id: 'id', name: form.value.userName, surname: form.value.userSurname};
+    this.inputUserData = {
+      id: null,
+      name: form.value.userName,
+      surname: form.value.userSurname,
+      email: form.value.email,
+      password: form.value.password
+    };
     this.spinnerLoading = true;
     if (this.mode === 'create'){
       this.usersService.addUser(this.inputUserData);

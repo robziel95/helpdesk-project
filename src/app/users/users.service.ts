@@ -23,7 +23,9 @@ export class UsersService {
           return{
             id: user._id,
             name: user.name,
-            surname: user.surname
+            surname: user.surname,
+            email: user.email,
+            password: user.password
           };
         });
       }
@@ -58,11 +60,17 @@ export class UsersService {
   }
 
   getUser(id: string){
-    return this.http.get<{_id: string; name: string; surname: string;}>('http://localhost:3000/api/users/' + id);
+    return this.http.get<{_id: string; name: string; surname: string; email:string; password: string}>('http://localhost:3000/api/users/' + id);
   }
 
   updateUser(inputUser: User){
-    const userToUpdate: User = {id: inputUser.id, name: inputUser.name, surname: inputUser.surname};
+    const userToUpdate: User = {
+      id: inputUser.id,
+      name: inputUser.name,
+      surname: inputUser.surname,
+      email: inputUser.email,
+      password: inputUser.password
+    };
     this.http.put('http://localhost:3000/api/users/' + userToUpdate.id, userToUpdate).subscribe(
       (response) => {
         const usersUpdated = [...this.users];

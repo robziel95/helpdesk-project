@@ -18,7 +18,6 @@ export class UsersListComponent implements OnInit {
   ngOnInit() {
     this.spinnerLoading = true;
     this.usersService.getUsers();
-
     //update users on change
     this.usersSubscription = this.usersService.getUsersUpdateListener().subscribe(
       //users subscription will get destroyed to avoid memmory leaks

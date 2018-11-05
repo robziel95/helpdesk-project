@@ -6,7 +6,9 @@ const User = require('../models/user');
 router.post("/api/users", (req, res, next) => {
   const user = new User({
     name: req.body.name,
-    surname: req.body.surname
+    surname: req.body.surname,
+    email: req.body.email,
+    password: req.body.password
   });
   //.body is from body parser
   user.save().then(createdUser => {
@@ -22,7 +24,9 @@ router.put("/api/users/:id", (req, res, next) => {
   const user = new User({
     _id: req.body.id,
     name: req.body.name,
-    surname: req.body.surname
+    surname: req.body.surname,
+    email: req.body.email,
+    password: req.body.password
   });
   //.body is from body parser
   User.updateOne({_id: req.params.id}, user).then(
