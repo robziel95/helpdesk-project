@@ -1,23 +1,40 @@
 const express =require("express");
 const router = express.Router();
 const User = require('../models/user');
+const bcrypt = require("bcrypt");
 
 //npm install --save body-parser
 router.post("/api/users/create", (req, res, next) => {
-  const user = new User({
-    name: req.body.name,
-    surname: req.body.surname,
-    email: req.body.email,
-    password: req.body.password
-  });
-  //.body is from body parser
-  user.save().then(createdUser => {
-    res.status(201).json({
-      message: 'User added successfully',
-      //send with response auto generated user id
-      userId: createdUser._id
-    });
-  });
+
+  //hash user password with package bcrypt so they are not stored in raw form in database
+  bcrypt.hash(req.body.password, 10, ).then(
+    hash => {
+      const user = new User({
+        name: req.body.name,
+        surname: req.body.surname,
+        email: req.body.email,
+
+        //store everything normal, but password's encrypted hash
+        password: hash
+      });
+        //.body is from body parser
+      user.save().then(createdUser => {
+        result => {
+          res.status(201).json({
+            message: 'User created',
+            result: result
+          });
+        }
+      })
+      .catch(
+        err => {
+          res.status(500).json({
+            message: "Invalid authentication credentials!"
+          });
+        }
+      );
+    }
+  );
 });
 
 router.put("/api/users/:id", (req, res, next) => {
