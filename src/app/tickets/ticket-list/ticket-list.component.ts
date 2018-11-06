@@ -13,6 +13,7 @@ export class TicketListComponent implements OnInit {
   tickets: Ticket [] = [];
   spinnerLoading = false;
   userIsAuthenticated = false;
+  loggedInUserId: string;
   private ticketsSubscription: Subscription;
   private authStatusSubscription: Subscription;
 
@@ -23,7 +24,7 @@ export class TicketListComponent implements OnInit {
   ngOnInit() {
     this.spinnerLoading = true;
     this.ticketsService.getTickets();
-
+    this.loggedInUserId = this.authService.getUserId();
     //update users on change
     this.ticketsSubscription = this.ticketsService.getTicketsUpdateListener().subscribe(
       (ticketsChanged: Ticket[]) => {
@@ -35,6 +36,7 @@ export class TicketListComponent implements OnInit {
     this.authStatusSubscription = this.authService.getAuthStatusListener().subscribe(
       isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
+        this.loggedInUserId = this.authService.getUserId();
       }
     );
   }

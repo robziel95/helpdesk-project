@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { post } from 'selenium-webdriver/http';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +41,8 @@ export class TicketsService {
             id: ticket._id,
             title: ticket.title,
             priority: ticket.priority,
-            description: ticket.description
+            description: ticket.description,
+            creator: ticket.creator
           };
         });
       }
@@ -56,7 +58,7 @@ export class TicketsService {
   }
 
   getTicket(id: string){
-    return this.http.get<{_id: string; title: string; priority: string; description: string;}>('http://localhost:3000/api/tickets/' + id);
+    return this.http.get<{_id: string; title: string; priority: string; description: string; creator: string;}>('http://localhost:3000/api/tickets/' + id);
   }
 
   getTicketsUpdateListener(){
@@ -68,7 +70,8 @@ export class TicketsService {
       id: inputTicket.id,
       title: inputTicket.title,
       priority: inputTicket.priority,
-      description: inputTicket.description
+      description: inputTicket.description,
+      creator: null
     };
 
     this.http.put('http://localhost:3000/api/tickets/' + ticketToUpdate.id, ticketToUpdate).subscribe(

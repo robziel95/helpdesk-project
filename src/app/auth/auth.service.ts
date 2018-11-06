@@ -8,6 +8,7 @@ import { AuthUserData } from './auth-user-data.model';
   providedIn: 'root'
 })
 export class AuthService {
+  //TODO - change into user object
   private loggedInUserId: string;
   private userIsAuthenticated = false;
   private token: string;
@@ -73,6 +74,10 @@ export class AuthService {
 
   getUserIsAuth(){
     return this.userIsAuthenticated;
+  }
+
+  getUserId(){
+    return this.loggedInUserId;
   }
 
   getAuthStatusListener(){

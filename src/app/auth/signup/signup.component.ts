@@ -1,39 +1,35 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from '../auth.service';
-import { Subscription } from 'rxjs';
+import { UsersService } from 'src/app/users/users.service';
+import { User } from 'src/app/users/user.model';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit, OnDestroy {
-  isLoading = false;
+export class SignupComponent implements OnInit {
+  spinnerLoading = false;
+  inputUserData: User;
 
-  private authStatusSub: Subscription;
-
-  constructor(public authService: AuthService) {}
+  constructor(public usersService: UsersService) {}
 
   ngOnInit() {
-    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
-      authStatus => {
-        this.isLoading = false;
-      }
-    );
   }
 
   onSignup(form: NgForm){
-    if(form.invalid){
+    if (form.invalid){
       return;
     }
-    this.isLoading = true;
-    this.authService.createUser(
-      form.value.name, form.value.surname, form.value.email, form.value.password
-    );
-  }
-
-  ngOnDestroy() {
-    this.authStatusSub.unsubscribe();
+    this.inputUserData = {
+      id: null,
+      name: form.value.userName,
+      surname: form.value.userSurname,
+      email: form.value.email,
+      password: form.value.password
+    };
+    console.log(this.inputUserData);
+    this.spinnerLoading = true;
+    this.usersService.addUser(this.inputUserData);
   }
 }

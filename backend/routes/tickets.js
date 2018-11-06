@@ -8,7 +8,9 @@ router.post("/api/tickets", checkAuth, (req, res, next) => {
   const ticket = new Ticket({
     title: req.body.title,
     priority: req.body.priority,
-    description: req.body.description
+    description: req.body.description,
+    //we get userid from check-auth middleware
+    creator: req.userData.userId
   });
   //.body is from body parser
   ticket.save().then(createdTicket => {
@@ -25,12 +27,19 @@ router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
     _id: req.body.id,
     title: req.body.title,
     priority: req.body.priority,
-    description: req.body.description
+    description: req.body.description,
+    //get from checkauth
+    creator: req.userData.userId
   });
   //.body is from body parser
-  Ticket.updateOne({_id: req.params.id}, ticket).then(
+  Ticket.updateOne({_id: req.params.id, creator: req.userData.userId}, ticket).then(
     result => {
-      res.status(200).json({message: 'Update successful!'})
+      //nmodified is a field in result which tells if sth was modified
+      if (result.nModified > 0) {
+        res.status(200).json({message: 'Update successful!'})
+      }else{
+        res.status(401).json({message: 'Not authorized!'})
+      }
     }
   );
 });
@@ -57,9 +66,13 @@ router.get('/api/tickets/:id', (req, res, next) => {
 });
 
 router.delete("/api/tickets/:id", checkAuth, (req, res, next) => {
-  Ticket.deleteOne({ _id: req.params.id }).then(
+  Ticket.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then(
     result => {
-      res.status(200).json({message: 'Ticket deleted!'});
+      if (result.n > 0) {
+        res.status(200).json({message: 'Deletion successful!'})
+      }else{
+        res.status(401).json({message: 'Not authorized!'})
+      }
     }
   )
 });
