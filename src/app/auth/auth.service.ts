@@ -8,6 +8,8 @@ import { AuthUserData } from './auth-user-data.model';
   providedIn: 'root'
 })
 export class AuthService {
+  private userIsAuthenticated = false;
+  private token: string;
   private authStatusListener = new Subject<boolean>();
 
   //AuthUserData model is the same model as user, but contains password
@@ -43,21 +45,14 @@ export class AuthService {
     this.http.post<{token: string, expiresIn: number, userId: string}>("http://localhost:3000/api/user/login", authData).subscribe(
       response => {
         const loginToken = response.token;
-        console.log(response);
-        // this.token = loginToken;
-        // if(loginToken){
-        //   const expiresInDuration = response.expiresIn * 1000;//convert to seconds
-        //   this.setAuthTimer(expiresInDuration);
-        //   const now = new Date();
-        //   const expirationDate = new Date(now.getTime() + expiresInDuration);
+        this.token = loginToken;
 
-        //   this.isAuthenticated = true;
-        //   this.authStatusListener.next(true);
-        //   this.userId = response.userId;
+        if(loginToken){
+          this.userIsAuthenticated = true;
+          this.authStatusListener.next(true);
 
-        //   this.saveAuthData(loginToken, expirationDate, this.userId)
-        //   this.router.navigate(['/']);
-        // }
+          this.router.navigate(['/']);
+        }
       }, error => {
         this.authStatusListener.next(false);
       }
@@ -65,11 +60,11 @@ export class AuthService {
   }
 
   getToken() {
-
+    return this.token;
   }
 
-  getIsAuth(){
-
+  getUserIsAuth(){
+    return this.userIsAuthenticated;
   }
 
   getAuthStatusListener(){

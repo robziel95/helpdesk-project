@@ -1,8 +1,10 @@
 const express =require("express");
 const router = express.Router();
 const Ticket = require('../models/ticket');
+const checkAuth = require('../middleware/check-auth');
 
-router.post("/api/tickets", (req, res, next) => {
+
+router.post("/api/tickets", checkAuth, (req, res, next) => {
   const ticket = new Ticket({
     title: req.body.title,
     priority: req.body.priority,
@@ -18,7 +20,7 @@ router.post("/api/tickets", (req, res, next) => {
   });
 });
 
-router.put("/api/tickets/:id", (req, res, next) => {
+router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
   const ticket = new Ticket({
     _id: req.body.id,
     title: req.body.title,
@@ -54,7 +56,7 @@ router.get('/api/tickets/:id', (req, res, next) => {
   );
 });
 
-router.delete("/api/tickets/:id", (req, res, next) => {
+router.delete("/api/tickets/:id", checkAuth, (req, res, next) => {
   Ticket.deleteOne({ _id: req.params.id }).then(
     result => {
       res.status(200).json({message: 'Ticket deleted!'});

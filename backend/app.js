@@ -23,7 +23,7 @@ mongoose.connect('mongodb://localhost:27017/helpdesk')
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   //allow to read resources fromm all origins
   res.setHeader("Access-Control-Allow-Methods",
   "GET, POST, PATCH, DELETE, PUT, OPTIONS"

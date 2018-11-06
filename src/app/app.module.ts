@@ -8,13 +8,14 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { UserCreateComponent } from './users/user-create/user-create.component';
 import { UsersListComponent } from './users/users-list/users-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TicketListComponent } from './tickets/ticket-list/ticket-list.component';
 import { TicketSubmitComponent } from './tickets/ticket-submit/ticket-submit.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { SignupComponent } from './auth/signup/signup.component';
       HttpClientModule,
       MatProgressSpinnerModule
    ],
-   providers: [],
+   //Add custom interceptor and allow for multi request
+   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
    bootstrap: [
       AppComponent
    ]

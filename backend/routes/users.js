@@ -110,6 +110,7 @@ router.post("/api/user/login", (req, res, next) => {
     }
     //if compare success
     //.sign method creates a new token
+    console.log("Password compare success");
     const token = jwt.sign(
       //token stores user id, email
       {email: fetchedUser.email, userId: fetchedUser._id},
@@ -117,7 +118,6 @@ router.post("/api/user/login", (req, res, next) => {
       //Add token expire property
       { expiresIn: "1h" }
     );
-
     //return info to frontend
     res.status(200).json({
       token: token,

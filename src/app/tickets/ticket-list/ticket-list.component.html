@@ -8,7 +8,7 @@
       <div class="mat-content-text">{{ ticket.priority }}</div>
     </mat-expansion-panel-header>
       <p>Esse tempor nisi anim officia aliqua ullamco officia enim voluptate.</p>
-    <mat-action-row>
+    <mat-action-row *ngIf="userIsAuthenticated">
       <a mat-button color="primary" [routerLink]="['/edit-ticket', ticket.id]">EDIT</a>
       <button mat-button color="accent" (click)="onDelete(ticket.id)" >DELETE</button>
     </mat-action-row>
