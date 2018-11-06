@@ -121,7 +121,7 @@ router.post("/api/user/login", (req, res, next) => {
     //return info to frontend
     res.status(200).json({
       token: token,
-      //miliseconds
+      //seconds
       expiresIn: 3600,
       userId: fetchedUser._id
     });
