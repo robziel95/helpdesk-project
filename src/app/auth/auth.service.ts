@@ -81,6 +81,12 @@ export class AuthService {
   }
 
   logout(){
-
+    this.token = null;
+    this.userIsAuthenticated = false;
+    this.authStatusListener.next(false);
+    //clearTimeout(this.tokenTimer);
+    //this.clearAuthData();
+    //this.userId = null;
+    this.router.navigate(['/']);
   }
 }
