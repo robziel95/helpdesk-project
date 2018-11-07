@@ -3,7 +3,6 @@ const router = express.Router();
 const Ticket = require('../models/ticket');
 const checkAuth = require('../middleware/check-auth');
 
-
 router.post("/api/tickets", checkAuth, (req, res, next) => {
   const ticket = new Ticket({
     title: req.body.title,
