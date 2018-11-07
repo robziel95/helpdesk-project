@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatInputModule, MatCardModule, MatButtonModule, MatExpansionModule, MatProgressSpinnerModule, MatSelectModule } from '@angular/material';
+import { MatInputModule, MatCardModule, MatButtonModule, MatExpansionModule, MatProgressSpinnerModule, MatSelectModule, MatDialogModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -16,6 +16,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { ErrorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './error/error.component';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { AuthInterceptor } from './auth/auth-interceptor';
       TicketSubmitComponent,
       DashboardComponent,
       LoginComponent,
-      SignupComponent
+      SignupComponent,
+      ErrorComponent
    ],
    imports: [
       BrowserModule,
@@ -41,12 +44,17 @@ import { AuthInterceptor } from './auth/auth-interceptor';
       MatExpansionModule,
       MatSelectModule,
       HttpClientModule,
-      MatProgressSpinnerModule
+      MatProgressSpinnerModule,
+      MatDialogModule
    ],
    //Add custom interceptor and allow for multi request
-   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+   providers: [
+     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+    ],
    bootstrap: [
       AppComponent
-   ]
+   ],
+   entryComponents: [ErrorComponent]
 })
 export class AppModule { }
