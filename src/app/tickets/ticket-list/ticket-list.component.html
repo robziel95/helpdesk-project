@@ -6,6 +6,7 @@
       <div class="mat-content-id">Nr: {{ indexIterator }}</div>
       <div class="mat-content-text">{{ ticket.title }} {{ ticket.description }}</div>
       <div class="mat-content-text">{{ ticket.priority }}</div>
+      <div class="mat-content-text">{{ ticket.status }}</div>
     </mat-expansion-panel-header>
       <p>Esse tempor nisi anim officia aliqua ullamco officia enim voluptate.</p>
     <mat-action-row *ngIf="userIsAuthenticated && loggedInUserId == ticket.creator">

@@ -42,7 +42,8 @@ export class TicketsService {
             title: ticket.title,
             priority: ticket.priority,
             description: ticket.description,
-            creator: ticket.creator
+            creator: ticket.creator,
+            status: ticket.status
           };
         });
       }
@@ -58,7 +59,14 @@ export class TicketsService {
   }
 
   getTicket(id: string){
-    return this.http.get<{_id: string; title: string; priority: string; description: string; creator: string;}>('http://localhost:3000/api/tickets/' + id);
+    return this.http.get<{
+      _id: string;
+      title: string;
+      priority: string;
+      description: string;
+      creator: string;
+      status: string;
+    }>('http://localhost:3000/api/tickets/' + id);
   }
 
   getTicketsUpdateListener(){
@@ -71,7 +79,8 @@ export class TicketsService {
       title: inputTicket.title,
       priority: inputTicket.priority,
       description: inputTicket.description,
-      creator: null
+      creator: null,
+      status: inputTicket.status
     };
 
     this.http.put('http://localhost:3000/api/tickets/' + ticketToUpdate.id, ticketToUpdate).subscribe(

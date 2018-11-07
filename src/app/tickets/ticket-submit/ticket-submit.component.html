@@ -32,6 +32,18 @@
           #description="ngModel">
           <mat-error *ngIf="description.invalid">Please enter a description</mat-error>
         </mat-form-field>
+        <mat-form-field *ngIf="mode=='edit'">
+          <mat-select
+          name="status"
+          [ngModel] = "editedTicket?.status"
+          required
+          placeholder="Change status"
+          >
+            <mat-option value="Unassigned">Unassigned</mat-option>
+            <mat-option value="Pending">Pending</mat-option>
+            <mat-option value="Resolved">Resolved</mat-option>
+          </mat-select>
+        </mat-form-field>
         <button mat-raised-button color="accent" type="submit">Add Ticket</button>
     </form>
   </mat-card>

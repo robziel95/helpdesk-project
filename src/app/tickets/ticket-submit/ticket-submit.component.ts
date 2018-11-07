@@ -32,12 +32,13 @@ export class TicketSubmitComponent implements OnInit {
               title: ticketData.title,
               priority: ticketData.priority,
               description: ticketData.description,
-              creator: ticketData.creator
+              creator: ticketData.creator,
+              status: ticketData.status
             }
           });
         }else{
           this.mode = 'create';
-          this.ticketId = 'null1';
+          this.ticketId = null;
         }
       }
     );
@@ -51,8 +52,10 @@ export class TicketSubmitComponent implements OnInit {
       title: form.value.title,
       priority: form.value.priority,
       description: form.value.description,
-      creator: null
+      creator: null,
+      status: 'Unassigned'
     };
+    if(this.mode=='edit'){this.inputTicketData.status = form.value.status }
     this.spinnerLoading = true;
     if (this.mode === 'create'){
       this.ticketsService.addTicket(this.inputTicketData);
