@@ -18,14 +18,14 @@ router.post("/api/users/create", (req, res, next) => {
         password: hash
       });
         //.body is from body parser
-      user.save().then(createdUser => {
+      user.save().then(
         result => {
           res.status(201).json({
             message: 'User created',
             result: result
           });
         }
-      })
+      )
       .catch(
         err => {
           res.status(500).json({

@@ -21,23 +21,6 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  createUser(name: string, surname: string, email: string, password: string){
-    const userData: AuthUserData = {
-      name: name,
-      surname: surname,
-      email: email,
-      password: password
-    }
-    //when we return http request and want to subscribe to it, we need to do it in a component
-    this.http.post("http://localhost:3000/api/user/signup", userData)
-    .subscribe(()=>{
-        this.router.navigate(["/"]);
-      }, error => {
-        this.authStatusListener.next(false);
-      }
-    );
-  }
-
   login(name: string, surname: string, email: string, password: string){
     const authData: AuthUserData = {
       name: name,
