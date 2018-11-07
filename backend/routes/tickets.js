@@ -9,20 +9,8 @@ router.post("/api/tickets", checkAuth, (req, res, next) => {
     title: req.body.title,
     priority: req.body.priority,
     description: req.body.description,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    //we get userid from check-auth middleware
-    creator: req.userData.userId
-=======
+    creator: req.userData.userId,
     status: req.body.status
->>>>>>> Tickets status added
-=======
-    status: req.body.status
->>>>>>> Tickets status added
-=======
-    status: req.body.status
->>>>>>> 794983bd6d0130edaf979231fd1824c0cca9ce0c
   });
   //.body is from body parser
   ticket.save().then(createdTicket => {
@@ -40,20 +28,8 @@ router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
     title: req.body.title,
     priority: req.body.priority,
     description: req.body.description,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    //get from checkauth
-    creator: req.userData.userId
-=======
+    creator: req.userData.userId,
     status: req.body.status
->>>>>>> Tickets status added
-=======
-    status: req.body.status
->>>>>>> Tickets status added
-=======
-    status: req.body.status
->>>>>>> 794983bd6d0130edaf979231fd1824c0cca9ce0c
   });
   //.body is from body parser
   Ticket.updateOne({_id: req.params.id, creator: req.userData.userId}, ticket).then(
