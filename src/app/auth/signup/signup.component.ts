@@ -12,12 +12,12 @@ import { Subscription } from 'rxjs';
 export class SignupComponent implements OnInit, OnDestroy {
   spinnerLoading = false;
   inputUserData: User;
-  private createUserError: Subscription;
+  private createUserErrorSub: Subscription;
 
   constructor(public usersService: UsersService) {}
 
   ngOnInit() {
-    this.createUserError = this.usersService.getErrorThrownListener().subscribe(
+    this.createUserErrorSub = this.usersService.getErrorThrownListener().subscribe(
       errorThrown => {
         this.spinnerLoading = false;
       }
@@ -41,6 +41,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    this.createUserError.unsubscribe();
+    this.createUserErrorSub.unsubscribe();
   }
 }

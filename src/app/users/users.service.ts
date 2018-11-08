@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class UsersService {
   private users: User [] = [];
   private usersUpdated = new Subject<User[]>();
-  private errorThrown = new Subject();
+  private errorThrown = new Subject<boolean>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
