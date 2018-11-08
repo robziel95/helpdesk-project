@@ -2,7 +2,7 @@
 nav{
   background-color: $color-purple;
 
-  ul li a{
+  ul li > a, ul li > button{
     color: $color-white-90;
     font-weight: 500;
     transition: all 0.15s;
@@ -19,6 +19,13 @@ nav{
 
     &:hover{
       color: #FFF;
+    }
+  }
+  .dropdown-menu a {
+    color: black;
+    &:hover{
+      background-color: #F3F3F3;
+      cursor: pointer;
     }
   }
 }
