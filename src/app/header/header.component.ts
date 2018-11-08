@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { User } from '../users/user.model';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy{
+  loggedUser: User = {
+    id: "", name: "", surname: "", email: "", password: null
+  };
   private authListenerSubscription: Subscription;
   userIsAuthenticated = false;
 
@@ -19,6 +23,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
     .subscribe(
       isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
+        this.loggedUser = this.authService.getLoggedInUser();
+        console.log(this.loggedUser);
       }
     );
   }

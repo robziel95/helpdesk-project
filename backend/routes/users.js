@@ -123,7 +123,7 @@ router.post("/api/user/login", (req, res, next) => {
       token: token,
       //seconds
       expiresIn: 3600,
-      userId: fetchedUser._id
+      loggedUser: fetchedUser
     });
   })
   .catch(

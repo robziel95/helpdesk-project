@@ -3,13 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthUserData } from './auth-user-data.model';
+import { User } from '../users/user.model';
+import { UsersService } from '../users/users.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   //TODO - change into user object
-  private loggedInUserId: string;
+  private loggedInUser: User = this.clearUser();
+
   private userIsAuthenticated = false;
   private token: string;
   private tokenTimer: any;
@@ -19,7 +22,7 @@ export class AuthService {
   //It was created to store user with password, to prevent password field beeing attached in normal User model
   private authData: AuthUserData;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private usersService: UsersService) { }
 
   login(name: string, surname: string, email: string, password: string){
     const authData: AuthUserData = {
@@ -28,21 +31,30 @@ export class AuthService {
       email: email,
       password: password
     };
-    this.http.post<{token: string, expiresIn: number, userId: string}>("http://localhost:3000/api/user/login", authData).subscribe(
+    this.http.post<{token: string, expiresIn: number, loggedUser: any}>("http://localhost:3000/api/user/login", authData).subscribe(
       response => {
         const loginToken = response.token;
         this.token = loginToken;
 
         if(loginToken){
           this.userIsAuthenticated = true;
+          this.loggedInUser = {
+            id: response.loggedUser._id,
+            name: response.loggedUser.name,
+            surname: response.loggedUser.surname,
+            email: response.loggedUser.email,
+            password: response.loggedUser.password
+          };
+          console.log(this.loggedInUser);
           this.authStatusListener.next(true);
+          console.log("status emited");
           const expiresInDuration = response.expiresIn;
           //*1000 convert to seconds (timer works on miliseconds)
           this.setAuthTimer(expiresInDuration * 1000);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.loggedInUserId = response.userId;
-          this.saveAuthData(loginToken, expirationDate, this.loggedInUserId)
+
+          this.saveAuthData(loginToken, expirationDate, this.loggedInUser.id)
           this.router.navigate(['/']);
         }
       }, error => {
@@ -60,7 +72,11 @@ export class AuthService {
   }
 
   getUserId(){
-    return this.loggedInUserId;
+    return this.loggedInUser.id;
+  }
+
+  getLoggedInUser(){
+    return this.loggedInUser;
   }
 
   getAuthStatusListener(){
@@ -83,6 +99,7 @@ export class AuthService {
   }
 
   autoAuthUser(){
+    console.log("Auto auth user");
     const authInformation = this.getAuthData();
     if (!authInformation){
       return;
@@ -92,9 +109,21 @@ export class AuthService {
     if(expiresIn > 0){
       this.token = authInformation.token;
       this.userIsAuthenticated = true;
-      this.loggedInUserId = authInformation.userId;
-      this.setAuthTimer(expiresIn);//expiresIn is in miliseconds and Auth timer works with seconds
-      this.authStatusListener.next(true);
+      this.loggedInUser.id = authInformation.userId;
+
+      this.usersService.getUser(this.loggedInUser.id).subscribe(userData => {
+        this.loggedInUser = {
+          id: userData._id,
+          name: userData.name,
+          surname: userData.surname,
+          email: userData.email,
+          password: userData.password
+        };
+        console.log("Auto auth user update");
+        console.log(this.loggedInUser);
+        this.setAuthTimer(expiresIn);//expiresIn is in miliseconds and Auth timer works with seconds
+        this.authStatusListener.next(true);
+      });
     }
   }
 
@@ -118,13 +147,20 @@ export class AuthService {
     }
   }
 
+  private clearUser(){
+    let clearUser: User = {
+      id: null, name: null, surname: null, email: null, password: null
+    };
+    return clearUser;
+  }
+
   logout(){
     this.token = null;
     this.userIsAuthenticated = false;
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
-    this.loggedInUserId = null;
+    this.loggedInUser = this.clearUser();;
     this.router.navigate(['/']);
   }
 }
