@@ -13,6 +13,7 @@ export class UsersService {
   private users: User [] = [];
   private usersUpdated = new Subject<User[]>();
   private errorThrown = new Subject<boolean>();
+  private openSnackbar = new Subject<String>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -47,6 +48,10 @@ export class UsersService {
 
   getErrorThrownListener(){
     return this.errorThrown.asObservable();
+  }
+
+  getOpenSnackbarListener(){
+    return this.openSnackbar.asObservable();
   }
 
   addUser(inputUser: User){
@@ -92,7 +97,10 @@ export class UsersService {
         const usersUpdated = this.users.filter(user => user.id !== userId)
         this.users = usersUpdated;
         this.usersUpdated.next([...this.users]);
+        this.openSnackbar.next('User successfully deleted');
       }
-    );
+    ), error => {
+      this.openSnackbar.next('User deletion failed');
+    }
   }
 }
