@@ -3,7 +3,6 @@ import { User } from '../user.model';
 import { UsersService } from '../users.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 @Component({
   selector: 'app-users-list',
@@ -16,11 +15,9 @@ export class UsersListComponent implements OnInit, OnDestroy{
   userIsAuthenticated = false;
   private usersSubscription: Subscription;
   private authStatusSubscription: Subscription;
-  private openSnackbarSubscription: Subscription;
 
-  constructor(private usersService: UsersService,
-              private authService: AuthService,
-              private snackBar: MatSnackBar) { }
+  constructor(public usersService: UsersService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.spinnerLoading = true;
@@ -29,6 +26,7 @@ export class UsersListComponent implements OnInit, OnDestroy{
     this.usersSubscription = this.usersService.getUsersUpdateListener().subscribe(
       //users subscription will get destroyed to avoid memmory leaks
       //.subscribe listens for chamnge in users service array
+
       (usersChanged: User[]) => {
         this.spinnerLoading = false;
         this.users = usersChanged;
@@ -38,16 +36,6 @@ export class UsersListComponent implements OnInit, OnDestroy{
     this.authStatusSubscription = this.authService.getAuthStatusListener().subscribe(
       isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
-      }
-    );
-    this.openSnackbarSubscription = this.usersService.getOpenSnackbarListener().subscribe(
-      openSnackbarMessage => {
-        console.log(openSnackbarMessage);
-        let config = new MatSnackBarConfig();
-        config.verticalPosition = 'bottom';
-        config.horizontalPosition = 'right';
-        config.duration = 3000;
-        this.snackBar.open(<string>openSnackbarMessage, 'OK', config);
       }
     );
   }
@@ -62,6 +50,5 @@ export class UsersListComponent implements OnInit, OnDestroy{
 
     this.usersSubscription.unsubscribe();
     this.authStatusSubscription.unsubscribe();
-    this.openSnackbarSubscription.unsubscribe();
   }
 }

@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { post } from 'selenium-webdriver/http';
+import { UsersService } from '../users/users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class TicketsService {
   private tickets: Ticket [] = [];
   private ticketsUpdated = new Subject<Ticket[]>();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private usersService: UsersService) { }
 
   addTicket(inputTicket: Ticket){
     const newTicket: Ticket = inputTicket;
@@ -82,7 +82,6 @@ export class TicketsService {
       creator: null,
       status: inputTicket.status
     };
-
     this.http.put('http://localhost:3000/api/tickets/' + ticketToUpdate.id, ticketToUpdate).subscribe(
       (response) => {
         const ticketsUpdate = [...this.tickets];
@@ -91,8 +90,11 @@ export class TicketsService {
         this.tickets = ticketsUpdate;
         this.ticketsUpdated.next([...this.tickets]);
         this.router.navigate(['/tickets']);
+        this.usersService.openSnackbar.next('Ticket successfully updated');
       }
-    );
+    ), error => {
+      this.usersService.openSnackbar.next('Ticket update failed');
+    }
   }
 
   deleteTicket(ticketId: string){
@@ -102,7 +104,10 @@ export class TicketsService {
         const ticketsUpdate = this.tickets.filter(ticket => ticket.id !== ticketId)
         this.tickets = ticketsUpdate;
         this.ticketsUpdated.next([...this.tickets]);
+        this.usersService.openSnackbar.next('Ticket successfully deleted');
       }
-    );
+    ), error => {
+      this.usersService.openSnackbar.next('Ticket deletion failed');
+    }
   }
 }

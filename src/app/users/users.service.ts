@@ -11,9 +11,10 @@ import { Router } from '@angular/router';
 })
 export class UsersService {
   private users: User [] = [];
+  public openSnackbar = new Subject<String>();
   private usersUpdated = new Subject<User[]>();
   private errorThrown = new Subject<boolean>();
-  private openSnackbar = new Subject<String>();
+
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -86,6 +87,9 @@ export class UsersService {
         this.users = usersUpdated;
         this.usersUpdated.next([...this.users]);
         this.router.navigate(['/users']);
+        this.openSnackbar.next('User update success');
+      }, error => {
+        this.openSnackbar.next('User update failed');
       }
     );
   }

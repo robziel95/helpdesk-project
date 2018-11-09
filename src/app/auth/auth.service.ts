@@ -22,7 +22,9 @@ export class AuthService {
   //It was created to store user with password, to prevent password field beeing attached in normal User model
   private authData: AuthUserData;
 
-  constructor(private http: HttpClient, private router: Router, private usersService: UsersService) { }
+  constructor(private http: HttpClient,
+    private router: Router,
+    private usersService: UsersService) { }
 
   login(name: string, surname: string, email: string, password: string){
     const authData: AuthUserData = {
@@ -56,9 +58,11 @@ export class AuthService {
 
           this.saveAuthData(loginToken, expirationDate, this.loggedInUser.id)
           this.router.navigate(['/']);
+          this.usersService.openSnackbar.next('You are now logged in!');
         }
       }, error => {
         this.authStatusListener.next(false);
+        this.usersService.openSnackbar.next('Login failed!');
       }
     );
   }
@@ -162,5 +166,6 @@ export class AuthService {
     this.clearAuthData();
     this.loggedInUser = this.clearUser();;
     this.router.navigate(['/']);
+    this.usersService.openSnackbar.next('You are now logged out!');
   }
 }
