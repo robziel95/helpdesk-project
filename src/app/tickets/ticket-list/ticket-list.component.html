@@ -1,4 +1,11 @@
 <h2 class="heading">Tickets list:</h2>
+<mat-paginator
+  [length]="totalTickets"
+  [pageSize]="postsPerPage"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)"
+  *ngIf="tickets.length > 0">
+</mat-paginator>
 <mat-spinner *ngIf="spinnerLoading"></mat-spinner>
 <mat-accordion *ngIf="tickets.length > 0 && !spinnerLoading">
   <mat-expansion-panel *ngFor="let ticket of tickets; let indexIterator = index">
@@ -15,4 +22,5 @@
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
+
 <p *ngIf="tickets.length <= 0">No tickets were submitted</p>

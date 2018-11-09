@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatInputModule, MatCardModule, MatButtonModule, MatExpansionModule, MatProgressSpinnerModule, MatSelectModule, MatDialogModule, MatSnackBarModule } from '@angular/material';
+import { MatInputModule, MatCardModule, MatButtonModule, MatExpansionModule, MatProgressSpinnerModule, MatSelectModule, MatDialogModule, MatSnackBarModule, MatPaginatorModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -46,7 +46,8 @@ import { ErrorComponent } from './error/error.component';
       HttpClientModule,
       MatProgressSpinnerModule,
       MatDialogModule,
-      MatSnackBarModule
+      MatSnackBarModule,
+      MatPaginatorModule
    ],
    //Add custom interceptor and allow for multi request
    providers: [

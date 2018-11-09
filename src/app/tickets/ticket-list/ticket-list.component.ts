@@ -3,6 +3,8 @@ import { Ticket } from '../ticket.model';
 import { TicketsService } from '../tickets.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { PageEvent } from '@angular/material';
+import { UsersService } from 'src/app/users/users.service';
 
 @Component({
   selector: 'app-ticket-list',
@@ -14,22 +16,28 @@ export class TicketListComponent implements OnInit {
   spinnerLoading = false;
   userIsAuthenticated = false;
   loggedInUserId: string;
+  totalTickets = 0;
+  postsPerPage = 5;
+  currentPage = 1;
+  pageSizeOptions = [5, 10, 20, 50, 100]
   private ticketsSubscription: Subscription;
   private authStatusSubscription: Subscription;
 
 
   constructor(public ticketsService: TicketsService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private usersService: UsersService) { }
 
   ngOnInit() {
     this.spinnerLoading = true;
-    this.ticketsService.getTickets();
+    this.ticketsService.getTickets(this.postsPerPage, this.currentPage);
     this.loggedInUserId = this.authService.getUserId();
     //update users on change
     this.ticketsSubscription = this.ticketsService.getTicketsUpdateListener().subscribe(
-      (ticketsChanged: Ticket[]) => {
+      (ticketsData: {tickets: Ticket[], ticketsCount: number}) => {
         this.spinnerLoading = false;
-        this.tickets = ticketsChanged;
+        this.tickets = ticketsData.tickets;
+        this.totalTickets = ticketsData.ticketsCount;
       }
     );
     this.userIsAuthenticated = this.authService.getUserIsAuth();
@@ -42,7 +50,22 @@ export class TicketListComponent implements OnInit {
   }
 
   onDelete(ticketId: string){
-    this.ticketsService.deleteTicket(ticketId);
+    this.spinnerLoading = true;
+    this.ticketsService.deleteTicket(ticketId).subscribe(
+      () => {
+        this.ticketsService.getTickets(this.postsPerPage, this.currentPage);
+        this.usersService.openSnackbar.next('Ticket successfully deleted');
+      }
+    ), error => {
+      this.usersService.openSnackbar.next('Ticket deletion failed');
+    }
+  }
+
+  onChangedPage(pageData: PageEvent){
+    this.spinnerLoading = true;
+    this.currentPage = pageData.pageIndex + 1;//index starts with 0
+    this.postsPerPage = pageData.pageSize;
+    this.ticketsService.getTickets(this.postsPerPage, this.currentPage);
   }
 
   ngOnDestroy(): void {

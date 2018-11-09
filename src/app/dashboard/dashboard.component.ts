@@ -31,13 +31,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.usersCount = this.users.length;
       }
     );
-    this.ticketsService.getTickets();
+    this.ticketsService.getTickets(null, null);
     this.ticketsSubscription = this.ticketsService.getTicketsUpdateListener().subscribe(
-      (ticketsChanged: Ticket[]) => {
+      (ticketsData: {tickets: Ticket[], ticketsCount: number}) => {
         let countResolvedTickets = 0;
 
-        this.tickets = ticketsChanged;
-        this.ticketsCount = this.tickets.length;
+        this.tickets = ticketsData.tickets;
+        this.ticketsCount = ticketsData.ticketsCount;
         for (let ticket of this.tickets){
           if(ticket.status === 'Resolved'){
             countResolvedTickets++;

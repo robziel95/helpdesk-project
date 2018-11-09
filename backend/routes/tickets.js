@@ -60,10 +60,29 @@ router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
 });
 
 router.get('/api/tickets', (req, res, next) => {
-  Ticket.find().then(documents => {
+  //req.query;//those are parameters send in url after "?" sign, each parameter is separated by &
+  const pageSize = +req.query.pagesize;//we retrieve value from query named pageSize, cast it to number with +, if we dont pass it, its value will be undefined
+  const currentPage = Number(req.query.page); //+ at the begginning casts to number, same as Number method
+  const ticketQuery = Ticket.find();
+  //postQuery will be executed after we call then
+  let fetchedTickets;
+
+  if (pageSize && currentPage){
+    //if we get parameters, we modify ticketQuery
+    ticketQuery
+    .skip(pageSize * (currentPage - 1)) //skip first n elements
+    .limit(pageSize); //display only declared amount of items
+  }
+  ticketQuery
+  .then(documents => {
+    fetchedTickets = documents;
+    return Ticket.count();
+  })
+  .then(count => {
     res.status(200).json({
       message: 'Tickets fetched succesfully',
-      tickets: documents
+      tickets: fetchedTickets,
+      maxTickets: count
     });
   })
   .catch(
