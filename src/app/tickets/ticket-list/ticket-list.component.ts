@@ -19,7 +19,7 @@ export class TicketListComponent implements OnInit {
   totalTickets = 0;
   postsPerPage = 5;
   currentPage = 1;
-  pageSizeOptions = [5, 10, 20, 50, 100]
+  pageSizeOptions = [1, 5, 10, 20, 50, 100]
   private ticketsSubscription: Subscription;
   private authStatusSubscription: Subscription;
 

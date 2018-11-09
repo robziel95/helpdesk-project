@@ -18,6 +18,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ErrorComponent } from './error/error.component';
       DashboardComponent,
       LoginComponent,
       SignupComponent,
-      ErrorComponent
+      ErrorComponent,
+      PageNotFoundComponent
    ],
    imports: [
       BrowserModule,

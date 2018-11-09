@@ -8,6 +8,7 @@ import { TicketSubmitComponent } from "./tickets/ticket-submit/ticket-submit.com
 import { LoginComponent } from "./auth/login/login.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { SignupComponent } from "./auth/signup/signup.component";
+import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 
 
 const routes: Routes = [
@@ -20,6 +21,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'edit-ticket/:ticketId', component: TicketSubmitComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupComponent },
+  { path: '404', component: PageNotFoundComponent },
+  { path: '**', redirectTo: '404' },
 ];
 
 @NgModule({
