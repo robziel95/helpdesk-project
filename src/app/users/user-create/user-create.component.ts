@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { UsersService } from '../users.service';
-import { User } from '../user.model';
 import { Subscription } from 'rxjs';
 import { AuthUser } from 'src/app/auth/auth-user.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-user-create',
@@ -13,18 +13,30 @@ import { AuthUser } from 'src/app/auth/auth-user.model';
 })
 export class UserCreateComponent implements OnInit, OnDestroy {
   inputUserData: AuthUser;
-
   mode = 'create';
   spinnerLoading = false;
   editedUser: AuthUser;
   userType = "";
+  loggedUserIsAuthenticated = false;
+  loggedUserIsAdmin = false;
   private userId: string;
   private createUserErrorSub: Subscription;
+  private authListenerSubscription: Subscription;
 
   constructor(  public usersService: UsersService,
-                public route: ActivatedRoute) { }
+                public route: ActivatedRoute,
+                private authService: AuthService) { }
 
   ngOnInit() {
+    this.loggedUserIsAuthenticated = this.authService.getUserIsAuth();
+    this.loggedUserIsAdmin = this.authService.getUserIsAdmin();
+    this.authListenerSubscription = this.authService.getAuthStatusListener()
+    .subscribe(
+      isAuthenticated => {
+        this.loggedUserIsAuthenticated = isAuthenticated;
+        this.loggedUserIsAdmin = this.authService.getUserIsAdmin();
+      }
+    );
     this.route.paramMap.subscribe(
       (paramMap: ParamMap) => {
         if (paramMap.has('userId')){
@@ -71,15 +83,20 @@ export class UserCreateComponent implements OnInit, OnDestroy {
     this.spinnerLoading = true;
     if (this.mode === 'create'){
       this.usersService.addUser(this.inputUserData);
-    } else{
+    }
+    else{
       this.inputUserData.id = this.userId;
-      this.userType ==='admin' ? (this.inputUserData.userType = form.value.type) : (this.inputUserData.userType = this.editedUser.userType);
+      if(this.loggedUserIsAdmin && this.loggedUserIsAuthenticated){
+        this.inputUserData.userType = form.value.type
+      }else{
+        this.inputUserData.userType = this.editedUser.userType;
+      }
       this.usersService.updateUser(this.inputUserData);
-      console.log(this.inputUserData);
     }
   }
 
   ngOnDestroy(){
     this.createUserErrorSub.unsubscribe();
+    this.authListenerSubscription.unsubscribe();
   }
 }

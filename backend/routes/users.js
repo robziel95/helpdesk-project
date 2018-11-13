@@ -51,7 +51,8 @@ router.put("/api/users/:id", checkAuth, (req, res, next) => {
         //store everything normal, but password's encrypted hash
         password: hash,
         userType: req.body.userType
-      })
+      });
+
       User.updateOne({_id: req.params.id}, user)
       .then(
         result => {

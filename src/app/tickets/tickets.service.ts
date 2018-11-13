@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { UsersService } from '../users/users.service';
+import { SharedService } from '../shared/shared.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class TicketsService {
   private tickets: Ticket [] = [];
   private ticketsUpdated = new Subject<{tickets: Ticket[], ticketsCount: number}>();
 
-  constructor(private http: HttpClient, private router: Router, private usersService: UsersService) { }
+  constructor(private http: HttpClient, private router: Router, private sharedService: SharedService) { }
 
   addTicket(inputTicket: Ticket){
     const newTicket: Ticket = inputTicket;
@@ -85,10 +85,10 @@ export class TicketsService {
     this.http.put('http://localhost:3000/api/tickets/' + ticketToUpdate.id, ticketToUpdate).subscribe(
       (response) => {
         this.router.navigate(['/tickets']);
-        this.usersService.openSnackbar.next('Ticket successfully updated');
+        this.sharedService.openSnackbar.next('Ticket successfully updated');
       }
     ), error => {
-      this.usersService.openSnackbar.next('Ticket update failed');
+      this.sharedService.openSnackbar.next('Ticket update failed');
     }
   }
 

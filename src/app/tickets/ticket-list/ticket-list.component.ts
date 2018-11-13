@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PageEvent } from '@angular/material';
 import { UsersService } from 'src/app/users/users.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-ticket-list',
@@ -26,7 +27,7 @@ export class TicketListComponent implements OnInit {
 
   constructor(public ticketsService: TicketsService,
     private authService: AuthService,
-    private usersService: UsersService) { }
+    private sharedService: SharedService) { }
 
   ngOnInit() {
     this.spinnerLoading = true;
@@ -54,10 +55,10 @@ export class TicketListComponent implements OnInit {
     this.ticketsService.deleteTicket(ticketId).subscribe(
       () => {
         this.ticketsService.getTickets(this.postsPerPage, this.currentPage);
-        this.usersService.openSnackbar.next('Ticket successfully deleted');
+        this.sharedService.openSnackbar.next('Ticket successfully deleted');
       }
     ), error => {
-      this.usersService.openSnackbar.next('Ticket deletion failed');
+      this.sharedService.openSnackbar.next('Ticket deletion failed');
     }
   }
 

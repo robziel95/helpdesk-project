@@ -3,6 +3,7 @@ import { AuthService } from './auth/auth.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { UsersService } from './users/users.service';
+import { SharedService } from './shared/shared.service';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +16,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService,
     private snackBar: MatSnackBar,
-    private usersService: UsersService,) {}
+    private usersService: UsersService,
+    private sharedService: SharedService) {}
 
   ngOnInit(){
     this.authService.autoAuthUser();
-    this.openSnackbarSubscription = this.usersService.getOpenSnackbarListener().subscribe(
+    this.openSnackbarSubscription = this.sharedService.getOpenSnackbarListener().subscribe(
       openSnackbarMessage => {
         let config = new MatSnackBarConfig();
         config.verticalPosition = 'bottom';

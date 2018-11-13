@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthUser } from '../auth/auth-user.model';
+import { AuthService } from '../auth/auth.service';
+import { SharedService } from '../shared/shared.service';
 
 
 @Injectable({
@@ -12,12 +14,12 @@ import { AuthUser } from '../auth/auth-user.model';
 })
 export class UsersService {
   private users: User [] = [];
-  public openSnackbar = new Subject<String>();
+
   private usersUpdated = new Subject<User[]>();
   private errorThrown = new Subject<boolean>();
 
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService, private sharedService: SharedService) { }
 
   getUsers(){
     this.http.get<{message: string, users: any}>('http://localhost:3000/api/users')
@@ -53,10 +55,6 @@ export class UsersService {
     return this.errorThrown.asObservable();
   }
 
-  getOpenSnackbarListener(){
-    return this.openSnackbar.asObservable();
-  }
-
   addUser(inputUser: User){
     const newUser: User = inputUser;
     this.http.post<{message: string, userId: string}>('http://localhost:3000/api/users/create', newUser)
@@ -82,6 +80,14 @@ export class UsersService {
       password: inputUser.password,
       userType: inputUser.userType
     };
+    //check if someone wants to add admin permission
+    //check if person is authenticated and has admin permission
+    if(userToUpdate.userType === 'admin' && (!this.authService.getUserIsAdmin() || !this.authService.getUserIsAuth())){
+      this.router.navigate(['/login']);
+      this.sharedService.openSnackbar.next('User update failed, you need to have administrator permission in order to grant admin permission');
+      return;
+    }
+
     this.http.put('http://localhost:3000/api/users/' + userToUpdate.id, userToUpdate).subscribe(
       (response) => {
         const usersUpdated = [...this.users];
@@ -90,9 +96,9 @@ export class UsersService {
         this.users = usersUpdated;
         this.usersUpdated.next([...this.users]);
         this.router.navigate(['/users']);
-        this.openSnackbar.next('User update success');
+        this.sharedService.openSnackbar.next('User update success');
       }, error => {
-        this.openSnackbar.next('User update failed');
+        this.sharedService.openSnackbar.next('User update failed');
       }
     );
   }
@@ -104,10 +110,10 @@ export class UsersService {
         const usersUpdated = this.users.filter(user => user.id !== userId)
         this.users = usersUpdated;
         this.usersUpdated.next([...this.users]);
-        this.openSnackbar.next('User successfully deleted');
+        this.sharedService.openSnackbar.next('User successfully deleted');
       }
     ), error => {
-      this.openSnackbar.next('User deletion failed');
+      this.sharedService.openSnackbar.next('User deletion failed');
     }
   }
 }

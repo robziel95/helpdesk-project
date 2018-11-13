@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthUser } from './auth-user.model';
-import { User } from '../users/user.model';
-import { UsersService } from '../users/users.service';
+import { SharedService } from '../shared/shared.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +22,7 @@ export class AuthService {
 
   constructor(private http: HttpClient,
     private router: Router,
-    private usersService: UsersService) { }
+    private sharedService: SharedService) { }
 
   login(name: string, surname: string, email: string, password: string){
     const authData: AuthUser = {
@@ -58,11 +57,11 @@ export class AuthService {
 
           this.saveAuthData(loginToken, expirationDate, this.loggedInUser.id)
           this.router.navigate(['/']);
-          this.usersService.openSnackbar.next('You are now logged in!');
+          this.sharedService.openSnackbar.next('You are now logged in!');
         }
       }, error => {
         this.authStatusListener.next(false);
-        this.usersService.openSnackbar.next('Login failed!');
+        this.sharedService.openSnackbar.next('Login failed!');
       }
     );
   }
@@ -76,7 +75,7 @@ export class AuthService {
   }
 
   getUserIsAdmin(){
-    return this.loggedInUser.userType === 'admin';
+    return this.loggedInUser.userType === 'admin' ? true : false;
   }
 
   getUserId(){
@@ -118,7 +117,7 @@ export class AuthService {
       this.userIsAuthenticated = true;
       this.loggedInUser.id = authInformation.userId;
 
-      this.usersService.getUser(this.loggedInUser.id).subscribe(userData => {
+      this.getUser(this.loggedInUser.id).subscribe(userData => {
         this.loggedInUser = {
           id: userData._id,
           name: userData.name,
@@ -160,6 +159,10 @@ export class AuthService {
     return clearUser;
   }
 
+  getUser(id: string){
+    return this.http.get<{_id: string; name: string; surname: string; email:string; password: string; userType: string}>('http://localhost:3000/api/users/' + id);
+  }
+
   logout(){
     this.token = null;
     this.userIsAuthenticated = false;
@@ -168,6 +171,6 @@ export class AuthService {
     this.clearAuthData();
     this.loggedInUser = this.clearAuthUser();;
     this.router.navigate(['/']);
-    this.usersService.openSnackbar.next('You are now logged out!');
+    this.sharedService.openSnackbar.next('You are now logged out!');
   }
 }
