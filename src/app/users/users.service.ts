@@ -28,7 +28,8 @@ export class UsersService {
             name: user.name,
             surname: user.surname,
             email: user.email,
-            password: user.password
+            password: user.password,
+            userType: user.userType
           };
         });
       }
@@ -68,7 +69,7 @@ export class UsersService {
   }
 
   getUser(id: string){
-    return this.http.get<{_id: string; name: string; surname: string; email:string; password: string}>('http://localhost:3000/api/users/' + id);
+    return this.http.get<{_id: string; name: string; surname: string; email:string; password: string; userType: string}>('http://localhost:3000/api/users/' + id);
   }
 
   updateUser(inputUser: User){
@@ -77,7 +78,8 @@ export class UsersService {
       name: inputUser.name,
       surname: inputUser.surname,
       email: inputUser.email,
-      password: inputUser.password
+      password: inputUser.password,
+      userType: inputUser.userType
     };
     this.http.put('http://localhost:3000/api/users/' + userToUpdate.id, userToUpdate).subscribe(
       (response) => {

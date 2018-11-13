@@ -10,7 +10,7 @@ import { User } from '../users/user.model';
 })
 export class HeaderComponent implements OnInit, OnDestroy{
   loggedUser: User = {
-    id: "", name: "", surname: "", email: "", password: null
+    id: "", name: "", surname: "", email: "", password: null, userType: ""
   };
   private authListenerSubscription: Subscription;
   userIsAuthenticated = false;
@@ -24,7 +24,6 @@ export class HeaderComponent implements OnInit, OnDestroy{
       isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
         this.loggedUser = this.authService.getLoggedInUser();
-        console.log(this.loggedUser);
       }
     );
   }

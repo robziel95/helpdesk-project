@@ -5,7 +5,7 @@ const ticketSchema = mongoose.Schema({
   priority: {type: String, required: true},
   description: {type: String, required: true},
   creator: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
-  status: {type: String, required: true}
+  status: {type: String, required: true, default: 'unassigned'}
 });
 
 module.exports = mongoose.model('Ticket', ticketSchema);

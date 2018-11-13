@@ -21,7 +21,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService.autoAuthUser();
     this.openSnackbarSubscription = this.usersService.getOpenSnackbarListener().subscribe(
       openSnackbarMessage => {
-        console.log(openSnackbarMessage);
         let config = new MatSnackBarConfig();
         config.verticalPosition = 'bottom';
         config.horizontalPosition = 'right';

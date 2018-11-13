@@ -12,13 +12,14 @@ import { Subscription } from 'rxjs';
 })
 export class UserCreateComponent implements OnInit, OnDestroy {
   inputUserData: User;
-  editedUser: User;
+
   mode = 'create';
   spinnerLoading = false;
+  private editedUser: User;
   private userId: string;
   private createUserErrorSub: Subscription;
 
-  constructor( public usersService: UsersService,
+  constructor(  public usersService: UsersService,
                 public route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -35,7 +36,8 @@ export class UserCreateComponent implements OnInit, OnDestroy {
               name: userData.name,
               surname: userData.surname,
               email: userData.email,
-              password: userData.password
+              password: userData.password,
+              userType: userData.userType
             }
           });
         }else{
@@ -60,13 +62,15 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       name: form.value.userName,
       surname: form.value.userSurname,
       email: form.value.email,
-      password: form.value.password
+      password: form.value.password,
+      userType: "normal"
     };
     this.spinnerLoading = true;
     if (this.mode === 'create'){
       this.usersService.addUser(this.inputUserData);
     } else{
       this.inputUserData.id = this.userId;
+      this.inputUserData.userType = this.editedUser.userType;
       this.usersService.updateUser(this.inputUserData);
     }
   }

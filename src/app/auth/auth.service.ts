@@ -45,11 +45,10 @@ export class AuthService {
             name: response.loggedUser.name,
             surname: response.loggedUser.surname,
             email: response.loggedUser.email,
-            password: response.loggedUser.password
+            password: response.loggedUser.password,
+            userType: response.loggedUser.userType
           };
-          console.log(this.loggedInUser);
           this.authStatusListener.next(true);
-          console.log("status emited");
           const expiresInDuration = response.expiresIn;
           //*1000 convert to seconds (timer works on miliseconds)
           this.setAuthTimer(expiresInDuration * 1000);
@@ -103,7 +102,6 @@ export class AuthService {
   }
 
   autoAuthUser(){
-    console.log("Auto auth user");
     const authInformation = this.getAuthData();
     if (!authInformation){
       return;
@@ -121,10 +119,9 @@ export class AuthService {
           name: userData.name,
           surname: userData.surname,
           email: userData.email,
-          password: userData.password
+          password: userData.password,
+          userType: userData.userType
         };
-        console.log("Auto auth user update");
-        console.log(this.loggedInUser);
         this.setAuthTimer(expiresIn);//expiresIn is in miliseconds and Auth timer works with seconds
         this.authStatusListener.next(true);
       });
@@ -153,7 +150,7 @@ export class AuthService {
 
   private clearUser(){
     let clearUser: User = {
-      id: null, name: null, surname: null, email: null, password: null
+      id: null, name: null, surname: null, email: null, password: null, userType: null
     };
     return clearUser;
   }

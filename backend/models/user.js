@@ -7,7 +7,8 @@ const userSchema = mongoose.Schema({
   //unique is not a validator
   //npm install --save mongoose-unique-validator was used for validation
   email: {type: String, required: true, unique: true },
-  password: {type: String, required: true}
+  password: {type: String, required: true},
+  userType: {type: String, required: true, default: 'normal'}
 });
 
 //validate unique fields
