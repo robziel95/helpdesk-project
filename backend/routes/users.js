@@ -40,26 +40,31 @@ router.post("/api/users/create", (req, res, next) => {
 });
 
 router.put("/api/users/:id", checkAuth, (req, res, next) => {
-  const user = new User({
-    _id: req.body.id,
-    name: req.body.name,
-    surname: req.body.surname,
-    email: req.body.email,
-    password: req.body.password,
-    userType: req.body.userType
-  });
-  //.body is from body parser
-  User.updateOne({_id: req.params.id}, user)
-  .then(
-    result => {
-      res.status(200).json({message: 'Update successful!'})
-    }
-  )
-  .catch(
-    error => {
-      res.status(500).json({
-        message: "Failed to update user!"
+
+  bcrypt.hash(req.body.password, 10, ).then(
+    hash => {
+      const user = new User({
+        _id: req.body.id,
+        name: req.body.name,
+        surname: req.body.surname,
+        email: req.body.email,
+        //store everything normal, but password's encrypted hash
+        password: hash,
+        userType: req.body.userType
       })
+      User.updateOne({_id: req.params.id}, user)
+      .then(
+        result => {
+          res.status(200).json({message: 'Update successful!'})
+        }
+      )
+      .catch(
+        error => {
+          res.status(500).json({
+            message: "Failed to update user!"
+          })
+        }
+      );
     }
   );
 });

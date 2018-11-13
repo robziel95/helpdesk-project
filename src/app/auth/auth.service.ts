@@ -11,7 +11,7 @@ import { UsersService } from '../users/users.service';
 })
 export class AuthService {
   //TODO - change into user object
-  private loggedInUser: AuthUser = this.clearUser();
+  private loggedInUser: AuthUser = this.clearAuthUser();
   private userIsAuthenticated = false;
   private token: string;
   private tokenTimer: any;
@@ -153,8 +153,8 @@ export class AuthService {
     }
   }
 
-  private clearUser(){
-    let clearUser: User = {
+  private clearAuthUser(){
+    let clearUser: AuthUser = {
       id: null, name: null, surname: null, email: null, password: null, userType: null
     };
     return clearUser;
@@ -166,7 +166,7 @@ export class AuthService {
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
-    this.loggedInUser = this.clearUser();;
+    this.loggedInUser = this.clearAuthUser();;
     this.router.navigate(['/']);
     this.usersService.openSnackbar.next('You are now logged out!');
   }

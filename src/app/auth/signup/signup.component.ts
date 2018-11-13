@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { UsersService } from 'src/app/users/users.service';
 import { User } from 'src/app/users/user.model';
 import { Subscription } from 'rxjs';
+import { AuthUser } from '../auth-user.model';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class SignupComponent implements OnInit, OnDestroy {
   spinnerLoading = false;
-  inputUserData: User;
+  inputUserData: AuthUser;
   private createUserErrorSub: Subscription;
 
   constructor(public usersService: UsersService) {}

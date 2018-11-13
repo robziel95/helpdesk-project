@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AuthUser } from '../auth/auth-user.model';
 
 
 @Injectable({
@@ -72,8 +73,8 @@ export class UsersService {
     return this.http.get<{_id: string; name: string; surname: string; email:string; password: string; userType: string}>('http://localhost:3000/api/users/' + id);
   }
 
-  updateUser(inputUser: User){
-    const userToUpdate: User = {
+  updateUser(inputUser: AuthUser){
+    const userToUpdate: AuthUser = {
       id: inputUser.id,
       name: inputUser.name,
       surname: inputUser.surname,

@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { UsersService } from '../users.service';
 import { User } from '../user.model';
 import { Subscription } from 'rxjs';
+import { AuthUser } from 'src/app/auth/auth-user.model';
 
 @Component({
   selector: 'app-user-create',
@@ -11,11 +12,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./user-create.component.scss']
 })
 export class UserCreateComponent implements OnInit, OnDestroy {
-  inputUserData: User;
+  inputUserData: AuthUser;
 
   mode = 'create';
   spinnerLoading = false;
-  editedUser: User;
+  editedUser: AuthUser;
   userType = "";
   private userId: string;
   private createUserErrorSub: Subscription;
@@ -72,9 +73,9 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       this.usersService.addUser(this.inputUserData);
     } else{
       this.inputUserData.id = this.userId;
-      this.inputUserData.userType = form.value.type;
-      console.log(this.inputUserData);
+      this.userType ==='admin' ? (this.inputUserData.userType = form.value.type) : (this.inputUserData.userType = this.editedUser.userType);
       this.usersService.updateUser(this.inputUserData);
+      console.log(this.inputUserData);
     }
   }
 
