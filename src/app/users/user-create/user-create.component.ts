@@ -15,7 +15,8 @@ export class UserCreateComponent implements OnInit, OnDestroy {
 
   mode = 'create';
   spinnerLoading = false;
-  private editedUser: User;
+  editedUser: User;
+  userType = "";
   private userId: string;
   private createUserErrorSub: Subscription;
 
@@ -39,6 +40,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
               password: userData.password,
               userType: userData.userType
             }
+            this.userType = userData.userType;
           });
         }else{
           this.mode = 'create';
@@ -70,7 +72,8 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       this.usersService.addUser(this.inputUserData);
     } else{
       this.inputUserData.id = this.userId;
-      this.inputUserData.userType = this.editedUser.userType;
+      this.inputUserData.userType = form.value.type;
+      console.log(this.inputUserData);
       this.usersService.updateUser(this.inputUserData);
     }
   }

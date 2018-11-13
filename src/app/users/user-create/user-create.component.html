@@ -31,6 +31,17 @@
         required email>
         <mat-error *ngIf="emailInput.invalid">Please enter a valid email</mat-error>
       </mat-form-field>
+      <mat-form-field *ngIf="userType === 'admin'">
+        <mat-select
+        name="type"
+        [ngModel] = "editedUser?.userType"
+        required
+        placeholder="Change user type"
+        >
+          <mat-option value="normal">Normal</mat-option>
+          <mat-option value="admin">Administrator</mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field>
         <input matInput
         name="password"

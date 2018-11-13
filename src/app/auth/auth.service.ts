@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { AuthUserData } from './auth-user-data.model';
+import { AuthUser } from './auth-user.model';
 import { User } from '../users/user.model';
 import { UsersService } from '../users/users.service';
 
@@ -11,8 +11,7 @@ import { UsersService } from '../users/users.service';
 })
 export class AuthService {
   //TODO - change into user object
-  private loggedInUser: User = this.clearUser();
-
+  private loggedInUser: AuthUser = this.clearUser();
   private userIsAuthenticated = false;
   private token: string;
   private tokenTimer: any;
@@ -20,17 +19,19 @@ export class AuthService {
 
   //AuthUserData model is the same model as user, but contains password
   //It was created to store user with password, to prevent password field beeing attached in normal User model
-  private authData: AuthUserData;
+  private authData: AuthUser;
 
   constructor(private http: HttpClient,
     private router: Router,
     private usersService: UsersService) { }
 
   login(name: string, surname: string, email: string, password: string){
-    const authData: AuthUserData = {
+    const authData: AuthUser = {
+      id: null,
       name: name,
       surname: surname,
       email: email,
+      userType: "",
       password: password
     };
     this.http.post<{token: string, expiresIn: number, loggedUser: any}>("http://localhost:3000/api/user/login", authData).subscribe(
@@ -72,6 +73,10 @@ export class AuthService {
 
   getUserIsAuth(){
     return this.userIsAuthenticated;
+  }
+
+  getUserIsAdmin(){
+    return this.loggedInUser.userType === 'admin';
   }
 
   getUserId(){
