@@ -2,37 +2,91 @@
 nav{
   background-color: $color-purple;
 
-  ul li > a, ul li > button{
+  @media screen and (min-width: $breakpoint-sm){
+    .navbar{
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .navbar-nav{
+    align-items: flex-start;
+  }
+
+  ul li > a{
     color: $color-white-90;
     font-weight: 500;
-    transition: all 0.15s;
-    padding: 10px 20px;
-    font-size: 0.8rem;
+    transition: all 0.2s;
+    padding: 0px;
+    padding-bottom: 5px;
+    margin: 10px 20px;
+    margin-bottom: 5px;
+    font-size: 1.0rem;
+    position: relative;
 
     @media screen and (min-width: $breakpoint-sm){
+      font-size: 1rem;
+      margin: 10px;
+    }
+
+    @media screen and (min-width: $breakpoint-md){
       font-size: 1.1rem;
     }
 
     @media screen and (min-width: $breakpoint-lg){
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+    }
+
+    &.dropdown-toggle:after{
+      display: none;
+    }
+
+    &:before{
+      content: "";
+      position: absolute;
+      width: 0px;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: $color-white-80;
+      -webkit-transition: all 0.2s ease-in-out 0s;
+      transition: all 0.2s ease-in-out 0s;
     }
 
     &:hover{
-      color: #FFF;
+      color: $color-white;
+      &:before{
+        width: 100%;
+      }
     }
   }
-  .dropdown-menu a {
-    color: black;
-    &:hover{
-      background-color: #F3F3F3;
-      cursor: pointer;
+  .dropdown {
+    i.fa {
+      margin-right: 3px;
+    }
+
+    &-menu a {
+      font-weight: 500;
+      color: $color-black-80;
+      &:hover{
+        background-color: #F3F3F3;
+        cursor: pointer;
+      }
     }
   }
 }
 .navbar{
   &-top{
+    padding-right: 20px;
+    padding-left: 20px;
+
     .navbar-toggler{
       font-size: 0.8rem;
+    }
+    @media screen and (max-width: $breakpoint-sm){
+      ul li a {
+        margin-left: 0;
+      }
     }
     @media screen and (min-width: $breakpoint-sm){
       .navbar-brand{
@@ -43,29 +97,25 @@ nav{
       }
     }
   }
+  &__separator{
+    width: 100%;
+    height: 1px;
+    background-image: linear-gradient(to right,#A9A9A9, #D9D9D9 , #A9A9A9);
+  }
   &-bottom{
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
 
     @media screen and (min-width: $breakpoint-sm){
-
-      > div {
-        border-top: 1px solid $color-white-80;
-      }
-
-      ul li:first-of-type a{
-        padding-left: 0;
+      ul {
+        li:first-of-type a{
+          margin-left: 0;
+        }
       }
     }
 
-    .navbar-collapse.show{
-      @media screen and (max-width: $breakpoint-sm){
-        border-top: 1px solid #787878;
-      }
-    }
   }
 
   &-toggler{
-    border: 1px solid $color-white-60;
+    border: 1px solid $color-black-80;
   }
 }

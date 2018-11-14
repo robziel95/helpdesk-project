@@ -34,12 +34,12 @@
     }
     &--pink .fa{
       &:before, span{
-        color: $color-pinky;
+        color: $color-purple;
       }
     }
     &--green .fa{
       &:before, span{
-        color: $color-green;
+        color: $color-cyan;
       }
     }
   }
