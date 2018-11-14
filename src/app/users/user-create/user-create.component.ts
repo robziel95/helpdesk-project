@@ -80,17 +80,17 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       password: form.value.password,
       userType: "normal"
     };
+    if(this.loggedUserIsAdmin && this.loggedUserIsAuthenticated){
+      this.inputUserData.userType = form.value.type
+    }else{
+      this.inputUserData.userType = this.editedUser.userType;
+    }
     this.spinnerLoading = true;
     if (this.mode === 'create'){
       this.usersService.addUser(this.inputUserData);
     }
     else{
       this.inputUserData.id = this.userId;
-      if(this.loggedUserIsAdmin && this.loggedUserIsAuthenticated){
-        this.inputUserData.userType = form.value.type
-      }else{
-        this.inputUserData.userType = this.editedUser.userType;
-      }
       this.usersService.updateUser(this.inputUserData);
     }
   }
