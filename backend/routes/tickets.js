@@ -1,6 +1,7 @@
 const express =require("express");
 const router = express.Router();
 const Ticket = require('../models/ticket');
+const User = require('../models/user');
 const checkAuth = require('../middleware/check-auth');
 
 router.post("/api/tickets", checkAuth, (req, res, next) => {
@@ -113,21 +114,63 @@ router.get('/api/tickets/:id', (req, res, next) => {
   );
 });
 
+// router.delete("/api/tickets/:id", checkAuth, (req, res, next) => {
+//   Ticket.deleteOne({ _id: req.params.id, creator: req.userData.userId })
+//   .then(
+//     result => {
+//       if (result.n > 0) {
+//         res.status(200).json({message: 'Deletion successful!'})
+//       }else{
+//         res.status(401).json({message: 'Not authorized!'})
+//       }
+//     }
+//   )
+//   .catch(
+//     error => {
+//       res.status(500).json({
+//         message: "Deleting post failed!"
+//       })
+//     }
+//   );
+// });
+
 router.delete("/api/tickets/:id", checkAuth, (req, res, next) => {
-  Ticket.deleteOne({ _id: req.params.id, creator: req.userData.userId })
+  let deleteTicket;
+  User.findById(req.userData.userId)
   .then(
-    result => {
-      if (result.n > 0) {
-        res.status(200).json({message: 'Deletion successful!'})
+    user =>{
+      if(user.userType == 'admin'){
+        //If user sending request is admin -- delete post by id
+        console.log("Admin found");
+        deleteTicket = Ticket.deleteOne({ _id: req.params.id });
       }else{
-        res.status(401).json({message: 'Not authorized!'})
+        //If user sending request is not admin -- delete post by id and check if authenticeted user created ticket
+        console.log("Is not admin");
+        deleteTicket = Ticket.deleteOne({ _id: req.params.id, creator: req.userData.userId });
       }
+
+      deleteTicket.then(
+        (result) => {
+          console.log("Result" + result);
+          if (result.n > 0) {
+            res.status(200).json({message: 'Deletion successful!'})
+          }else{
+            res.status(401).json({message: 'Not authorized!'})
+          }
+        }
+      )
+      .catch(
+        error => {
+          res.status(500).json({
+            message: "Deleting post failed!"
+          })
+        }
+      );
     }
-  )
-  .catch(
+  ).catch(
     error => {
       res.status(500).json({
-        message: "Deleting post failed!"
+        message: "User authentication problem!"
       })
     }
   );

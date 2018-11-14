@@ -16,9 +16,10 @@ export class TicketListComponent implements OnInit {
   tickets: Ticket [] = [];
   spinnerLoading = false;
   userIsAuthenticated = false;
+  loggedInUserIsAdmin = false;
   loggedInUserId: string;
   totalTickets = 0;
-  postsPerPage = 5;
+  postsPerPage = 20;
   currentPage = 1;
   pageSizeOptions = [1, 5, 10, 20, 50, 100]
   private ticketsSubscription: Subscription;
@@ -42,10 +43,12 @@ export class TicketListComponent implements OnInit {
       }
     );
     this.userIsAuthenticated = this.authService.getUserIsAuth();
+    this.loggedInUserIsAdmin = this.authService.getUserIsAdmin();
     this.authStatusSubscription = this.authService.getAuthStatusListener().subscribe(
       isAuthenticated => {
-        this.userIsAuthenticated = isAuthenticated;
         this.loggedInUserId = this.authService.getUserId();
+        this.loggedInUserIsAdmin = this.authService.getUserIsAdmin();
+        this.userIsAuthenticated = isAuthenticated;
       }
     );
   }
