@@ -39,22 +39,41 @@ router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
     creator: req.userData.userId,
     status: req.body.status
   });
-  //.body is from body parser
-  Ticket.updateOne({_id: req.params.id, creator: req.userData.userId}, ticket)
+  let updateTicket;
+  User.findById(req.userData.userId)
   .then(
-    result => {
-      //nmodified is a field in result which tells if sth was modified
-      if (result.nModified > 0) {
-        res.status(200).json({message: 'Update successful!'})
+    user =>{
+      if(user.userType == 'admin'){
+        //If user sending request is admin -- update post by id only
+        updateTicket = Ticket.updateOne({_id: req.params.id}, ticket);
       }else{
-        res.status(401).json({message: 'Not authorized!'})
+        //If user sending request is not admin -- update post by id and check if authenticeted user created ticket
+        updateTicket = Ticket.updateOne({_id: req.params.id, creator: req.userData.userId}, ticket);
       }
+
+      updateTicket.then(
+        result => {
+          //nmodified is a field in result which tells if sth was modified
+          if (result.nModified > 0) {
+            res.status(200).json({message: 'Update successful!'})
+          }else{
+            res.status(401).json({message: 'Not authorized!'})
+          }
+        }
+      )
+      .catch(
+        error => {
+          res.status(500).json({
+            message: "Couldn't update post!"
+          })
+        }
+      );
     }
   )
   .catch(
     error => {
       res.status(500).json({
-        message: "Couldn't update post!"
+        message: "User authentication problem!"
       })
     }
   );
@@ -114,26 +133,6 @@ router.get('/api/tickets/:id', (req, res, next) => {
   );
 });
 
-// router.delete("/api/tickets/:id", checkAuth, (req, res, next) => {
-//   Ticket.deleteOne({ _id: req.params.id, creator: req.userData.userId })
-//   .then(
-//     result => {
-//       if (result.n > 0) {
-//         res.status(200).json({message: 'Deletion successful!'})
-//       }else{
-//         res.status(401).json({message: 'Not authorized!'})
-//       }
-//     }
-//   )
-//   .catch(
-//     error => {
-//       res.status(500).json({
-//         message: "Deleting post failed!"
-//       })
-//     }
-//   );
-// });
-
 router.delete("/api/tickets/:id", checkAuth, (req, res, next) => {
   let deleteTicket;
   User.findById(req.userData.userId)
@@ -141,17 +140,14 @@ router.delete("/api/tickets/:id", checkAuth, (req, res, next) => {
     user =>{
       if(user.userType == 'admin'){
         //If user sending request is admin -- delete post by id
-        console.log("Admin found");
         deleteTicket = Ticket.deleteOne({ _id: req.params.id });
       }else{
         //If user sending request is not admin -- delete post by id and check if authenticeted user created ticket
-        console.log("Is not admin");
         deleteTicket = Ticket.deleteOne({ _id: req.params.id, creator: req.userData.userId });
       }
 
       deleteTicket.then(
         (result) => {
-          console.log("Result" + result);
           if (result.n > 0) {
             res.status(200).json({message: 'Deletion successful!'})
           }else{
