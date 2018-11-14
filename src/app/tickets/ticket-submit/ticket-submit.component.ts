@@ -60,19 +60,23 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
     if (form.invalid){
       return;
     }
-    this.inputTicketData = {id: null,
+    this.inputTicketData = {
+      id: null,
       title: form.value.title,
       priority: form.value.priority,
       description: form.value.description,
       creator: null,
       status: 'Unassigned'
     };
-    if(this.mode=='edit'){this.inputTicketData.status = form.value.status }
     this.spinnerLoading = true;
     if (this.mode === 'create'){
       this.ticketsService.addTicket(this.inputTicketData);
-    } else{
+    }
+    else{
+      //update more fields on edit
       this.inputTicketData.id = this.ticketId;
+      this.inputTicketData.status = form.value.status;
+      this.inputTicketData.creator = this.editedTicket.creator;
       this.ticketsService.updateTicket(this.inputTicketData);
     }
   }

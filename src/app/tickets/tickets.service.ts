@@ -79,7 +79,7 @@ export class TicketsService {
       title: inputTicket.title,
       priority: inputTicket.priority,
       description: inputTicket.description,
-      creator: null,
+      creator: inputTicket.creator,
       status: inputTicket.status
     };
     this.http.put('http://localhost:3000/api/tickets/' + ticketToUpdate.id, ticketToUpdate).subscribe(

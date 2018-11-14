@@ -36,7 +36,7 @@ router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
     title: req.body.title,
     priority: req.body.priority,
     description: req.body.description,
-    creator: req.userData.userId,
+    creator: req.body.creator,
     status: req.body.status
   });
   let updateTicket;
