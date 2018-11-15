@@ -1,6 +1,7 @@
-<h2 class="heading">Create a new ticket:</h2>
-<mat-spinner *ngIf="spinnerLoading"></mat-spinner>
-<mat-card class="usersInputArea">
+<section class="section-create-ticket">
+  <h2 class="section-title">Create a new ticket:</h2>
+  <mat-spinner *ngIf="spinnerLoading"></mat-spinner>
+  <mat-card class="usersInputArea">
     <form (submit)="onSaveTicket(postForm)" #postForm="ngForm"  *ngIf="!spinnerLoading">
       <mat-form-field>
           <input matInput type="text"
@@ -47,3 +48,4 @@
         <button mat-raised-button color="accent" type="submit">Add Ticket</button>
     </form>
   </mat-card>
+</section>

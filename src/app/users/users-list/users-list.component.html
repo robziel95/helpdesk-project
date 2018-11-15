@@ -1,16 +1,18 @@
-<h2 class="heading">Users list:</h2>
-<mat-spinner *ngIf="spinnerLoading"></mat-spinner>
-<mat-accordion *ngIf="users.length > 0 && !spinnerLoading">
-  <mat-expansion-panel *ngFor="let user of users; let indexIterator = index">
-    <mat-expansion-panel-header>
-      <div class="mat-content-id">Nr: {{ indexIterator }}</div>
-      <div class="mat-content-text">{{ user.name }} {{ user.surname }}</div>
-    </mat-expansion-panel-header>
-      <p>Esse tempor nisi anim officia aliqua ullamco officia enim voluptate.</p>
-    <mat-action-row *ngIf="userIsAuthenticated">
-      <a mat-button color="primary" [routerLink]="['/edit-user', user.id]">EDIT</a>
-      <button mat-button color="accent" (click)="onDelete(user.id)" >DELETE</button>
-    </mat-action-row>
-  </mat-expansion-panel>
-</mat-accordion>
-<p *ngIf="users.length <= 0">No users were added</p>
+<section class="section-users-list">
+  <h2 class="section-title">Users list:</h2>
+  <mat-spinner *ngIf="spinnerLoading"></mat-spinner>
+  <mat-accordion *ngIf="users.length > 0 && !spinnerLoading">
+    <mat-expansion-panel *ngFor="let user of users; let indexIterator = index">
+      <mat-expansion-panel-header>
+        <div class="mat-content-id">Nr: {{ indexIterator }}</div>
+        <div class="mat-content-text">{{ user.name }} {{ user.surname }}</div>
+      </mat-expansion-panel-header>
+        <p>Esse tempor nisi anim officia aliqua ullamco officia enim voluptate.</p>
+      <mat-action-row *ngIf="userIsAuthenticated">
+        <a mat-button color="primary" [routerLink]="['/edit-user', user.id]">EDIT</a>
+        <button mat-button color="accent" (click)="onDelete(user.id)" >DELETE</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <p *ngIf="users.length <= 0">No users were added</p>
+</section>
