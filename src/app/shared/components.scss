@@ -1,0 +1,34 @@
+%flexbox-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn{
+  font-weight: 500;
+  &--orange{
+    color: $color-white;
+    background-color: $color-orange;
+  }
+  &--cyan{
+    color: $color-white;
+    background-color: $color-cyan;
+  }
+  &--pinky{
+    color: $color-white;
+    background-color: $color-pinky;
+  }
+}
+
+.separator{
+  width: 100%;
+  height: 1px;
+  background-color: $color-separator-grey;
+  &--gradient-light{
+    background-image: linear-gradient(to right,#A9A9A9, #E9E9E9 , #A9A9A9);
+  }
+  &--margin{
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+}

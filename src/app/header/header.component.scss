@@ -1,4 +1,6 @@
 @import '../shared/variables.scss';
+@import '../shared/components.scss';
+
 nav{
   background-color: $color-purple;
 
@@ -49,6 +51,10 @@ nav{
       transition: all 0.2s ease-in-out 0s;
     }
 
+    &::after{
+      display: none;
+    }
+
     &:hover{
       color: $color-white;
       &:before{
@@ -63,15 +69,21 @@ nav{
 
     &-menu a {
       font-weight: 500;
-      color: $color-black-80;
+      color: $color-font-dark;
       padding-left: 10px;
       &:hover{
         background-color: #F3F3F3;
         cursor: pointer;
       }
     }
-    &.show .dropdown-toggle::after{
-      transform: rotate(-180deg);
+    &-rotate{
+      margin-left: 5px;
+      font-weight: bold;
+      transition: all 0.25s;
+      transform: rotate(0deg);
+    }
+    &.show .dropdown-rotate{
+      transform: rotate(180deg);
     }
   }
 }
@@ -84,24 +96,24 @@ nav{
       border: 1px solid $color-white-80;
       font-size: 0.8rem;
     }
+
+    .navbar-brand{
+      font-size: 1.7rem;
+    }
+
     @media screen and (max-width: $breakpoint-sm){
       ul li a {
         margin-left: 0;
       }
     }
-    @media screen and (min-width: $breakpoint-sm){
+    @media screen and (min-width: $breakpoint-md){
       .navbar-brand{
-        font-size: 1.6rem;
+        font-size: 2rem;
       }
       .navbar-toggler{
         font-size: 1.2rem;
       }
     }
-  }
-  &__separator{
-    width: 100%;
-    height: 1px;
-    background-image: linear-gradient(to right,#A9A9A9, #D9D9D9 , #A9A9A9);
   }
   &-bottom{
     padding: 0;

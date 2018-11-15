@@ -15,6 +15,7 @@
               <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 {{ loggedUser.name }}
+                <i class="fa fa-angle-down dropdown-rotate" aria-hidden="true"></i>
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="nav-link" (click)="onLogout()"><i class="fa fa-sign-out"></i>Logout</a>
@@ -26,7 +27,7 @@
           </ul>
         </div>
     </div>
-    <div class="navbar__separator"></div>
+    <div class="separator separator--gradient-light"></div>
     <div class="navbar navbar-bottom">
       <div class="collapse navbar-collapse" id="hamburgerCollapse">
         <ul class="navbar-nav mr-auto">

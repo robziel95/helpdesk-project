@@ -1,25 +1,124 @@
 @import './app/shared/variables.scss';
+@import './app/shared/components.scss';
 /* You can add global styles to this file, and also import other style files */
 html * {
   font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  color: $color-font-dark;
+}
 
-.section
-{
-  &-title{
-    margin-top: 40px;
-    margin-bottom: 25px;
-  }
-  &-separator{
-    margin-top: 20px;
-    border-top: 1px solid $color-separator-grey;
+.section-title{
+  margin-top: 40px;
+  margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.mat-progress-spinner{
+  margin: auto;
+  margin-bottom: 30px;
+  circle{
+    stroke: $color-orange;
   }
 }
 
-
 i.fa{
   margin-right: 7px;
+}
+
+.custom-accordion{
+  .mat-expansion-panel{
+    &-header{
+      min-height: 48px;
+      padding: 10px 15px;
+      .mat-panel-icon{
+        margin-right: 15px;
+        color: $color-orange;
+        @extend %flexbox-center;
+      }
+      &__status{
+        @extend %flexbox-center;
+        margin-right: 15px;
+      }
+      .mat-expansion-indicator{
+        align-self: stretch;
+        @extend %flexbox-center;
+        &::after{
+          color: $color-orange;
+        }
+      }
+      @media screen and (max-width: $breakpoint-sm){
+        flex-direction: column;
+        align-items: stretch;
+        &-title{
+          justify-content: flex-start;
+          span{
+            margin: 0 auto;
+            text-align: center;
+          }
+          .mat-panel-icon{
+            align-items: flex-start;
+            padding-top: 4px;
+          }
+        }
+        &__status{
+          margin: 15px 0;
+        }
+        .mat-content{
+          flex-direction: column;
+        }
+      }
+    }
+    &-content{
+      .mat-action-row{
+        margin: 0px 15px;
+        padding: 15px 0;
+      }
+    }
+    &-body{
+      margin: 0px 15px 15px;
+      padding: 0;
+      &__content{
+        padding-top: 15px;
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid rgba(0,0,0,.12);
+
+        @media screen and (min-width: $breakpoint-md){
+          flex-direction: row;
+        }
+        &__info{
+          white-space: nowrap;
+          margin-top: 15px;
+          p {
+            margin-bottom: 0;
+          }
+          @media screen and (min-width: $breakpoint-md){
+            margin-top: 0;
+            p{
+              padding-left: 25px;
+            }
+          }
+
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $breakpoint-sm){
+  .section-title{
+    font-size: 1.8rem;
+  }
+}
+
+@media screen and (min-width: $breakpoint-md){
+  .mat-paginator{
+    margin-top: -50px;
+  }
 }

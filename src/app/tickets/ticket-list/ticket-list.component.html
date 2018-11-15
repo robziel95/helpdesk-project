@@ -1,4 +1,4 @@
-<section class="section-tickets-list">
+<section class="section-ticket-list">
   <h2 class="section-title">Tickets list:</h2>
   <mat-paginator
     [length]="totalTickets"
@@ -8,18 +8,25 @@
     *ngIf="tickets.length > 0">
   </mat-paginator>
   <mat-spinner *ngIf="spinnerLoading"></mat-spinner>
-  <mat-accordion *ngIf="tickets.length > 0 && !spinnerLoading">
+  <mat-accordion *ngIf="tickets.length > 0 && !spinnerLoading" class="custom-accordion">
     <mat-expansion-panel *ngFor="let ticket of tickets; let indexIterator = index">
-      <mat-expansion-panel-header>
-        <div class="mat-content-id">Nr: {{ indexIterator }}</div>
+      <mat-expansion-panel-header [collapsedHeight]="'auto'" [expandedHeight]="'auto'">
+        <mat-panel-title><i class="fa fa-ticket mat-panel-icon" aria-hidden="true"></i><span>{{ ticket.title }}</span></mat-panel-title>
+        <!-- <div class="mat-content-id">Nr: {{ indexIterator }}</div>
         <div class="mat-content-text">{{ ticket.title }} {{ ticket.description }}</div>
-        <div class="mat-content-text">{{ ticket.priority }}</div>
-        <div class="mat-content-text">{{ ticket.status }}</div>
+        <div class="mat-content-text">{{ ticket.priority }}</div>-->
+        <div class="mat-expansion-panel-header__status">{{ ticket.status }}</div>
       </mat-expansion-panel-header>
-        <p>Esse tempor nisi anim officia aliqua ullamco officia enim voluptate.</p>
+
+      <div class="mat-expansion-panel-body__content">
+        <div>{{ ticket.description }}</div>
+        <div class="mat-expansion-panel-body__content__info">
+          <p>Ticket priority: <span>{{ ticket.priority }}</span></p>
+        </div>
+      </div>
       <mat-action-row *ngIf="(userIsAuthenticated && loggedInUserId == ticket.creator) || (userIsAuthenticated && loggedInUserIsAdmin)">
-        <a mat-button color="primary" [routerLink]="['/edit-ticket', ticket.id]">EDIT</a>
-        <button mat-button color="accent" (click)="onDelete(ticket.id)" >DELETE</button>
+        <a mat-raised-button [routerLink]="['/edit-ticket', ticket.id]" class="btn--orange">EDIT</a>
+        <button mat-raised-button (click)="onDelete(ticket.id)" class="btn--pinky">DELETE</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
