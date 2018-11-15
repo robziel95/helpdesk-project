@@ -28,7 +28,8 @@ body {
 }
 
 i.fa{
-  margin-right: 7px;
+  margin-right: 5px;
+  color: $color-orange;
 }
 
 .custom-accordion{
@@ -44,6 +45,11 @@ i.fa{
       &__status{
         @extend %flexbox-center;
         margin-right: 15px;
+        font-weight: 500;
+        color: $color-font-dark;
+      }
+      &-title{
+        color: $color-font-dark;
       }
       .mat-expansion-indicator{
         align-self: stretch;
@@ -75,6 +81,7 @@ i.fa{
       }
     }
     &-content{
+      color: $color-font-dark;
       .mat-action-row{
         margin: 0px 15px;
         padding: 15px 0;
@@ -87,18 +94,23 @@ i.fa{
         padding-top: 15px;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         border-top: 1px solid rgba(0,0,0,.12);
 
-        @media screen and (min-width: $breakpoint-md){
+        @media screen and (min-width: $breakpoint-sm){
           flex-direction: row;
         }
         &__info{
           white-space: nowrap;
           margin-top: 15px;
-          p {
+          p{
             margin-bottom: 0;
+            span{
+              margin-left: 7px;
+              font-weight: 500;
+            }
           }
-          @media screen and (min-width: $breakpoint-md){
+          @media screen and (min-width: $breakpoint-sm){
             margin-top: 0;
             p{
               padding-left: 25px;
