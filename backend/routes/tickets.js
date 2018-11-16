@@ -10,7 +10,8 @@ router.post("/api/tickets", checkAuth, (req, res, next) => {
     priority: req.body.priority,
     description: req.body.description,
     creator: req.userData.userId,
-    status: req.body.status
+    status: req.body.status,
+    creationDate: req.body.creationDate
   });
   //.body is from body parser
   ticket.save()
@@ -37,7 +38,8 @@ router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
     priority: req.body.priority,
     description: req.body.description,
     creator: req.body.creator,
-    status: req.body.status
+    status: req.body.status,
+    creationDate: req.body.date
   });
   let updateTicket;
   User.findById(req.userData.userId)

@@ -25,6 +25,7 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
     public usersService: UsersService
   ) {}
 
+
   ngOnInit() {
     this.route.paramMap.subscribe(
       (paramMap: ParamMap) => {
@@ -40,7 +41,8 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
               priority: ticketData.priority,
               description: ticketData.description,
               creator: ticketData.creator,
-              status: ticketData.status
+              status: ticketData.status,
+              creationDate: ticketData.creationDate
             }
           });
         }else{
@@ -66,8 +68,10 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
       priority: form.value.priority,
       description: form.value.description,
       creator: null,
-      status: 'Unassigned'
+      status: 'Unassigned',
+      creationDate: new Date().toISOString().slice(0,10).replace(/-/g,'/')
     };
+    console.log(this.inputTicketData.creationDate);
     this.spinnerLoading = true;
     if (this.mode === 'create'){
       this.ticketsService.addTicket(this.inputTicketData);
@@ -77,6 +81,7 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
       this.inputTicketData.id = this.ticketId;
       this.inputTicketData.status = form.value.status;
       this.inputTicketData.creator = this.editedTicket.creator;
+      this.inputTicketData.creationDate = this.editedTicket.creationDate;
       this.ticketsService.updateTicket(this.inputTicketData);
     }
   }

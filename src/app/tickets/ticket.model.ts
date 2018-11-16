@@ -4,5 +4,6 @@ export interface Ticket {
   priority: string;
   description: string;
   creator: string;
-  status: string
+  status: string;
+  creationDate: String;
 }

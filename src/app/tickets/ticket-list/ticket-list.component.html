@@ -12,9 +12,6 @@
     <mat-expansion-panel *ngFor="let ticket of tickets; let indexIterator = index">
       <mat-expansion-panel-header [collapsedHeight]="'auto'" [expandedHeight]="'auto'">
         <mat-panel-title><i class="fa fa-ticket mat-panel-icon" aria-hidden="true"></i><span>{{ ticket.title }}</span></mat-panel-title>
-        <!-- <div class="mat-content-id">Nr: {{ indexIterator }}</div>
-        <div class="mat-content-text">{{ ticket.title }} {{ ticket.description }}</div>
-        <div class="mat-content-text">{{ ticket.priority }}</div>-->
         <div class="mat-expansion-panel-header__status">
           <span class="pill pill--{{ ticket.status | lowercase}}">{{ ticket.status }}</span>
         </div>
@@ -27,7 +24,7 @@
             <p><i class="fa fa-bolt" aria-hidden="true"></i> Priority:</p><span>{{ ticket.priority }}</span>
           </div>
           <div>
-            <p><i class="fa fa-clock-o" aria-hidden="true"></i> Creation date:</p><span>12.12.2018</span>
+            <p><i class="fa fa-clock-o" aria-hidden="true"></i> Creation date:</p><span>{{ ticket.creationDate }}</span>
           </div>
         </div>
       </div>
