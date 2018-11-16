@@ -158,7 +158,19 @@ i.fa{
       color: $color-purple
     }
   }
+}
 
+.mat-dialog-container{
+  background-color: $color-orange;
+  color: $color-white-90;
+  .mat-dialog-title{
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+  .mat-dialog-content p{
+    font-size: 1.05rem;
+    margin-bottom: 25px;
+  }
 }
 
 @media screen and (min-width: $breakpoint-sm){
