@@ -1,7 +1,7 @@
 <section class="section-users-list">
   <h2 class="section-title">Users list:</h2>
   <mat-spinner *ngIf="spinnerLoading"></mat-spinner>
-  <mat-accordion *ngIf="users.length > 0 && !spinnerLoading">
+  <mat-accordion *ngIf="users.length > 0 && !spinnerLoading" class="custom-accordion">
     <mat-expansion-panel *ngFor="let user of users; let indexIterator = index">
       <mat-expansion-panel-header>
         <div class="mat-content-id">Nr: {{ indexIterator }}</div>

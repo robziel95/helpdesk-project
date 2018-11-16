@@ -15,13 +15,20 @@
         <!-- <div class="mat-content-id">Nr: {{ indexIterator }}</div>
         <div class="mat-content-text">{{ ticket.title }} {{ ticket.description }}</div>
         <div class="mat-content-text">{{ ticket.priority }}</div>-->
-        <div class="mat-expansion-panel-header__status">{{ ticket.status }}</div>
+        <div class="mat-expansion-panel-header__status">
+          <span class="pill pill--{{ ticket.status | lowercase}}">{{ ticket.status }}</span>
+        </div>
       </mat-expansion-panel-header>
 
       <div class="mat-expansion-panel-body__content">
         <div>{{ ticket.description }}</div>
         <div class="mat-expansion-panel-body__content__info">
-          <p><i class="fa fa-bolt" aria-hidden="true"></i> Priority:   <span>{{ ticket.priority }}</span></p>
+          <div>
+            <p><i class="fa fa-bolt" aria-hidden="true"></i> Priority:</p><span>{{ ticket.priority }}</span>
+          </div>
+          <div>
+            <p><i class="fa fa-clock-o" aria-hidden="true"></i> Creation date:</p><span>12.12.2018</span>
+          </div>
         </div>
       </div>
       <mat-action-row *ngIf="(userIsAuthenticated && loggedInUserId == ticket.creator) || (userIsAuthenticated && loggedInUserIsAdmin)">

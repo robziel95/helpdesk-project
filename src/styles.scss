@@ -28,8 +28,7 @@ body {
 }
 
 i.fa{
-  margin-right: 5px;
-  color: $color-orange;
+  margin-right: 7px;
 }
 
 .custom-accordion{
@@ -44,12 +43,17 @@ i.fa{
       }
       &__status{
         @extend %flexbox-center;
-        margin-right: 15px;
-        font-weight: 500;
-        color: $color-font-dark;
+        .pill{
+          @media screen and (min-width: $breakpoint-sm){
+            margin-right: 15px;
+          }
+        }
       }
       &-title{
         color: $color-font-dark;
+        span{
+          align-self: center;
+        }
       }
       .mat-expansion-indicator{
         align-self: stretch;
@@ -103,20 +107,36 @@ i.fa{
         &__info{
           white-space: nowrap;
           margin-top: 15px;
+          >div{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            margin-bottom: 5px;
+            padding-left: 10px;
+          }
+          &--vertical{
+            flex-direction: column;
+          }
           p{
             margin-bottom: 0;
-            span{
-              margin-left: 7px;
-              font-weight: 500;
+            position: relative;
+
+            i::before{
+              position: absolute;
+              top: 4px;
+              left: -10px;
             }
+          }
+          span{
+            margin-left: 7px;
+            font-weight: 500;
           }
           @media screen and (min-width: $breakpoint-sm){
             margin-top: 0;
-            p{
-              padding-left: 25px;
+            >div{
+              margin-left: 25px;
             }
           }
-
         }
       }
     }

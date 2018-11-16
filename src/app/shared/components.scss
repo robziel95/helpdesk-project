@@ -6,6 +6,7 @@
 
 .btn{
   font-weight: 500;
+
   &--orange{
     color: $color-white;
     background-color: $color-orange;
@@ -17,6 +18,32 @@
   &--pinky{
     color: $color-white;
     background-color: $color-pinky;
+  }
+}
+
+.pill{
+  @extend %flexbox-center;
+  font-weight: 500;
+  color: $color-white-90;
+  background-color: $color-pill-grey;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 9px;
+  cursor: default;
+  margin: 4px;
+  border-radius: 10px;
+
+  &--pending{
+    color: $color-white-90;
+    background-color: $color-pill-orange;
+  }
+  &--resolved{
+    color: $color-white-90;
+    background-color: $color-pill-green;
+  }
+  &--rejected{
+    color: $color-white-90;
+    background-color: $color-pill-red;
   }
 }
 
