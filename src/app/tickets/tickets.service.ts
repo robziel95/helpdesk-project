@@ -40,7 +40,8 @@ export class TicketsService {
               description: ticket.description,
               creator: ticket.creator,
               status: ticket.status,
-              creationDate: ticket.creationDate
+              creationDate: ticket.creationDate,
+              lastModificationDate: ticket.lastModificationDate
             };
           }), maxTickets: ticketData.maxTickets
         };
@@ -68,6 +69,7 @@ export class TicketsService {
       creator: string;
       status: string;
       creationDate: string;
+      lastModificationDate: string;
     }>('http://localhost:3000/api/tickets/' + id);
   }
 
@@ -83,7 +85,8 @@ export class TicketsService {
       description: inputTicket.description,
       creator: inputTicket.creator,
       status: inputTicket.status,
-      creationDate: inputTicket.creationDate
+      creationDate: inputTicket.creationDate,
+      lastModificationDate: inputTicket.lastModificationDate
     };
     this.http.put('http://localhost:3000/api/tickets/' + ticketToUpdate.id, ticketToUpdate).subscribe(
       (response) => {

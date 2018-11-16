@@ -24,8 +24,11 @@
             <p><i class="fa fa-bolt" aria-hidden="true"></i> Priority:</p><span>{{ ticket.priority }}</span>
           </div>
           <div>
-            <p><i class="fa fa-clock-o" aria-hidden="true"></i> Creation date:</p><span>{{ ticket.creationDate }}</span>
+            <p><i class="fa fa-calendar" aria-hidden="true"></i> Creation date:</p><span>{{ ticket.creationDate }}</span>
           </div>
+          <div>
+              <p><i class="fa fa-clock-o" aria-hidden="true"></i> Last modified:</p><span>{{ ticket.lastModificationDate }}</span>
+            </div>
         </div>
       </div>
       <mat-action-row *ngIf="(userIsAuthenticated && loggedInUserId == ticket.creator) || (userIsAuthenticated && loggedInUserIsAdmin)">

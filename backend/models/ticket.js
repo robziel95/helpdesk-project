@@ -7,6 +7,7 @@ const ticketSchema = mongoose.Schema({
   creator: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
   status: {type: String, required: true, default: 'unassigned'},
   creationDate: {type: String, required: true},
+  lastModificationDate: {type: String, required: true}
 });
 
 module.exports = mongoose.model('Ticket', ticketSchema);

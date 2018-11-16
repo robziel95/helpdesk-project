@@ -42,7 +42,8 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
               description: ticketData.description,
               creator: ticketData.creator,
               status: ticketData.status,
-              creationDate: ticketData.creationDate
+              creationDate: ticketData.creationDate,
+              lastModificationDate: ticketData.lastModificationDate
             }
           });
         }else{
@@ -58,6 +59,10 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
     );
   }
 
+  generateNewDate(){
+    return new Date().toISOString().slice(0,10).replace(/-/g,'/');
+  }
+
   onSaveTicket(form: NgForm){
     if (form.invalid){
       return;
@@ -69,7 +74,8 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
       description: form.value.description,
       creator: null,
       status: 'Unassigned',
-      creationDate: new Date().toISOString().slice(0,10).replace(/-/g,'/')
+      creationDate: this.generateNewDate(),
+      lastModificationDate: this.generateNewDate()
     };
     console.log(this.inputTicketData.creationDate);
     this.spinnerLoading = true;
@@ -82,6 +88,7 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
       this.inputTicketData.status = form.value.status;
       this.inputTicketData.creator = this.editedTicket.creator;
       this.inputTicketData.creationDate = this.editedTicket.creationDate;
+      this.inputTicketData.lastModificationDate = this.generateNewDate();
       this.ticketsService.updateTicket(this.inputTicketData);
     }
   }
