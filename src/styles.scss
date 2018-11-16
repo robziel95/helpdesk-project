@@ -143,6 +143,24 @@ i.fa{
   }
 }
 
+.mat-snack-bar-container{
+  background-color: $color-orange;
+  font-weight: 500;
+  .mat-simple-snackbar{
+    > span{
+      font-weight: 500;
+      font-size: 1rem;
+      color: $color-white-90;
+    }
+    &-action button{
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: $color-purple
+    }
+  }
+
+}
+
 @media screen and (min-width: $breakpoint-sm){
   .section-title{
     font-size: 1.8rem;
