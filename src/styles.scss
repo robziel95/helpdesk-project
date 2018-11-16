@@ -101,7 +101,7 @@ i.fa{
         justify-content: space-between;
         border-top: 1px solid rgba(0,0,0,.12);
 
-        @media screen and (min-width: $breakpoint-sm){
+        @media screen and (min-width: $breakpoint-md){
           flex-direction: row;
         }
         &__info{
@@ -131,7 +131,7 @@ i.fa{
             margin-left: 7px;
             font-weight: 500;
           }
-          @media screen and (min-width: $breakpoint-sm){
+          @media screen and (min-width: $breakpoint-md){
             margin-top: 0;
             >div{
               margin-left: 25px;
