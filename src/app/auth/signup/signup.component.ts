@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UsersService } from 'src/app/users/users.service';
-import { User } from 'src/app/users/user.model';
 import { Subscription } from 'rxjs';
 import { AuthUser } from '../auth-user.model';
 
@@ -35,9 +34,11 @@ export class SignupComponent implements OnInit, OnDestroy {
       surname: form.value.userSurname,
       email: form.value.email,
       password: form.value.password,
-      userType: 'normal'
+      userType: 'employee',
+      nickname: form.value.nickname
     };
     this.spinnerLoading = true;
+    console.log(this.inputUserData);
     this.usersService.addUser(this.inputUserData);
   }
 

@@ -17,7 +17,8 @@ router.post("/api/users/create", (req, res, next) => {
         email: req.body.email,
         //store everything normal, but password's encrypted hash
         password: hash,
-        userType: req.body.userType
+        userType: req.body.userType,
+        nickname: req.body.nickname
       });
         //.body is from body parser
       user.save().then(
@@ -50,7 +51,8 @@ router.put("/api/users/:id", checkAuth, (req, res, next) => {
         email: req.body.email,
         //store everything normal, but password's encrypted hash
         password: hash,
-        userType: req.body.userType
+        userType: req.body.userType,
+        nickname: req.body.nickname
       });
 
       User.updateOne({_id: req.params.id}, user)

@@ -30,6 +30,7 @@ export class UsersListComponent implements OnInit, OnDestroy{
       (usersChanged: User[]) => {
         this.spinnerLoading = false;
         this.users = usersChanged;
+        console.log(this.users);
       }
     );
     this.userIsAuthenticated = this.authService.getUserIsAuth();

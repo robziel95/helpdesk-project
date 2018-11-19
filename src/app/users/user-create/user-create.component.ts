@@ -51,7 +51,8 @@ export class UserCreateComponent implements OnInit, OnDestroy {
               surname: userData.surname,
               email: userData.email,
               password: userData.password,
-              userType: userData.userType
+              userType: userData.userType,
+              nickname: userData.nickname
             }
             this.userType = userData.userType;
           });
@@ -78,7 +79,8 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       surname: form.value.userSurname,
       email: form.value.email,
       password: form.value.password,
-      userType: "employee"
+      userType: "employee",
+      nickname: form.value.nickname
     };
     if(this.loggedUserIsAdmin && this.loggedUserIsAuthenticated){
       this.inputUserData.userType = form.value.type

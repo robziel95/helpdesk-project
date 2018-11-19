@@ -192,17 +192,23 @@ i.fa{
       }
     }
     &__content{
-      color: $color-cyan-dark;
       margin-left: 20px;
       border-bottom: 1px solid $color-cyan;
       flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       &__heading{
+        color: $color-cyan-dark;
+        font-weight: 700;
         font-size: 1.3rem;
         @media screen and (min-width: $breakpoint-md){
           font-size: 1.5rem;
         }
       }
-
+      span{
+        font-weight: 500;
+      }
     }
   }
   &__body{

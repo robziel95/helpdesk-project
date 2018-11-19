@@ -32,7 +32,8 @@ export class UsersService {
             surname: user.surname,
             email: user.email,
             password: user.password,
-            userType: user.userType
+            userType: user.userType,
+            nickname: user.nickname
           };
         });
       }
@@ -68,7 +69,15 @@ export class UsersService {
   }
 
   getUser(id: string){
-    return this.http.get<{_id: string; name: string; surname: string; email:string; password: string; userType: string}>('http://localhost:3000/api/users/' + id);
+    return this.http.get<{
+      _id: string;
+      name: string;
+      surname: string;
+      email:string;
+      password: string;
+      userType: string;
+      nickname: string;
+    }>('http://localhost:3000/api/users/' + id);
   }
 
   updateUser(inputUser: AuthUser){
@@ -78,7 +87,8 @@ export class UsersService {
       surname: inputUser.surname,
       email: inputUser.email,
       password: inputUser.password,
-      userType: inputUser.userType
+      userType: inputUser.userType,
+      nickname: inputUser.nickname
     };
     //check if someone wants to add admin permission
     //check if person is authenticated and has admin permission

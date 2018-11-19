@@ -22,6 +22,13 @@
         <mat-error *ngIf="surname.invalid">Please enter a Surname</mat-error>
       </mat-form-field>
       <mat-form-field>
+        <input matInput
+        name="nickname"
+        ngModel
+        placeholder="Nickname"
+        #surname="ngModel">
+      </mat-form-field>
+      <mat-form-field>
         <input matInput name="email" ngModel type="email" placeholder="E-mail" #emailInput="ngModel" required email>
         <mat-error *ngIf="emailInput.invalid">Please enter a valid email</mat-error>
       </mat-form-field>

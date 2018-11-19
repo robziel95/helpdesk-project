@@ -31,7 +31,8 @@ export class AuthService {
       surname: surname,
       email: email,
       userType: "",
-      password: password
+      password: password,
+      nickname: null
     };
     this.http.post<{token: string, expiresIn: number, loggedUser: any}>("http://localhost:3000/api/user/login", authData).subscribe(
       response => {
@@ -46,7 +47,8 @@ export class AuthService {
             surname: response.loggedUser.surname,
             email: response.loggedUser.email,
             password: response.loggedUser.password,
-            userType: response.loggedUser.userType
+            userType: response.loggedUser.userType,
+            nickname: response.loggedUser.nickname
           };
           this.authStatusListener.next(true);
           const expiresInDuration = response.expiresIn;
@@ -124,7 +126,8 @@ export class AuthService {
           surname: userData.surname,
           email: userData.email,
           password: userData.password,
-          userType: userData.userType
+          userType: userData.userType,
+          nickname: userData.nickname
         };
         this.setAuthTimer(expiresIn);//expiresIn is in miliseconds and Auth timer works with seconds
         this.authStatusListener.next(true);
@@ -154,13 +157,21 @@ export class AuthService {
 
   private clearAuthUser(){
     let clearUser: AuthUser = {
-      id: null, name: null, surname: null, email: null, password: null, userType: null
+      id: null, name: null, surname: null, email: null, password: null, userType: null, nickname: null
     };
     return clearUser;
   }
 
   getUser(id: string){
-    return this.http.get<{_id: string; name: string; surname: string; email:string; password: string; userType: string}>('http://localhost:3000/api/users/' + id);
+    return this.http.get<{
+    _id: string;
+    name: string;
+    surname: string;
+    email:string;
+    password: string;
+    userType: string;
+    nickname: string;
+  }>('http://localhost:3000/api/users/' + id);
   }
 
   logout(){

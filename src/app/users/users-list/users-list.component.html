@@ -24,6 +24,7 @@
         </div>
         <div class="box__header__content">
           <h4 class="box__header__content__heading">{{ user.name }} {{ user.surname }}</h4>
+          <p *ngIf="user.nickname">Nickname: <span>{{ user.nickname }}</span></p>
         </div>
       </div>
       <div class="box__body">
