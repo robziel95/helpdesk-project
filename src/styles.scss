@@ -216,18 +216,24 @@ i.fa{
     }
     &__content{
       margin-left: 20px;
+      padding-bottom: 10px;
+      padding-top: 5px;
       border-bottom: 1px solid $color-cyan;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       &__heading{
         color: $color-cyan-dark;
         font-weight: 700;
         font-size: 1.3rem;
+        margin-top: 5px;
         @media screen and (min-width: $breakpoint-md){
           font-size: 1.5rem;
         }
+      }
+      p{
+        margin-top: auto;
+        margin-bottom: auto;
       }
       span{
         font-weight: 500;
