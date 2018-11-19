@@ -75,7 +75,7 @@ export class AuthService {
   }
 
   getUserIsAdmin(){
-    return this.loggedInUser.userType === 'admin' ? true : false;
+    return this.loggedInUser.userType === 'administrator' ? true : false;
   }
 
   getUserId(){

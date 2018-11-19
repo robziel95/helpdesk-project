@@ -1,7 +1,8 @@
 <section class="section-users-list">
   <h2 class="section-title">Users list:</h2>
   <mat-spinner *ngIf="spinnerLoading"></mat-spinner>
-  <mat-accordion *ngIf="users.length > 0 && !spinnerLoading" class="custom-accordion">
+
+  <!-- <mat-accordion *ngIf="users.length > 0 && !spinnerLoading" class="custom-accordion">
     <mat-expansion-panel *ngFor="let user of users; let indexIterator = index">
       <mat-expansion-panel-header>
         <div class="mat-content-id">Nr: {{ indexIterator }}</div>
@@ -13,6 +14,29 @@
         <button mat-button color="accent" (click)="onDelete(user.id)" >DELETE</button>
       </mat-action-row>
     </mat-expansion-panel>
-  </mat-accordion>
+  </mat-accordion> -->
+
+  <section class="users-list" *ngIf="users.length > 0 && !spinnerLoading" >
+    <div class="box" *ngFor="let user of users; let indexIterator = index">
+      <div class="box__header">
+        <div class="box__header__picture">
+          <img src="backend\images\missing_user_avatar_png.png" alt="Missing user avatar">
+        </div>
+        <div class="box__header__content">
+          <h4 class="box__header__content__heading">{{ user.name }} {{ user.surname }}</h4>
+        </div>
+      </div>
+      <div class="box__body">
+        <div class="fa fa-cogs" aria-hidden="true">Role: <span>{{ user.userType | titlecase }} </span></div>
+        <div class="fa fa-mobile" aria-hidden="true">Phone number: <span>+48632111222</span></div>
+        <div class="fa fa-envelope" aria-hidden="true">E-mail: <span>{{ user.email }}</span></div>
+      </div>
+      <div class="box__footer">
+          <button mat-raised-button (click)="onDelete(user.id)" class="btn btn--pinky">Delete</button>
+          <a mat-raised-button [routerLink]="['/edit-user', user.id]" class="btn btn--cyan">Edit User</a>
+      </div>
+    </div>
+  </section>
+
   <p *ngIf="users.length <= 0">No users were added</p>
 </section>

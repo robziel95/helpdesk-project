@@ -45,7 +45,7 @@ router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
   User.findById(req.userData.userId)
   .then(
     user =>{
-      if(user.userType == 'admin'){
+      if(user.userType == 'administrator'){
         //If user sending request is admin -- update post by id only
         updateTicket = Ticket.updateOne({_id: req.params.id}, ticket);
       }else{
@@ -140,7 +140,7 @@ router.delete("/api/tickets/:id", checkAuth, (req, res, next) => {
   User.findById(req.userData.userId)
   .then(
     user =>{
-      if(user.userType == 'admin'){
+      if(user.userType == 'administrator'){
         //If user sending request is admin -- delete post by id
         deleteTicket = Ticket.deleteOne({ _id: req.params.id });
       }else{

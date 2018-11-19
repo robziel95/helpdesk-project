@@ -82,7 +82,7 @@ export class UsersService {
     };
     //check if someone wants to add admin permission
     //check if person is authenticated and has admin permission
-    if(userToUpdate.userType === 'admin' && (!this.authService.getUserIsAdmin() || !this.authService.getUserIsAuth())){
+    if(userToUpdate.userType === 'administrator' && (!this.authService.getUserIsAdmin() || !this.authService.getUserIsAuth())){
       this.router.navigate(['/login']);
       this.sharedService.openSnackbar.next('User update failed, you need to have administrator permission in order to grant admin permission');
       return;

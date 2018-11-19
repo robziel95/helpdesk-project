@@ -9,7 +9,10 @@ const app = express();
 
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/helpdesk')
+mongoose.connect(
+  'mongodb://localhost:27017/helpdesk'
+  //"mongodb+srv://robz:EnyhIPVvwPUkeqeE@cluster0-zpzps.mongodb.net/helpdesk?retryWrites=true"
+)
 .then(
   () => {
     console.log("connected to database");
