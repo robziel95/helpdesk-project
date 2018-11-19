@@ -33,12 +33,17 @@ i.fa{
 
 .custom-accordion{
   .mat-expansion-panel{
+    .fa{
+      margin-right: 7px;
+      color: $color-cyan;
+      font-size: 1.3em;
+    }
     &-header{
       min-height: 48px;
       padding: 10px 15px;
       .mat-panel-icon{
         margin-right: 15px;
-        color: $color-orange;
+        font-size: 1.2em;
         @extend %flexbox-center;
       }
       &__status{
@@ -51,6 +56,11 @@ i.fa{
       }
       &-title{
         color: $color-font-dark;
+        font-weight: 400;
+        font-size: 1rem;
+        @media screen and (min-width: $breakpoint-md){
+          font-size: 1.1rem;
+        }
         span{
           align-self: center;
         }
@@ -84,14 +94,7 @@ i.fa{
         }
       }
     }
-    &-content{
-      color: $color-font-dark;
-      .mat-action-row{
-        margin: 0px 15px;
-        padding: 15px 0;
-      }
-    }
-  &-body{
+    &-body{
       margin: 0px 15px;
       padding: 0;
       &__content{
@@ -99,10 +102,10 @@ i.fa{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        border-top: 1px solid rgba(0,0,0,.12);
-
+        border-top: 1px solid $color-cyan;
         @media screen and (min-width: $breakpoint-md){
           flex-direction: row;
+          font-size: 1rem;
         }
         &__info{
           white-space: nowrap;
@@ -111,7 +114,8 @@ i.fa{
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
-            margin-bottom: 5px;
+            align-items: center;
+            margin-bottom: 7px;
             padding-left: 10px;
           }
           &--vertical{
@@ -123,8 +127,9 @@ i.fa{
 
             i::before{
               position: absolute;
-              top: 4px;
-              left: -10px;
+              top: 50%;
+              transform: translateY(-50%);
+              left: -15px;
             }
           }
           span{
@@ -140,11 +145,22 @@ i.fa{
         }
       }
     }
+    &-content{
+      color: $color-font-dark;
+      .mat-action-row{
+        margin: 0px 15px;
+        padding: 15px 0;
+        border-top: 1px solid $color-cyan;
+        .btn{
+          margin-left: 10px;
+        }
+      }
+    }
   }
 }
 
 .mat-snack-bar-container{
-  background-color: $color-orange;
+  background-color: $color-cyan-dark;
   font-weight: 500;
   .mat-simple-snackbar{
     > span{
@@ -155,13 +171,14 @@ i.fa{
     &-action button{
       font-weight: 700;
       font-size: 1.1rem;
-      color: $color-purple
+      color: $color-orange;
+      background-color: $color-black-5;
     }
   }
 }
 
 .mat-dialog-container{
-  background-color: $color-orange;
+  background-color: $color-cyan-dark;
   color: $color-white-90;
   .mat-dialog-title{
     font-size: 1.8rem;
@@ -170,6 +187,12 @@ i.fa{
   .mat-dialog-content p{
     font-size: 1.05rem;
     margin-bottom: 25px;
+  }
+  &-action button{
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: $color-orange;
+    background-color: $color-black-5;
   }
 }
 

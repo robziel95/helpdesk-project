@@ -29,8 +29,8 @@
         </div>
       </div>
       <mat-action-row *ngIf="(userIsAuthenticated && loggedInUserId == ticket.creator) || (userIsAuthenticated && loggedInUserIsAdmin)">
-        <a mat-raised-button [routerLink]="['/edit-ticket', ticket.id]" class="btn--orange">EDIT</a>
-        <button mat-raised-button (click)="onDelete(ticket.id)" class="btn--pinky">DELETE</button>
+        <button mat-raised-button (click)="onDelete(ticket.id)" class="btn btn--pinky">DELETE</button>
+        <a mat-raised-button [routerLink]="['/edit-ticket', ticket.id]" class="btn btn--cyan">EDIT</a>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
