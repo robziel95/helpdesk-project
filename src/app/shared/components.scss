@@ -10,7 +10,10 @@
 
 .btn{
   font-weight: 500;
-
+  &--transparent{
+    color: $color-font-dark;
+    background-color: transparent;
+  }
   &--orange{
     color: $color-white;
     background-color: $color-orange;

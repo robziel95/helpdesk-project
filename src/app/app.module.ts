@@ -19,6 +19,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TextEditorDirective } from './text-editor/text-editor.directive';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       LoginComponent,
       SignupComponent,
       ErrorComponent,
-      PageNotFoundComponent
+      PageNotFoundComponent,
+      TextEditorDirective,
    ],
    imports: [
       BrowserModule,

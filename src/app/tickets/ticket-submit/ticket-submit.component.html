@@ -25,12 +25,16 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <input matInput
+          <textarea
+          matInput
+          appTextEditor
+          cdkTextareaAutosize
           name="description"
           [ngModel] = "editedTicket?.description"
           required
           placeholder="Description"
           #description="ngModel">
+          </textarea>
           <mat-error *ngIf="description.invalid">Please enter a description</mat-error>
         </mat-form-field>
         <mat-form-field *ngIf="mode=='edit'">
@@ -46,6 +50,28 @@
             <mat-option value="Rejected">Rejected</mat-option>
           </mat-select>
         </mat-form-field>
+        <div class="text-editor-container">
+          <h3>Wysiwyg text editor</h3>
+          <div *textEditor="let variable = controller" class="text-editor">
+              <ul class="text-editor__panel">
+                  <li><button (click)=variable.undo() class="btn"><i class="fa fa-undo" aria-hidden="true"></i></button></li>
+                  <li><button (click)=variable.redo() class="btn"><i class="fa fa-repeat" aria-hidden="true"></i></button></li>
+                  <li><button (click)=variable.bold() class="btn"><i class="fa fa-bold" aria-hidden="true"></i></button></li>
+                  <li><button (click)=variable.italic() class="btn"><i class="fa fa-italic" aria-hidden="true"></i></button></li>
+                  <li><button (click)=variable.underline() class="btn"><i class="fa fa-underline" aria-hidden="true"></i></button></li>
+                  <li><button (click)=variable.alignCenter() class="btn"><i class="fa fa-align-center" aria-hidden="true"></i></button></li>
+                  <li><button (click)=variable.alignLeft() class="btn"><i class="fa fa-align-left" aria-hidden="true"></i></button></li>
+                  <li><button (click)=variable.alignRight() class="btn"><i class="fa fa-align-right" aria-hidden="true"></i></button></li>
+                  <li><button (click)=variable.alignJustify() class="btn"><i class="fa fa-align-justify" aria-hidden="true"></i></button></li>
+                  <li><button (click)=variable.orderedList() class="btn"><i class="fa fa-list-ol" aria-hidden="true"></i></button></li>
+                  <li><button (click)=variable.unOrderedList() class="btn"><i class="fa fa-list-ul" aria-hidden="true"></i></button></li>
+                  <li><button (click)=variable.unOrderedList() class="btn"><i class="fa fa-eraser" aria-hidden="true"></i></button></li>
+                </ul>
+                <div  contenteditable="true" class="text-editor__inputarea">
+                  Please enter a description
+                </div>
+          </div>
+        </div>
         <button mat-raised-button type="submit" class="btn--cyan">Add Ticket</button>
     </form>
   </mat-card>
