@@ -5,5 +5,5 @@ export interface Ticket {
   description: string;
   creator: string;
   status: string;
-  creationDate: String;
+  creationDate: string;
 }
