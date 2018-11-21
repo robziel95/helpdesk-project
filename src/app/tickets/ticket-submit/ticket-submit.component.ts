@@ -16,6 +16,7 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
   editedTicket: Ticket;
   mode = 'create';
   spinnerLoading = false;
+  testdiv: string = "";
   private ticketId: string;
   private errorThrownSubscription: Subscription;
 
@@ -59,6 +60,8 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
   }
 
   onSaveTicket(form: NgForm){
+    console.log(form.value.title);
+    console.log(form.value.formDiv);
     if (form.invalid){
       return;
     }

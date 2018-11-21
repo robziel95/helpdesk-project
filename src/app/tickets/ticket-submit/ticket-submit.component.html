@@ -52,7 +52,7 @@
         </mat-form-field>
         <div class="text-editor-container">
           <h3>Wysiwyg text editor</h3>
-          <div *textEditor="let btnClick = controller" class="text-editor">
+          <div *textEditor="let btnClick = controller; let divField" class="text-editor">
             <ul class="text-editor__panel">
                 <li><button (click)=btnClick.undo() class="btn"><i class="fa fa-undo" aria-hidden="true"></i></button></li>
                 <li><button (click)=btnClick.redo() class="btn"><i class="fa fa-repeat" aria-hidden="true"></i></button></li>
@@ -67,9 +67,11 @@
                 <li><button (click)=btnClick.unOrderedList() class="btn"><i class="fa fa-list-ul" aria-hidden="true"></i></button></li>
                 <li><button (click)=btnClick.clear() class="btn"><i class="fa fa-eraser" aria-hidden="true"></i></button></li>
               </ul>
-              <div  contenteditable="true" class="text-editor__inputarea">
+              <!-- name="formDiv" [ngModel] = "testdiv"  -->
+              <div contenteditable="true" class="text-editor__inputarea">
                 Please enter a description
               </div>
+              <p>{{ divField }}</p>
           </div>
         </div>
         <button mat-raised-button type="submit" class="btn--cyan">Add Ticket</button>
