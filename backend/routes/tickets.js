@@ -56,7 +56,7 @@ router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
       updateTicket.then(
         result => {
           //nmodified is a field in result which tells if sth was modified
-          if (result.nModified > 0) {
+          if (result.n > 0) {
             res.status(200).json({message: 'Update successful!'})
           }else{
             res.status(401).json({message: 'Not authorized!'})

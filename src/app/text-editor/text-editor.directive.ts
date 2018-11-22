@@ -5,7 +5,7 @@ import { Directive, TemplateRef, ViewContainerRef, Input, OnInit, OnChanges, Ele
 })
 export class TextEditorDirective implements OnInit, OnChanges, AfterViewInit {
   context: any = null;
-  divContent = 'whatever';
+  divContent = '';
   textArea: string;
 
   constructor(
@@ -21,10 +21,6 @@ export class TextEditorDirective implements OnInit, OnChanges, AfterViewInit {
         bold: () => this.bold(),
         italic: () => this.italic(),
         underline: () => this.underline(),
-        alignCenter: () => this.alignCenter(),
-        alignLeft: () => this.alignLeft(),
-        alignRight: () => this.alignRight(),
-        alignJustify: () => this.alignJustify(),
         orderedList: () => this.orderedList(),
         unOrderedList: () => this.unOrderedList(),
         clear: () => this.clear()
@@ -32,6 +28,8 @@ export class TextEditorDirective implements OnInit, OnChanges, AfterViewInit {
       $implicit: this.divContent
     }
     this.viewContainer.createEmbeddedView(this.templateRef, this.context );
+    //initialize div (div gets value from component), read value of this div and pass its value to input
+
   }
 
   ngOnChanges(){
@@ -39,13 +37,17 @@ export class TextEditorDirective implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit(){
-    //let element = document.querySelector('div[contenteditable]');
-    //let myDiv = this.elementRef.nativeElement.querySelector('div[contenteditable]');
-    //console.log(this);
     let that = this;
+    Promise.resolve(null).then(() => this.context.$implicit = document.querySelector('.text-editor-container div[contenteditable]').innerHTML);
     document.querySelector('.text-editor-container div[contenteditable]').addEventListener("input", function() {
       that.divContent = this.innerHTML;
+      that.context.$implicit = that.divContent;
     }, false);
+
+  }
+
+  setImplicit(){
+    this.context.$implicit = this.divContent
   }
 
   undo(){
@@ -66,22 +68,6 @@ export class TextEditorDirective implements OnInit, OnChanges, AfterViewInit {
 
   underline(){
     document.execCommand('underline', false, null);
-  }
-
-  alignCenter(){
-    document.execCommand('justifycenter', false, null);
-  }
-
-  alignLeft(){
-    document.execCommand('justifyleft', false, null);
-  }
-
-  alignRight(){
-    document.execCommand('justifyright', false, null);
-  }
-
-  alignJustify(){
-    document.execCommand('justifyFull', false, null);
   }
 
   orderedList(){

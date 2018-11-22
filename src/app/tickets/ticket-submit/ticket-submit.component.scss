@@ -35,18 +35,33 @@
       }
     }
   }
-  &__inputarea{
-    border: 1px solid $color-separator-grey;
+
+  &__inputContainer{
+    position: relative;
+  }
+
+  &__editableDiv{
+    border-bottom: 1px solid rgba(0,0,0,.42);
+    margin-top: 30px;
     padding: 2px 3px;
     width: 100%;
-    min-height: 56px;
+    min-height: 36px;
     margin-bottom: 20px;
     color: $color-font-dark;
     resize: vertical;
-    -moz-appearance: textfield-multiline;
-    -webkit-appearance: textarea;
-    font: medium -moz-fixed;
-    font: -webkit-small-control;
     overflow: auto;
+    outline: none;
+    z-index: 2;
+  }
+
+  &__editableDivSubstitute{
+    position: absolute;
+    top: -14px;
+    left: 2px;
+    z-index: 0;
+    pointer-events: none;
+    textarea{
+      visibility: hidden;
+    }
   }
 }

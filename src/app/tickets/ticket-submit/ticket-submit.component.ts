@@ -67,15 +67,11 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
       id: null,
       title: form.value.title,
       priority: form.value.priority,
-      description: null,
+      description: form.value.description,
       creator: null,
       status: 'Unassigned',
       creationDate: new Date().toISOString().slice(0,10).replace(/-/g,'/')
     };
-
-    let divContent = document.querySelector('.text-editor-container div[contenteditable]');
-    this.inputTicketData.description = divContent.innerHTML
-    console.log(this.inputTicketData.description);
 
     this.spinnerLoading = true;
     if (this.mode === 'create'){
