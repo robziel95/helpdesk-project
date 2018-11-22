@@ -60,8 +60,6 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
   }
 
   onSaveTicket(form: NgForm){
-    console.log(form.value.title);
-    console.log(form.value.formDiv);
     if (form.invalid){
       return;
     }
@@ -69,12 +67,16 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
       id: null,
       title: form.value.title,
       priority: form.value.priority,
-      description: form.value.description,
+      description: null,
       creator: null,
       status: 'Unassigned',
       creationDate: new Date().toISOString().slice(0,10).replace(/-/g,'/')
     };
-    console.log(this.inputTicketData.creationDate);
+
+    let divContent = document.querySelector('.text-editor-container div[contenteditable]');
+    this.inputTicketData.description = divContent.innerHTML
+    console.log(this.inputTicketData.description);
+
     this.spinnerLoading = true;
     if (this.mode === 'create'){
       this.ticketsService.addTicket(this.inputTicketData);

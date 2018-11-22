@@ -18,7 +18,7 @@
       </mat-expansion-panel-header>
 
       <div class="mat-expansion-panel-body__content">
-        <div>{{ ticket.description }}</div>
+        <div [innerHTML]="ticket.description"></div>
         <div class="mat-expansion-panel-body__content__info">
           <div>
             <p><i class="fa fa-bolt" aria-hidden="true"></i> Priority:</p><span>{{ ticket.priority }}</span>

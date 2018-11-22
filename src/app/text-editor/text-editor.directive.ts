@@ -43,16 +43,9 @@ export class TextEditorDirective implements OnInit, OnChanges, AfterViewInit {
     //let myDiv = this.elementRef.nativeElement.querySelector('div[contenteditable]');
     //console.log(this);
     let that = this;
-    console.log(this.elementRef);
-      document.querySelector('div[contenteditable]').addEventListener("input", function() {
-      //this.elementRef.nativeElement.querySelector('div[contenteditable]').addEventListener("input", function() {
+    document.querySelector('.text-editor-container div[contenteditable]').addEventListener("input", function() {
       that.divContent = this.innerHTML;
-
-      console.log(that.divContent);
     }, false);
-
-    //this.divContent = element.innerHTML;
-    //console.log(this.divContent);
   }
 
   undo(){
