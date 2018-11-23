@@ -7,7 +7,7 @@ export class TextEditorDirective implements OnInit, OnChanges, AfterViewInit {
   context: any = null;
   divContent = '';
   textArea: string;
-
+  divContentEditableField = null;
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
@@ -23,11 +23,14 @@ export class TextEditorDirective implements OnInit, OnChanges, AfterViewInit {
         underline: () => this.underline(),
         orderedList: () => this.orderedList(),
         unOrderedList: () => this.unOrderedList(),
-        clear: () => this.clear()
+        clear: () => this.clear(),
+        //emoji: (name: string) => console.log(name)
+        emoji: (name: string) => this.emoji(name)
       },
       $implicit: this.divContent
     }
     this.viewContainer.createEmbeddedView(this.templateRef, this.context );
+    this.divContentEditableField =  document.querySelector('.text-editor-container div[contenteditable]');
     //initialize div (div gets value from component), read value of this div and pass its value to input
 
   }
@@ -46,8 +49,18 @@ export class TextEditorDirective implements OnInit, OnChanges, AfterViewInit {
 
   }
 
-  setImplicit(){
-    this.context.$implicit = this.divContent
+  emoji(name: string){
+    // var selection = document.getSelection();
+    // var cursorPos = selection.anchorOffset;
+    // var oldContent = selection.anchorNode.nodeValue;
+    // var toInsert = '<img src="backend\images\missing_user_avatar_png.png" alt="Missing user avatar">';
+    // var newContent = oldContent.substring(0, cursorPos) + toInsert + oldContent.substring(cursorPos);
+    // document.querySelector('.text-editor-container div[contenteditable]').innerHTML
+    // console.log(newContent);
+
+    document.getElementById('divContenteditable').focus();
+    let path = `<img class="my-icons" src="backend\\images\\emoji\\png\\${name}.png" alt="Emoji ${name}">`
+    document.execCommand('insertHTML', false, path );
   }
 
   undo(){

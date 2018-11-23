@@ -61,6 +61,53 @@
               <li><button (click)=btnClick.clear() type="button" class="btn"><i class="fa fa-eraser" aria-hidden="true"></i></button></li>
               <li><button (click)=btnClick.undo() type="button" class="btn"><i class="fa fa-undo" aria-hidden="true"></i></button></li>
               <li><button (click)=btnClick.redo() type="button" class="btn"><i class="fa fa-repeat" aria-hidden="true"></i></button></li>
+              <li><button (click)="btnClick.emoji('smiling')" type="button" class="btn"><i class="fa fa-smile-o" aria-hidden="true"></i></button></li>
+              <li>
+                <button class="btn dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-smile-o" aria-hidden="true"></i>
+                </button>
+                <div class="emoticons-dropdown dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                  <div class="emoticons-dropdown__emojis">
+                      <button type="button" (click)="btnClick.emoji('smiling')"><img src="backend\images\emoji\png\smiling.png" alt="Emoji angry"></button>
+                      <button (click)="btnClick.emoji('confused')"><img src="backend\images\emoji\png\confused.png" alt="Emoji confused"></button>
+                      <button (click)="btnClick.emoji('confused-1')"><img src="backend\images\emoji\png\confused-1.png" alt="Emoji confused-1"></button>
+                      <button (click)="btnClick.emoji('sad')"><img src="backend\images\emoji\png\sad.png" alt="Emoji sad"></button>
+                      <button (click)="btnClick.emoji('happy')"><img src="backend\images\emoji\png\happy.png" alt="Emoji happy"></button>
+                      <button (click)="btnClick.emoji('happy-1')"><img src="backend\images\emoji\png\happy-1.png" alt="Emoji happy-1"></button>
+                      <button (click)="btnClick.emoji('happy-2')"><img src="backend\images\emoji\png\happy-2.png" alt="Emoji happy-2"></button>
+                      <button (click)="btnClick.emoji('happy-3')"><img src="backend\images\emoji\png\happy-3.png" alt="Emoji happy-3"></button>
+                      <button (click)="btnClick.emoji('happy-4')"><img src="backend\images\emoji\png\happy-4.png" alt="Emoji happy-4"></button>
+                      <button (click)="btnClick.emoji('wink')"><img src="backend\images\emoji\png\wink.png" alt="Emoji wink"></button>
+                      <button (click)="btnClick.emoji('kissing')"><img src="backend\images\emoji\png\kissing.png" alt="Emoji kissing"></button>
+                      <button (click)="btnClick.emoji('in-love')"><img src="backend\images\emoji\png\in-love.png" alt="Emoji in-love"></button>
+                      <button (click)="btnClick.emoji('tongue-out')"><img src="backend\images\emoji\png\tongue-out.png" alt="Emoji tongue-out"></button>
+                      <button (click)="btnClick.emoji('tongue-out-1')"><img src="backend\images\emoji\png\tongue-out-1.png" alt="Emoji tongue-out-1"></button>
+                      <button (click)="btnClick.emoji('smart')"><img src="backend\images\emoji\png\smart.png" alt="Emoji smart"></button>
+                      <button (click)="btnClick.emoji('angry')"><img src="backend\images\emoji\png\angry.png" alt="Emoji angry"></button>
+                      <button (click)="btnClick.emoji('angry-1')"><img src="backend\images\emoji\png\angry-1.png" alt="Emoji angry-1"></button>
+                      <button (click)="btnClick.emoji('mad')"><img src="backend\images\emoji\png\mad.png" alt="Emoji mad"></button>
+                      <button (click)="btnClick.emoji('unhappy')"><img src="backend\images\emoji\png\unhappy.png" alt="Emoji unhappy"></button>
+                      <button (click)="btnClick.emoji('emoticons')"><img src="backend\images\emoji\png\emoticons.png" alt="Emoji emoticons"></button>
+                      <button (click)="btnClick.emoji('embarrassed')"><img src="backend\images\emoji\png\embarrassed.png" alt="Emoji embarrassed"></button>
+                      <button (click)="btnClick.emoji('crying')"><img src="backend\images\emoji\png\crying.png" alt="Emoji crying"></button>
+                      <button (click)="btnClick.emoji('crying-1')"><img src="backend\images\emoji\png\crying-1.png" alt="Emoji crying-1"></button>
+                      <button (click)="btnClick.emoji('suspicious')"><img src="backend\images\emoji\png\suspicious.png" alt="Emoji suspicious"></button>
+                      <button (click)="btnClick.emoji('suspicious-1')"><img src="backend\images\emoji\png\suspicious-1.png" alt="Emoji suspicious-1"></button>
+                      <button (click)="btnClick.emoji('bored')"><img src="backend\images\emoji\png\bored.png" alt="Emoji bored"></button>
+                      <button (click)="btnClick.emoji('bored-1')"><img src="backend\images\emoji\png\bored-1.png" alt="Emoji bored-1"></button>
+                      <button (click)="btnClick.emoji('bored-2')"><img src="backend\images\emoji\png\bored-2.png" alt="Emoji bored-2"></button>
+                      <button (click)="btnClick.emoji('surprised')"><img src="backend\images\emoji\png\surprised.png" alt="Emoji surprised"></button>
+                      <button (click)="btnClick.emoji('surprised-1')"><img src="backend\images\emoji\png\surprised-1.png" alt="Emoji surprised-1"></button>
+                      <button (click)="btnClick.emoji('secret')"><img src="backend\images\emoji\png\secret.png" alt="Emoji secret"></button>
+                      <button (click)="btnClick.emoji('quiet')"><img src="backend\images\emoji\png\quiet.png" alt="Emoji quiet"></button>
+                      <button (click)="btnClick.emoji('ill')"><img src="backend\images\emoji\png\ill.png" alt="Emoji ill"></button>
+                      <button (click)="btnClick.emoji('nerd')"><img src="backend\images\emoji\png\nerd.png" alt="Emoji nerd"></button>
+                      <button (click)="btnClick.emoji('ninja')"><img src="backend\images\emoji\png\ninja.png" alt="Emoji ninja"></button>
+                      <button (click)="btnClick.emoji('happy')"><img src="backend\images\emoji\png\happy.png" alt="Emoji happy"></button>
+                      <button (click)="btnClick.emoji('poop')"><img src="backend\images\emoji\png\poop.png" alt="Emoji poop"></button>
+                  </div>
+                </div>
+              </li>
             </ul>
             <!-- name="formDiv" [ngModel] = "testdiv"  -->
 
