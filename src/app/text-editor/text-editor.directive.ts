@@ -30,7 +30,6 @@ export class TextEditorDirective implements OnInit, OnChanges, AfterViewInit {
       $implicit: this.divContent
     }
     this.viewContainer.createEmbeddedView(this.templateRef, this.context );
-    this.viewContainer.createEmbeddedView(this.templateRef, this.context );
     this.divContentEditableField =  document.querySelector('.text-editor-container div[contenteditable]');
     //initialize div (div gets value from component), read value of this div and pass its value to input
 
