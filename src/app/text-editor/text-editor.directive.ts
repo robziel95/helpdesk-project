@@ -1,4 +1,4 @@
-import { Directive, TemplateRef, ViewContainerRef, Input, OnInit, OnChanges, ElementRef, AfterViewInit } from '@angular/core';
+import { Directive, TemplateRef, ViewContainerRef, OnInit, OnChanges, AfterViewInit } from '@angular/core';
 
 @Directive({
   selector: '[textEditor]'
@@ -8,10 +8,10 @@ export class TextEditorDirective implements OnInit, OnChanges, AfterViewInit {
   divContent = '';
   textArea: string;
   divContentEditableField = null;
+
   constructor(
     private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef,
-    private elementRef: ElementRef) { }
+    private viewContainer: ViewContainerRef) { }
 
   ngOnInit(){
     this.context = {
@@ -29,6 +29,7 @@ export class TextEditorDirective implements OnInit, OnChanges, AfterViewInit {
       },
       $implicit: this.divContent
     }
+    this.viewContainer.createEmbeddedView(this.templateRef, this.context );
     this.viewContainer.createEmbeddedView(this.templateRef, this.context );
     this.divContentEditableField =  document.querySelector('.text-editor-container div[contenteditable]');
     //initialize div (div gets value from component), read value of this div and pass its value to input

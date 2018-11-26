@@ -4,7 +4,7 @@ const ticketSchema = mongoose.Schema({
   title: {type: String, required: true},
   priority: {type: String, required: true},
   description: {type: String, required: true},
-  creator: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
+  creator: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
   status: {type: String, required: true, default: 'unassigned'},
   creationDate: {type: String, required: true},
 });

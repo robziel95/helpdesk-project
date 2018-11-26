@@ -10,7 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 
 mongoose.connect(
-  'mongodb://localhost:27017/helpdesk'
+  'mongodb://localhost:27017/helpdeskSeed'
   //"mongodb+srv://robz:EnyhIPVvwPUkeqeE@cluster0-zpzps.mongodb.net/helpdesk?retryWrites=true"
 )
 .then(
