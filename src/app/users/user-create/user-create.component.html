@@ -2,47 +2,36 @@
   <h2 class="section-title">Create new user:</h2>
   <mat-spinner *ngIf="spinnerLoading"></mat-spinner>
   <mat-card class="usersInputArea">
-      <form (submit)="onSaveUser(postForm)" #postForm="ngForm"  *ngIf="!spinnerLoading">
+      <form [formGroup]="form" (submit)="onSaveUser()" *ngIf="!spinnerLoading">
         <mat-form-field>
           <input matInput type="text"
-          name="userName"
-          [ngModel] = "editedUser?.name"
-          required
-          placeholder= "Name"
-          #name="ngModel">
-          <mat-error *ngIf="name.invalid">Please enter a Name</mat-error>
+          formControlName="userName"
+          placeholder= "Name">
+          <mat-error *ngIf="form.get('userName').invalid">Please enter a Name</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input matInput
-          name="userSurname"
-          [ngModel] = "editedUser?.surname"
-          required
-          placeholder="Surname"
-          #surname="ngModel">
+          formControlName="userSurname"
+          placeholder="Surname">
 
-          <mat-error *ngIf="surname.invalid">Please enter a Surname</mat-error>
+          <mat-error *ngIf="form.get('userSurname').invalid">Please enter a Surname</mat-error>
         </mat-form-field>
         <mat-form-field>
             <input matInput
-            name="nickname"
-            [ngModel] = "editedUser?.nickname"
-            placeholder="Nickname"
-            #surname="ngModel">
+            formControlName="nickname"
+            placeholder="Nickname">
           </mat-form-field>
         <mat-form-field>
           <input matInput
-          name="email"
-          [ngModel] = "editedUser?.email"
+          formControlName="email"
           type="email"
           placeholder="E-mail"
-          #emailInput="ngModel"
-          required email>
-          <mat-error *ngIf="emailInput.invalid">Please enter a valid email</mat-error>
+          email>
+          <mat-error *ngIf="form.get('email').invalid">Please enter a valid email</mat-error>
         </mat-form-field>
         <mat-form-field *ngIf="loggedUserIsAuthenticated && loggedUserIsAdmin">
           <mat-select
-          name="type"
-          [ngModel] = "editedUser?.userType"
+          formControlName="userType"
           required
           placeholder="Change user type"
           >
@@ -58,20 +47,16 @@
           <div class=form-field-image__content>
             <label class="upload-file-label" for="uploadFileField">Change user avatar</label>
             <button mat-flat-button class="btn--cyan" type="button" (click)="filePicker.click()">Choose File</button>
-            <input id="uploadFileField" name="uploadFile" type="file" #filePicker (change)="onImageChanged($event)">
-
+            <input id="uploadFileField" type="file" #filePicker (change)="onImageChanged($event)">
           </div>
         </div>
         <mat-form-field>
           <input matInput
-          name="password"
+          formControlName="password"
           type="password"
-          ngModel
           matInput
-          placeholder= "Password"
-          #passwordInput="ngModel"
-          required>
-          <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
+          placeholder= "Password">
+          <mat-error *ngIf="form.get('password').invalid">Please enter a valid password.</mat-error>
         </mat-form-field>
       <button mat-raised-button type="submit" class="btn--cyan">Add User</button>
     </form>

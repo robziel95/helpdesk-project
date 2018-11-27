@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { UsersService } from '../users.service';
 import { Subscription } from 'rxjs';
@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class UserCreateComponent implements OnInit, OnDestroy {
   inputUserData: AuthUser;
+  form: FormGroup;
   mode = 'create';
   spinnerLoading = false;
   editedUser: AuthUser;
@@ -20,7 +21,6 @@ export class UserCreateComponent implements OnInit, OnDestroy {
   loggedUserIsAuthenticated = false;
   loggedUserIsAdmin = false;
   imagePreview = 'backend\\images\\missing_user_avatar_png.png';
-  inputImageFile: any;
   private userId: string;
   private createUserErrorSub: Subscription;
   private authListenerSubscription: Subscription;
@@ -30,6 +30,16 @@ export class UserCreateComponent implements OnInit, OnDestroy {
                 private authService: AuthService) { }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      userName: new FormControl(null, {validators: [Validators.required]}),
+      userSurname: new FormControl(null, {validators: [Validators.required]}),
+      email: new FormControl(null, {validators: [Validators.required]}),
+      password: new FormControl(null, {validators: [Validators.required]}),
+      userType: new FormControl(null, {validators: [Validators.required]}),
+      nickname: new FormControl(null, {}),
+      avatar: new FormControl(null, {}),
+    });
+
     this.loggedUserIsAuthenticated = this.authService.getUserIsAuth();
     this.loggedUserIsAdmin = this.authService.getUserIsAdmin();
     this.authListenerSubscription = this.authService.getAuthStatusListener()
@@ -55,7 +65,16 @@ export class UserCreateComponent implements OnInit, OnDestroy {
               password: userData.password,
               userType: userData.userType,
               nickname: userData.nickname
-            }
+            };
+            console.log(this.editedUser );
+            this.form.setValue({
+              userName: userData.name,
+              userSurname: userData.surname,
+              email: userData.email,
+              password: '',
+              userType: userData.userType,
+              nickname: userData.nickname
+            });
             this.userType = userData.userType;
           });
         }else{
@@ -71,21 +90,21 @@ export class UserCreateComponent implements OnInit, OnDestroy {
     );
   }
 
-  onSaveUser(form: NgForm){
-    if (form.invalid){
+  onSaveUser(){
+    if (this.form.invalid){
       return;
     }
     this.inputUserData = {
       id: null,
-      name: form.value.userName,
-      surname: form.value.userSurname,
-      email: form.value.email,
-      password: form.value.password,
+      name: this.form.value.userName,
+      surname: this.form.value.userSurname,
+      email: this.form.value.email,
+      password: this.form.value.password,
       userType: "employee",
-      nickname: form.value.nickname
+      nickname: this.form.value.nickname
     };
     if(this.loggedUserIsAdmin && this.loggedUserIsAuthenticated){
-      this.inputUserData.userType = form.value.type
+      this.inputUserData.userType = this.form.value.type
     }else{
       this.inputUserData.userType = this.editedUser.userType;
     }
@@ -101,8 +120,8 @@ export class UserCreateComponent implements OnInit, OnDestroy {
 
   onImageChanged(event: Event){
     const file = (event.target as HTMLInputElement).files[0];
-    this.inputImageFile = file;
-
+    this.form.patchValue({avatar: file});
+    this.form.get('avatar').updateValueAndValidity();
     //create reader
     const reader = new FileReader();
     //init reader
