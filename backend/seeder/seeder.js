@@ -140,6 +140,7 @@ for (var i = 0; i < users.length; i++){
     }
   });
 }
+
 function populateTickets(){
   //console.log(users);
   //console.log(users[0]);

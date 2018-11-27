@@ -19,7 +19,8 @@ export class UserCreateComponent implements OnInit, OnDestroy {
   userType = "";
   loggedUserIsAuthenticated = false;
   loggedUserIsAdmin = false;
-  imageTest = 'backend\\images\\missing_user_avatar_png.png';
+  imagePreview = 'backend\\images\\missing_user_avatar_png.png';
+  inputImageFile: any;
   private userId: string;
   private createUserErrorSub: Subscription;
   private authListenerSubscription: Subscription;
@@ -100,13 +101,16 @@ export class UserCreateComponent implements OnInit, OnDestroy {
 
   onImageChanged(event: Event){
     const file = (event.target as HTMLInputElement).files[0];
-    //this.imageTest = file;
-    console.log(file);
-    console.log(this.imageTest);
+    this.inputImageFile = file;
+
+    //create reader
     const reader = new FileReader();
+    //init reader
     reader.onload = () => {
-      this.imageTest = <string>reader.result;
+      //execute after reading
+      this.imagePreview = <string>reader.result;
     };
+    //start reader (read 'file')
     reader.readAsDataURL(file);
   }
 

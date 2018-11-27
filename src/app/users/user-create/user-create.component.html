@@ -52,12 +52,14 @@
           </mat-select>
         </mat-form-field>
         <div class="form-field-image">
-          <div class=form-field-image__image>
-            <img [src]="imageTest" alt="Missing user avatar">
+          <div class=form-field-image__image *ngIf="imagePreview !== '' && imagePreview">
+            <img [src]="imagePreview" alt="Missing user avatar">
           </div>
           <div class=form-field-image__content>
-            <p>Change user avatar</p>
-            <input name="uploadFile" type="file" #filePicker (change)="onImageChanged($event)">
+            <label class="upload-file-label" for="uploadFileField">Change user avatar</label>
+            <button mat-flat-button class="btn--cyan" type="button" (click)="filePicker.click()">Choose File</button>
+            <input id="uploadFileField" name="uploadFile" type="file" #filePicker (change)="onImageChanged($event)">
+
           </div>
         </div>
         <mat-form-field>
