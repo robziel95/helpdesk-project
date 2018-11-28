@@ -41,7 +41,7 @@
           </mat-select>
         </mat-form-field>
         <div class="form-field-image">
-          <div class=form-field-image__image *ngIf="imagePreview !== '' && imagePreview">
+          <div class=form-field-image__image *ngIf="imagePreview !== '' && imagePreview && form.get('avatar').valid  ">
             <img [src]="imagePreview" alt="Missing user avatar">
           </div>
           <div class=form-field-image__content>

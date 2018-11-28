@@ -5,6 +5,7 @@ import { UsersService } from '../users.service';
 import { Subscription } from 'rxjs';
 import { AuthUser } from 'src/app/auth/auth-user.model';
 import { AuthService } from 'src/app/auth/auth.service';
+import { mimeTypeImage } from '../../validators/validate-image-mime.validator'
 
 @Component({
   selector: 'app-user-create',
@@ -37,7 +38,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       password: new FormControl(null, {validators: [Validators.required]}),
       userType: new FormControl(null, {validators: [Validators.required]}),
       nickname: new FormControl(null, {}),
-      avatar: new FormControl(null, {}),
+      avatar: new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeTypeImage]}),
     });
 
     this.loggedUserIsAuthenticated = this.authService.getUserIsAuth();
@@ -73,7 +74,8 @@ export class UserCreateComponent implements OnInit, OnDestroy {
               email: userData.email,
               password: '',
               userType: userData.userType,
-              nickname: userData.nickname
+              nickname: userData.nickname,
+              avatar: null
             });
             this.userType = userData.userType;
           });
