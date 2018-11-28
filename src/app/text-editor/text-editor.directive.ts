@@ -59,7 +59,7 @@ export class TextEditorDirective implements OnInit, OnChanges, AfterViewInit {
     // console.log(newContent);
 
     document.getElementById('divContenteditable').focus();
-    let path = `<img class="my-icons" src="backend\\images\\emoji\\png\\${name}.png" alt="Emoji ${name}">`
+    let path = `<img class="my-icons" src="backend\\files\\images\\emoji\\png\\${name}.png" alt="Emoji ${name}">`
     document.execCommand('insertHTML', false, path );
   }
 
