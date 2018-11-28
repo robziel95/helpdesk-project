@@ -21,7 +21,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
   userType = "";
   loggedUserIsAuthenticated = false;
   loggedUserIsAdmin = false;
-  imagePreview = 'backend\\images\\missing_user_avatar_png.png';
+  imagePreview = 'backend\\files\\images\\missing_user_avatar.png';
   private userId: string;
   private createUserErrorSub: Subscription;
   private authListenerSubscription: Subscription;
@@ -67,7 +67,6 @@ export class UserCreateComponent implements OnInit, OnDestroy {
               userType: userData.userType,
               nickname: userData.nickname
             };
-            console.log(this.editedUser );
             this.form.setValue({
               userName: userData.name,
               userSurname: userData.surname,
@@ -112,7 +111,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
     }
     this.spinnerLoading = true;
     if (this.mode === 'create'){
-      this.usersService.addUser(this.inputUserData);
+      this.usersService.addUser(this.inputUserData, this.form.value.avatar);
     }
     else{
       this.inputUserData.id = this.userId;

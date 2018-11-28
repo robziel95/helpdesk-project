@@ -56,16 +56,22 @@ export class UsersService {
     return this.errorThrown.asObservable();
   }
 
-  addUser(inputUser: User){
-    const newUser: User = inputUser;
-    this.http.post<{message: string, userId: string}>('http://localhost:3000/api/users/create', newUser)
-    .subscribe(
-    ()=>{
-      this.router.navigate(['/users']);
-    }, error => {
-      this.errorThrown.next();
+  addUser(inputUser: AuthUser, avatar: File){
+    //send formData instead of user JSON, formData allow to combine text values and blob (files)
+    let postTest = new FormData;
+    for(var key in inputUser){
+      postTest.append(key, inputUser[key]);
     }
-  );
+    postTest.append("avatar", avatar);
+
+    this.http.post<{message: string, result: any}>('http://localhost:3000/api/users/create', postTest)
+    .subscribe(
+      ()=>{
+        this.router.navigate(['/users']);
+      }, error => {
+        this.errorThrown.next();
+      }
+    );
   }
 
   getUser(id: string){

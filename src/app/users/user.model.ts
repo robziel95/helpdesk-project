@@ -4,5 +4,5 @@ export interface User {
   surname: string;
   email: string,
   userType: string,
-  nickname: string
+  nickname: string,
 }

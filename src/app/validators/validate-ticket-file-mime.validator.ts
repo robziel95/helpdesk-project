@@ -25,7 +25,6 @@ export const mimeTypeImage = (
           //build header string with hexadecimal (16) values
           header += arr[i].toString(16);
         }
-        console.log(header);
         switch (header) {
           //cases for different file types
           //https://en.wikipedia.org/wiki/List_of_file_signatures

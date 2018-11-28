@@ -9,7 +9,8 @@ const userSchema = mongoose.Schema({
   email: {type: String, required: true, unique: true },
   password: {type: String, required: true},
   userType: {type: String, required: true, default: 'employee'},
-  nickname: {type: String, required: false}
+  nickname: {type: String, required: false},
+  avatarPath: {type: String, default: 'http://localhost:3000/files/missing_user_avatar.jpg'}
 });
 
 //validate unique fields
