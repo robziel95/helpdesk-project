@@ -5,12 +5,13 @@ export const mimeTypeImage = (
   control: AbstractControl
   // [key: string] is a variable of type string of any name
 ): Promise<{ [key: string]: any }> | Observable<{ [key: string]: any }> => {
-  if (typeof(control.value) === 'string') {
-    return of(null);
-  }
+
   const file = control.value as File;
   const fileReader = new FileReader();
 
+  if (!control.value || typeof(control.value) === 'string') {
+    return of(null);
+  }
   //create observable to return from function
   const frObs = Observable.create(
     (observer: Observer<{ [key: string]: any }>) => {

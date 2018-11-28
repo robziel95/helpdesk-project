@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     };
     this.spinnerLoading = true;
     console.log(this.inputUserData);
-    this.usersService.addUser(this.inputUserData, null);
+    this.usersService.addUser(this.inputUserData);
   }
 
   ngOnDestroy(){

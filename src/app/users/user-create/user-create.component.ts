@@ -37,8 +37,8 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       email: new FormControl(null, {validators: [Validators.required]}),
       password: new FormControl(null, {validators: [Validators.required]}),
       userType: new FormControl(null, {validators: [Validators.required]}),
-      nickname: new FormControl(null, {}),
-      avatar: new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeTypeImage]}),
+      nickname: new FormControl(null),
+      avatar: new FormControl(null, Validators.nullValidator, [mimeTypeImage] ),
     });
 
     this.loggedUserIsAuthenticated = this.authService.getUserIsAuth();
@@ -106,8 +106,6 @@ export class UserCreateComponent implements OnInit, OnDestroy {
     };
     if(this.loggedUserIsAdmin && this.loggedUserIsAuthenticated){
       this.inputUserData.userType = this.form.value.type
-    }else{
-      this.inputUserData.userType = this.editedUser.userType;
     }
     this.spinnerLoading = true;
     if (this.mode === 'create'){

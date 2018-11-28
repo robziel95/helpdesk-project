@@ -56,7 +56,7 @@ export class UsersService {
     return this.errorThrown.asObservable();
   }
 
-  addUser(inputUser: AuthUser, avatar: File){
+  addUser(inputUser: AuthUser, avatar: File = null){
     //send formData instead of user JSON, formData allow to combine text values and blob (files)
     let postTest = new FormData;
     for(var key in inputUser){

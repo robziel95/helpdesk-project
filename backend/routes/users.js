@@ -36,6 +36,7 @@ router.post("/api/users/create", multer({storage: storage}).single("avatar"), (r
   //hash user password with package bcrypt so they are not stored in raw form in database
   bcrypt.hash(req.body.password, 10, ).then(
     hash => {
+      let reqAvatarPath = (req.file !== undefined ? (url + "/files/images" + req.file.filename) : undefined);
       const user = new User({
         name: req.body.name,
         surname: req.body.surname,
@@ -44,7 +45,7 @@ router.post("/api/users/create", multer({storage: storage}).single("avatar"), (r
         password: hash,
         userType: req.body.userType,
         nickname: req.body.nickname,
-        avatarPath: url + "/files/images" + req.file.filename
+        avatarPath: reqAvatarPath
       });
         //.body is from body parser
       user.save().then(
