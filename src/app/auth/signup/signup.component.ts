@@ -35,7 +35,8 @@ export class SignupComponent implements OnInit, OnDestroy {
       email: form.value.email,
       password: form.value.password,
       userType: 'employee',
-      nickname: form.value.nickname
+      nickname: form.value.nickname,
+      avatarPath: null
     };
     this.spinnerLoading = true;
     console.log(this.inputUserData);

@@ -17,7 +17,8 @@ var users = [
       "email": "test2@test.com",
       "password": "$2b$10$gWHKRbbFrojKg8Tl/SDEHuu0BngC8BaXv1vu/fnbNRFfh9fZGsWsK",
       "__v": 0,
-      "nickname": "Johnnie"
+      "nickname": "Johnnie",
+      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
     }
   ),
   new User
@@ -28,7 +29,8 @@ var users = [
       "surname": "test3surname",
       "email": "test3@test.com",
       "password": "$2b$10$ncPHqmbwkb7Th0Bmddu3se0GmaAiMOedm0HVIK8GQi4JiOZhmYCii",
-      "__v": 0
+      "__v": 0,
+      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
     }
   ),
   new User
@@ -39,7 +41,8 @@ var users = [
       "surname": "test5sur",
       "email": "test5@test.com",
       "password": "$2b$10$affo7AKq.JZUaT.4KwL9QekjG7hoY92tOBswAzJJGfcdFpXTj0B7G",
-      "__v": 0
+      "__v": 0,
+      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
     }
   ),
   new User
@@ -50,7 +53,8 @@ var users = [
       "surname": "test4sur",
       "email": "test4@test.com",
       "password": "$2b$10$9yM4uMnvwMOolWvvN37tsuPrpgjfOY7b3F0YXpzLYauTSKH20DrCS",
-      "__v": 0
+      "__v": 0,
+      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
     }
   ),
   new User
@@ -61,7 +65,8 @@ var users = [
       "surname": "Test6sur",
       "email": "test6@test.com",
       "password": "$2b$10$r3GNYjb2WBMafRdGNuo6ue8t0k.XJN4MaW3g5UocHxuPQjk1feR3.",
-      "__v": 0
+      "__v": 0,
+      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
     }
   ),
   new User
@@ -72,7 +77,8 @@ var users = [
       "surname": "testtypeSur",
       "email": "testtype@test.com",
       "password": "$2b$10$cHlf7xYZQf4X3HD4WK3I0OFDY4rnoGli4PD0Qie4movk69intgb8m",
-      "__v": 0
+      "__v": 0,
+      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
     }
   ),
   new User
@@ -83,7 +89,8 @@ var users = [
       "surname": "test1",
       "email": "test1@test.com",
       "password": "$2b$10$5I2wttZFfr6nztbZ07Nq1uS6xDyG283D8tge3C2GoAo5yejl1fpWS",
-      "__v": 0
+      "__v": 0,
+      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
     }
   ),
   new User
@@ -95,7 +102,8 @@ var users = [
       "email": "nickname@test.com",
       "password": "$2b$10$KbNEozfAAIu04efK0nEf4u2Y6j8xONlUPJr9og8uXPx5ACoC5ayi6",
       "nickname": "Weirdo",
-      "__v": 0
+      "__v": 0,
+      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
     }
   ),
   new User
@@ -109,7 +117,8 @@ var users = [
         "$oid": "5beef3d885619503903d63b9"
       },
       "creationDate": "2018/11/21",
-      "__v": 0
+      "__v": 0,
+      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
     }
   ),
   new User
@@ -121,7 +130,8 @@ var users = [
       "email": "sdadas@test.com",
       "password": "$2b$10$736X9X0gHabRccNOTLJYVe1xOIJbVqADi4cdr9/GoexYY5Nm0AnFC",
       "nickname": "Mynickname",
-      "__v": 0
+      "__v": 0,
+      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
     }
   ),
 ];
@@ -133,7 +143,6 @@ var usersCount = 0;
 for (var i = 0; i < users.length; i++){
   users[i].save(function(){
     usersCount++;
-    console.log('i');
     if (usersCount === users.length){
       usersSeedFinished = true;
       populateTickets();
@@ -142,9 +151,6 @@ for (var i = 0; i < users.length; i++){
 }
 
 function populateTickets(){
-  //console.log(users);
-  //console.log(users[0]);
-
   var tickets = [
     new Ticket
     (
@@ -280,13 +286,11 @@ function populateTickets(){
       }
     ),
   ];
-  console.log(users[0]._id);
 
   var ticketsCount = 0;
   for (var j = 0; j < tickets.length; j++){
     tickets[j].save(function(){
       ticketsCount++;
-      console.log('j');
       if (ticketsCount === tickets.length){
         ticketsSeedFinished = true;
         exit();
@@ -297,7 +301,7 @@ function populateTickets(){
 
 function exit(){
   if(usersSeedFinished && ticketsSeedFinished){
-    console.log('exit');
+    console.log('Seed successfull');
     mongoose.disconnect();
   }
 }

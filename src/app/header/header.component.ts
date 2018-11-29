@@ -10,7 +10,7 @@ import { User } from '../users/user.model';
 })
 export class HeaderComponent implements OnInit, OnDestroy{
   loggedUser: User = {
-    id: "", name: "", surname: "", email: "", userType: "", nickname: null
+    id: "", name: "", surname: "", email: "", userType: "", nickname: "", avatarPath: ""
   };
   private authListenerSubscription: Subscription;
   userIsAuthenticated = false;

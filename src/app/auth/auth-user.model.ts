@@ -6,5 +6,6 @@ export interface AuthUser {
   nickname: string,
   email: string,
   userType: string,
-  password: string
+  password: string,
+  avatarPath: string
 }

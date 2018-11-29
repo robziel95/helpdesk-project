@@ -5,4 +5,5 @@ export interface User {
   email: string,
   userType: string,
   nickname: string,
+  avatarPath: string
 }

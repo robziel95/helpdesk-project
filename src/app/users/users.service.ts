@@ -83,6 +83,7 @@ export class UsersService {
       password: string;
       userType: string;
       nickname: string;
+      avatarPath: string;
     }>('http://localhost:3000/api/users/' + id);
   }
 
@@ -94,7 +95,8 @@ export class UsersService {
       email: inputUser.email,
       password: inputUser.password,
       userType: inputUser.userType,
-      nickname: inputUser.nickname
+      nickname: inputUser.nickname,
+      avatarPath: inputUser.avatarPath
     };
     //check if someone wants to add admin permission
     //check if person is authenticated and has admin permission
