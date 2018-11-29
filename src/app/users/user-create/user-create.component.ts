@@ -107,7 +107,9 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       avatarPath: null
     };
     if(this.loggedUserIsAdmin && this.loggedUserIsAuthenticated){
-      this.inputUserData.userType = this.form.value.type
+      this.inputUserData.userType = this.form.value.userType;
+    }else if (this.mode === 'edit'){
+      this.inputUserData.userType = this.editedUser.userType;
     }
     this.spinnerLoading = true;
     if (this.mode === 'create'){
@@ -115,7 +117,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
     }
     else{
       this.inputUserData.id = this.userId;
-      this.usersService.updateUser(this.inputUserData);
+      this.usersService.updateUser(this.inputUserData, this.form.value.avatar);
     }
   }
 

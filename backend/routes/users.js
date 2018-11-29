@@ -12,7 +12,7 @@ const MIME_TYPE_MAP = {
   'image/jpg': 'jpg'
 };
 
-const storage = multer.diskStorage({
+const avatarStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     //below will be passed null if extension is not in mime type map const
     const isValid = MIME_TYPE_MAP[file.mimetype];
@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
   }
 });
 //npm install --save body-parser
-router.post("/api/users/create", multer({storage: storage}).single("avatar"), (req, res, next) => {
+router.post("/api/users/create", multer({storage: avatarStorage}).single("avatar"), (req, res, next) => {
   const url = req.protocol + '://' + req.get("host");
   //hash user password with package bcrypt so they are not stored in raw form in database
   bcrypt.hash(req.body.password, 10, ).then(
@@ -67,10 +67,15 @@ router.post("/api/users/create", multer({storage: storage}).single("avatar"), (r
   );
 });
 
-router.put("/api/users/:id", checkAuth, (req, res, next) => {
-
+router.put("/api/users/:id", checkAuth, multer({storage: avatarStorage}).single("avatar"), (req, res, next) => {
+  const url = req.protocol + '://' + req.get("host");
   bcrypt.hash(req.body.password, 10, ).then(
     hash => {
+      let reqAvatarPath = (req.file !== undefined ? (url + "/files/images" + req.file.filename) : req.body.avatarPath);
+      //'null' because FormData object which is sent with request transforms null to 'null'
+      if (reqAvatarPath == 'null'){
+        reqAvatarPath = undefined;
+      }
       const user = new User({
         _id: req.body.id,
         name: req.body.name,
@@ -79,9 +84,10 @@ router.put("/api/users/:id", checkAuth, (req, res, next) => {
         //store everything normal, but password's encrypted hash
         password: hash,
         userType: req.body.userType,
-        nickname: req.body.nickname
+        nickname: req.body.nickname,
+        avatarPath: reqAvatarPath
       });
-
+      console.log(user);
       User.updateOne({_id: req.params.id}, user)
       .then(
         result => {

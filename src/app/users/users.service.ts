@@ -58,13 +58,13 @@ export class UsersService {
 
   addUser(inputUser: AuthUser, avatar: File = null){
     //send formData instead of user JSON, formData allow to combine text values and blob (files)
-    let postTest = new FormData;
+    let userFormData = new FormData;
     for(var key in inputUser){
-      postTest.append(key, inputUser[key]);
+      userFormData.append(key, inputUser[key]);
     }
-    postTest.append("avatar", avatar);
+    userFormData.append("avatar", avatar);
 
-    this.http.post<{message: string, result: any}>('http://localhost:3000/api/users/create', postTest)
+    this.http.post<{message: string, result: any}>('http://localhost:3000/api/users/create', userFormData)
     .subscribe(
       ()=>{
         this.router.navigate(['/users']);
@@ -87,7 +87,7 @@ export class UsersService {
     }>('http://localhost:3000/api/users/' + id);
   }
 
-  updateUser(inputUser: AuthUser){
+  updateUser(inputUser: AuthUser, avatar: File = null){
     const userToUpdate: AuthUser = {
       id: inputUser.id,
       name: inputUser.name,
@@ -98,6 +98,15 @@ export class UsersService {
       nickname: inputUser.nickname,
       avatarPath: inputUser.avatarPath
     };
+    let userFormData = new FormData;
+    for(var key in inputUser){
+      userFormData.append(key, inputUser[key]);
+    }
+    if(avatar !== null){
+      userFormData.set("avatar", avatar);
+    }
+    console.log(userFormData.getAll('avatarPath'));
+
     //check if someone wants to add admin permission
     //check if person is authenticated and has admin permission
     if(userToUpdate.userType === 'administrator' && (!this.authService.getUserIsAdmin() || !this.authService.getUserIsAuth())){
@@ -106,13 +115,8 @@ export class UsersService {
       return;
     }
 
-    this.http.put('http://localhost:3000/api/users/' + userToUpdate.id, userToUpdate).subscribe(
+    this.http.put('http://localhost:3000/api/users/' + userToUpdate.id, userFormData).subscribe(
       (response) => {
-        const usersUpdated = [...this.users];
-        const oldUserIndex = usersUpdated.findIndex( u => u.id === userToUpdate.id);
-        usersUpdated[oldUserIndex] = userToUpdate;
-        this.users = usersUpdated;
-        this.usersUpdated.next([...this.users]);
         this.router.navigate(['/users']);
         this.sharedService.openSnackbar.next('User update success');
       }, error => {
