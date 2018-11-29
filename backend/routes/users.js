@@ -6,6 +6,7 @@ const multer = require("multer");
 const jwt = require("jsonwebtoken");
 const checkAuth = require('../middleware/check-auth');
 
+
 const MIME_TYPE_MAP = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
@@ -36,7 +37,7 @@ router.post("/api/users/create", multer({storage: avatarStorage}).single("avatar
   //hash user password with package bcrypt so they are not stored in raw form in database
   bcrypt.hash(req.body.password, 10, ).then(
     hash => {
-      let reqAvatarPath = (req.file !== undefined ? (url + "/files/images" + req.file.filename) : undefined);
+      let reqAvatarPath = (req.file !== undefined ? (url + "/files/images/" + req.file.filename) : undefined);
       const user = new User({
         name: req.body.name,
         surname: req.body.surname,
@@ -71,7 +72,7 @@ router.put("/api/users/:id", checkAuth, multer({storage: avatarStorage}).single(
   const url = req.protocol + '://' + req.get("host");
   bcrypt.hash(req.body.password, 10, ).then(
     hash => {
-      let reqAvatarPath = (req.file !== undefined ? (url + "/files/images" + req.file.filename) : req.body.avatarPath);
+      let reqAvatarPath = (req.file !== undefined ? (url + "/files/images/" + req.file.filename) : req.body.avatarPath);
       //'null' because FormData object which is sent with request transforms null to 'null'
       if (reqAvatarPath == 'null'){
         reqAvatarPath = undefined;

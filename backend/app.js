@@ -1,13 +1,16 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
+const path = require("path");
 const userRoutes = require("./routes/users")
 const ticketRoutes = require("./routes/tickets")
 
 const app = express();
 
+
 app.use(bodyParser.json());
+app.use("/images", express.static(path.join("backend/files/images")));
+app.use("/files/images", express.static(path.join("backend/files/images")));
 
 mongoose.connect(
   'mongodb://localhost:27017/helpdeskSeed'
@@ -36,5 +39,4 @@ app.use((req, res, next) => {
 
 app.use(userRoutes);
 app.use(ticketRoutes);
-
 module.exports = app;

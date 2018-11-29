@@ -65,9 +65,10 @@ export class UserCreateComponent implements OnInit, OnDestroy {
               email: userData.email,
               password: userData.password,
               userType: userData.userType,
-              nickname: userData.nickname,
+              nickname: userData.nickname || 'null',
               avatarPath: userData.avatarPath
             };
+            this.imagePreview = userData.avatarPath;
             this.form.setValue({
               userName: userData.name,
               userSurname: userData.surname,
@@ -103,7 +104,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       email: this.form.value.email,
       password: this.form.value.password,
       userType: "employee",
-      nickname: this.form.value.nickname,
+      nickname: (this.form.value.nickname !== null) ? this.form.value.nickname : '',
       avatarPath: null
     };
     if(this.loggedUserIsAdmin && this.loggedUserIsAuthenticated){
@@ -117,6 +118,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
     }
     else{
       this.inputUserData.id = this.userId;
+      this.inputUserData.avatarPath = this.editedUser.avatarPath;
       this.usersService.updateUser(this.inputUserData, this.form.value.avatar);
     }
   }

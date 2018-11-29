@@ -33,7 +33,8 @@ export class UsersService {
             email: user.email,
             password: user.password,
             userType: user.userType,
-            nickname: user.nickname
+            nickname: user.nickname,
+            avatarPath: user.avatarPath
           };
         });
       }

@@ -18,7 +18,7 @@ var users = [
       "password": "$2b$10$gWHKRbbFrojKg8Tl/SDEHuu0BngC8BaXv1vu/fnbNRFfh9fZGsWsK",
       "__v": 0,
       "nickname": "Johnnie",
-      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
+      "avatarPath": "http://localhost:3000/files/images/missing_user_avatar.png"
     }
   ),
   new User
@@ -30,7 +30,8 @@ var users = [
       "email": "test3@test.com",
       "password": "$2b$10$ncPHqmbwkb7Th0Bmddu3se0GmaAiMOedm0HVIK8GQi4JiOZhmYCii",
       "__v": 0,
-      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
+      "avatarPath": "http://localhost:3000/files/images/missing_user_avatar.png",
+      "nickname": "",
     }
   ),
   new User
@@ -42,7 +43,8 @@ var users = [
       "email": "test5@test.com",
       "password": "$2b$10$affo7AKq.JZUaT.4KwL9QekjG7hoY92tOBswAzJJGfcdFpXTj0B7G",
       "__v": 0,
-      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
+      "avatarPath": "http://localhost:3000/files/images/missing_user_avatar.png",
+      "nickname": "",
     }
   ),
   new User
@@ -54,7 +56,8 @@ var users = [
       "email": "test4@test.com",
       "password": "$2b$10$9yM4uMnvwMOolWvvN37tsuPrpgjfOY7b3F0YXpzLYauTSKH20DrCS",
       "__v": 0,
-      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
+      "avatarPath": "http://localhost:3000/files/images/missing_user_avatar.png",
+      "nickname": "",
     }
   ),
   new User
@@ -66,7 +69,8 @@ var users = [
       "email": "test6@test.com",
       "password": "$2b$10$r3GNYjb2WBMafRdGNuo6ue8t0k.XJN4MaW3g5UocHxuPQjk1feR3.",
       "__v": 0,
-      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
+      "avatarPath": "http://localhost:3000/files/images/missing_user_avatar.png",
+      "nickname": "",
     }
   ),
   new User
@@ -78,7 +82,8 @@ var users = [
       "email": "testtype@test.com",
       "password": "$2b$10$cHlf7xYZQf4X3HD4WK3I0OFDY4rnoGli4PD0Qie4movk69intgb8m",
       "__v": 0,
-      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
+      "avatarPath": "http://localhost:3000/files/images/missing_user_avatar.png",
+      "nickname": "",
     }
   ),
   new User
@@ -90,7 +95,8 @@ var users = [
       "email": "test1@test.com",
       "password": "$2b$10$5I2wttZFfr6nztbZ07Nq1uS6xDyG283D8tge3C2GoAo5yejl1fpWS",
       "__v": 0,
-      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
+      "avatarPath": "http://localhost:3000/files/images/missing_user_avatar.png",
+      "nickname": "",
     }
   ),
   new User
@@ -103,7 +109,7 @@ var users = [
       "password": "$2b$10$KbNEozfAAIu04efK0nEf4u2Y6j8xONlUPJr9og8uXPx5ACoC5ayi6",
       "nickname": "Weirdo",
       "__v": 0,
-      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
+      "avatarPath": "http://localhost:3000/files/images/missing_user_avatar.png"
     }
   ),
   new User
@@ -118,7 +124,8 @@ var users = [
       },
       "creationDate": "2018/11/21",
       "__v": 0,
-      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
+      "avatarPath": "http://localhost:3000/files/images/missing_user_avatar.png",
+      "nickname": "",
     }
   ),
   new User
@@ -131,7 +138,7 @@ var users = [
       "password": "$2b$10$736X9X0gHabRccNOTLJYVe1xOIJbVqADi4cdr9/GoexYY5Nm0AnFC",
       "nickname": "Mynickname",
       "__v": 0,
-      "avatarPath": "http://localhost:3000/files/missing_user_avatar.jpg"
+      "avatarPath": "http://localhost:3000/files/images/missing_user_avatar.png"
     }
   ),
 ];
