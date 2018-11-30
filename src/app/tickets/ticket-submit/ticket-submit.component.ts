@@ -5,6 +5,7 @@ import { TicketsService } from '../tickets.service';
 import { Ticket } from '../ticket.model';
 import { Subscription } from 'rxjs';
 import { UsersService } from 'src/app/users/users.service';
+import { mimeTypeFile } from '../../validators/validate-ticket-file-mime.validator'
 
 @Component({
   selector: 'app-ticket-submit',
@@ -18,6 +19,7 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
   mode = 'create';
   spinnerLoading = false;
   testdiv: string = "";
+  filePath: string = "";
   private ticketId: string;
   private errorThrownSubscription: Subscription;
 
@@ -33,7 +35,8 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
       title: new FormControl(null, {validators: [Validators.required]}),
       priority: new FormControl(null, {validators: [Validators.required]}),
       status: new FormControl(null),
-      description: new FormControl(null, {validators: [Validators.required]})
+      description: new FormControl(null, {validators: [Validators.required]}),
+      uploadedFile: new FormControl(null, Validators.nullValidator, [mimeTypeFile]),
     });
 
     this.route.paramMap.subscribe(
@@ -54,6 +57,7 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
               creationDate: ticketData.creationDate,
               uploadedFilePath: null
             };
+            this.filePath = this.editedTicket.uploadedFilePath;
             this.form.setValue({
               title: ticketData.title,
               priority: ticketData.priority,
@@ -109,6 +113,21 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
 
   divInputChanged(input: any){
     typeof(input);
+  }
+
+  onFileChanged(event: Event){
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({uploadedFile: file});
+    this.form.get('uploadedFile').updateValueAndValidity();
+    //create reader
+    const reader = new FileReader();
+    //init reader
+    reader.onload = () => {
+      //execute after reading
+      //this.filePath = <string>reader.result;
+    };
+    //start reader (read 'file')
+    reader.readAsDataURL(file);
   }
 
   ngOnDestroy(){

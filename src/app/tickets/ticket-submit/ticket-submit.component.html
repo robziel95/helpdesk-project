@@ -89,7 +89,6 @@
                 </div>
               </li>
             </ul>
-            <!-- name="formDiv" [ngModel] = "testdiv"  -->
 
             <div class="text-editor__inputContainer">
               <div #myDiv id="divContenteditable" contenteditable="true" [innerHtml]="editedTicket?.description" (change)=customDiv.value(dasdsa) class="text-editor__editableDiv">
@@ -108,6 +107,17 @@
                   ></textarea>
                   <mat-error *ngIf="form.get('description').invalid">Please enter a description</mat-error>
               </mat-form-field>
+            </div>
+
+            <div class="form-field-image">
+              <div class=form-field-image__image>
+                <p>Uploaded file path: {{ filePath }}</p>
+              </div>
+              <div class=form-field-image__content>
+                <label class="upload-file-label" for="uploadFileField">Change uploaded file</label>
+                <button mat-flat-button class="btn--cyan" type="button" (click)="filePicker.click()">Choose File</button>
+                <input id="uploadFileField" type="file" #filePicker (change)="onFileChanged($event)">
+              </div>
             </div>
           </div>
         </div>
