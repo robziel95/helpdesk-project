@@ -11,7 +11,8 @@ router.post("/api/tickets", checkAuth, (req, res, next) => {
     description: req.body.description,
     creator: req.userData.userId,
     status: req.body.status,
-    creationDate: req.body.creationDate
+    creationDate: req.body.creationDate,
+    uploadedFilePath: req.body.uploadedFilePath
   });
   //.body is from body parser
   ticket.save()
@@ -39,7 +40,8 @@ router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
     description: req.body.description,
     creator: req.body.creator,
     status: req.body.status,
-    creationDate: req.body.date
+    creationDate: req.body.date,
+    uploadedFilePath: req.body.uploadedFilePath
   });
   let updateTicket;
   User.findById(req.userData.userId)

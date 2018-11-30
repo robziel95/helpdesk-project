@@ -64,7 +64,7 @@ export class UsersService {
       userFormData.append(key, inputUser[key]);
     }
     userFormData.append("avatar", avatar);
-
+    console.log(userFormData);
     this.http.post<{message: string, result: any}>('http://localhost:3000/api/users/create', userFormData)
     .subscribe(
       ()=>{
@@ -106,7 +106,8 @@ export class UsersService {
     if(avatar !== null){
       userFormData.set("avatar", avatar);
     }
-    console.log(userFormData.getAll('avatarPath'));
+    //console.log(userFormData);
+    console.log(userFormData.getAll('name'));
 
     //check if someone wants to add admin permission
     //check if person is authenticated and has admin permission

@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { TicketsService } from '../tickets.service';
 import { Ticket } from '../ticket.model';
 import { Subscription } from 'rxjs';
@@ -14,6 +14,7 @@ import { UsersService } from 'src/app/users/users.service';
 export class TicketSubmitComponent implements OnInit, OnDestroy {
   inputTicketData: Ticket;
   editedTicket: Ticket;
+  form: FormGroup;
   mode = 'create';
   spinnerLoading = false;
   testdiv: string = "";
@@ -28,6 +29,13 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.form = new FormGroup({
+      title: new FormControl(null, {validators: [Validators.required]}),
+      priority: new FormControl(null, {validators: [Validators.required]}),
+      status: new FormControl(null),
+      description: new FormControl(null, {validators: [Validators.required]})
+    });
+
     this.route.paramMap.subscribe(
       (paramMap: ParamMap) => {
         if (paramMap.has('ticketId')){
@@ -43,8 +51,15 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
               description: ticketData.description,
               creator: ticketData.creator,
               status: ticketData.status,
-              creationDate: ticketData.creationDate
-            }
+              creationDate: ticketData.creationDate,
+              uploadedFilePath: null
+            };
+            this.form.setValue({
+              title: ticketData.title,
+              priority: ticketData.priority,
+              status: ticketData.status,
+              description: ticketData.description
+            });
           });
         }else{
           this.mode = 'create';
@@ -57,20 +72,25 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
         this.spinnerLoading = false;
       }
     );
+
+    // this.form.valueChanges.subscribe(val => {
+    //   console.log(val);
+    // })
   }
 
-  onSaveTicket(form: NgForm){
-    if (form.invalid){
+  onSaveTicket(){
+    if (this.form.invalid){
       return;
     }
     this.inputTicketData = {
       id: null,
-      title: form.value.title,
-      priority: form.value.priority,
-      description: form.value.description,
+      title: this.form.value.title,
+      priority: this.form.value.priority,
+      description: this.form.value.description,
       creator: null,
       status: 'Unassigned',
-      creationDate: new Date().toISOString().slice(0,10).replace(/-/g,'/')
+      creationDate: new Date().toISOString().slice(0,10).replace(/-/g,'/'),
+      uploadedFilePath: null
     };
 
     this.spinnerLoading = true;
@@ -80,12 +100,17 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
     else{
       //update more fields on edit
       this.inputTicketData.id = this.ticketId;
-      this.inputTicketData.status = form.value.status;
+      this.inputTicketData.status = this.form.value.status;
       this.inputTicketData.creator = this.editedTicket.creator;
       this.inputTicketData.creationDate = this.editedTicket.creationDate;
       this.ticketsService.updateTicket(this.inputTicketData);
     }
   }
+
+  divInputChanged(input: any){
+    typeof(input);
+  }
+
   ngOnDestroy(){
     this.errorThrownSubscription.unsubscribe();
   }

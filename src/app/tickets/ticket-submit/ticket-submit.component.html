@@ -2,21 +2,16 @@
   <h2 class="section-title">Create a new ticket:</h2>
   <mat-spinner *ngIf="spinnerLoading"></mat-spinner>
   <mat-card class="usersInputArea">
-    <form (submit)="onSaveTicket(postForm)" #postForm="ngForm"  *ngIf="!spinnerLoading">
+    <form [formGroup]="form"#postForm="ngForm"  (submit)="onSaveTicket()" *ngIf="!spinnerLoading">
       <mat-form-field>
         <input matInput type="text"
-        name="title"
-        [ngModel] = "editedTicket?.title"
-        required
-        placeholder= "Title"
-        #title="ngModel">
-        <mat-error *ngIf="title.invalid">Please enter a title</mat-error>
+        formControlName="title"
+        placeholder= "Title">
+        <mat-error *ngIf="form.get('title').invalid">Please enter a title</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-select
-        name="priority"
-        [ngModel] = "editedTicket?.priority"
-        required
+        formControlName="priority"
         placeholder="Select priority"
         >
           <mat-option value="Low">Low</mat-option>
@@ -24,24 +19,10 @@
           <mat-option value="High">High</mat-option>
         </mat-select>
       </mat-form-field>
-        <!-- <mat-form-field>
-          <textarea
-          matInput
-          appTextEditor
-          cdkTextareaAutosize
-          name="description"
-          [ngModel] = "editedTicket?.description"
-          required
-          placeholder="Description"
-          #description="ngModel">
-          </textarea>
-          <mat-error *ngIf="description.invalid">Please enter a description</mat-error>
-        </mat-form-field> -->
+
         <mat-form-field *ngIf="mode=='edit'">
           <mat-select
-          name="status"
-          [ngModel] = "editedTicket?.status"
-          required
+          formControlName="status"
           placeholder="Change status"
           >
             <mat-option value="Unassigned">Unassigned</mat-option>
@@ -110,8 +91,8 @@
             </ul>
             <!-- name="formDiv" [ngModel] = "testdiv"  -->
 
-            <div #textEditor class="text-editor__inputContainer">
-              <div #myDiv id="divContenteditable" contenteditable="true" [innerHtml]="editedTicket?.description" class="text-editor__editableDiv">
+            <div class="text-editor__inputContainer">
+              <div #myDiv id="divContenteditable" contenteditable="true" [innerHtml]="editedTicket?.description" (change)=customDiv.value(dasdsa) class="text-editor__editableDiv">
                   Please enter a description
               </div>
 
@@ -119,13 +100,13 @@
                 <textarea
                   matInput
                   type="text"
-                  name="description"
+                  formControlName="description"
                   required
                   [ngModel] = "divField"
-                  #description="ngModel"
                   placeholder="Description"
+                  #customDiv
                   ></textarea>
-                  <mat-error *ngIf="description.invalid">Please enter a description</mat-error>
+                  <mat-error *ngIf="form.get('description').invalid">Please enter a description</mat-error>
               </mat-form-field>
             </div>
           </div>

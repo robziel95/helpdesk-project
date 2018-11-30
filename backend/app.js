@@ -9,6 +9,7 @@ const app = express();
 
 
 app.use(bodyParser.json());
+//express .static allows request to go to server, path redirects path to backend folder
 app.use("/images", express.static(path.join("backend/files/images")));
 app.use("/files/images", express.static(path.join("backend/files/images")));
 

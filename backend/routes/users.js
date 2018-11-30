@@ -35,6 +35,7 @@ const avatarStorage = multer.diskStorage({
 router.post("/api/users/create", multer({storage: avatarStorage}).single("avatar"), (req, res, next) => {
   const url = req.protocol + '://' + req.get("host");
   //hash user password with package bcrypt so they are not stored in raw form in database
+  console.log(req.body.name);
   bcrypt.hash(req.body.password, 10, ).then(
     hash => {
       let reqAvatarPath = (req.file !== undefined ? (url + "/files/images/" + req.file.filename) : undefined);
@@ -88,7 +89,6 @@ router.put("/api/users/:id", checkAuth, multer({storage: avatarStorage}).single(
         nickname: req.body.nickname,
         avatarPath: reqAvatarPath
       });
-      console.log(user);
       User.updateOne({_id: req.params.id}, user)
       .then(
         result => {

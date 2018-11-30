@@ -76,15 +76,8 @@ export class TicketsService {
   }
 
   updateTicket(inputTicket: Ticket){
-    const ticketToUpdate: Ticket = {
-      id: inputTicket.id,
-      title: inputTicket.title,
-      priority: inputTicket.priority,
-      description: inputTicket.description,
-      creator: inputTicket.creator,
-      status: inputTicket.status,
-      creationDate: inputTicket.creationDate
-    };
+    const ticketToUpdate: Ticket = inputTicket;
+
     this.http.put('http://localhost:3000/api/tickets/' + ticketToUpdate.id, ticketToUpdate).subscribe(
       (response) => {
         this.router.navigate(['/tickets']);
