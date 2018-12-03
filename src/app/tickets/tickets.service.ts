@@ -15,9 +15,13 @@ export class TicketsService {
 
   constructor(private http: HttpClient, private router: Router, private sharedService: SharedService) { }
 
-  addTicket(inputTicket: Ticket){
-    const newTicket: Ticket = inputTicket;
-    this.http.post<{message: string, ticketId: string}>('http://localhost:3000/api/tickets', newTicket)
+  addTicket(inputTicket: Ticket, uploadedFile: File = null){
+    let ticketFormData = new FormData;
+    for(var key in inputTicket){
+      ticketFormData.append(key, inputTicket[key]);
+    }
+    ticketFormData.append("uploadedFile", uploadedFile);
+    this.http.post<{message: string, ticketId: string}>('http://localhost:3000/api/tickets', ticketFormData)
     .subscribe(
       (responseData) => {
         this.router.navigate(['/tickets']);

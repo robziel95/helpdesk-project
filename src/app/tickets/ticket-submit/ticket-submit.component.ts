@@ -96,10 +96,10 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
       creationDate: new Date().toISOString().slice(0,10).replace(/-/g,'/'),
       uploadedFilePath: null
     };
-
+    let uploadedFile = this.form.value.uploadedFile;
     this.spinnerLoading = true;
     if (this.mode === 'create'){
-      this.ticketsService.addTicket(this.inputTicketData);
+      this.ticketsService.addTicket(this.inputTicketData, uploadedFile);
     }
     else{
       //update more fields on edit
@@ -107,6 +107,7 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
       this.inputTicketData.status = this.form.value.status;
       this.inputTicketData.creator = this.editedTicket.creator;
       this.inputTicketData.creationDate = this.editedTicket.creationDate;
+      this.inputTicketData.uploadedFilePath = this.editedTicket.uploadedFilePath;
       this.ticketsService.updateTicket(this.inputTicketData);
     }
   }
