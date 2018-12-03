@@ -2,16 +2,54 @@ const express =require("express");
 const router = express.Router();
 const Ticket = require('../models/ticket');
 const User = require('../models/user');
+const multer = require("multer");
 const checkAuth = require('../middleware/check-auth');
 
-router.post("/api/tickets", checkAuth, (req, res, next) => {
+const MIME_TYPE_MAP = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg',
+  'application/pdf': 'pdf',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+  'application/octet-stream': 'File',
+  'text/plain': 'txt'
+};
+
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    //below will be passed null if extension is not in mime type map const
+    const isValid = MIME_TYPE_MAP[file.mimetype];
+    console.log(file.mimetype);
+    let error = new Error("Invalid file type");
+    if (isValid){
+      //omit error
+      error = null;
+    }
+    //first argument is error, second path
+    cb(error, "backend/files/upload");
+  },
+  filename: (req, file, cb) => {
+    const name = file.originalname.toLowerCase().split(' ').join('-');
+    const ext = MIME_TYPE_MAP[file.mimetype];
+    cb(null, name + '-' + Date.now() + '.' + ext);
+  }
+});
+
+
+router.post("/api/tickets", multer({storage: fileStorage}).single("uploadedFile"), checkAuth, (req, res, next) => {
+  const url = req.protocol + '://' + req.get("host");
+  let reqUploadedFilePath = (req.file !== undefined ? (url + "/files/upload/" + req.file.filename) : null);
+  let reqUploadedFileName =(req.file !== undefined ? req.file.filename : null);
   const ticket = new Ticket({
     title: req.body.title,
     priority: req.body.priority,
     description: req.body.description,
     creator: req.userData.userId,
     status: req.body.status,
-    creationDate: req.body.creationDate
+    creationDate: req.body.creationDate,
+    uploadedFilePath: reqUploadedFilePath,
+    uploadedFileName: reqUploadedFileName
   });
   //.body is from body parser
   ticket.save()
@@ -31,7 +69,14 @@ router.post("/api/tickets", checkAuth, (req, res, next) => {
   );
 });
 
-router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
+router.put("/api/tickets/:id", checkAuth, multer({storage: fileStorage}).single("uploadedFile"),(req, res, next) => {
+  const url = req.protocol + '://' + req.get("host");
+  let reqUploadedFilePath = (req.file !== undefined ? (url + "/files/upload/" + req.file.filename) : req.body.uploadedFilePath);
+  let reqUploadedFileName =(req.file !== undefined ? req.file.filename : null);
+  //'null' because FormData object which is sent with request transforms null to 'null'
+  if (reqUploadedFilePath == 'null'){
+    reqUploadedFilePath = undefined;
+  }
   const ticket = new Ticket({
     _id: req.body.id,
     title: req.body.title,
@@ -39,8 +84,11 @@ router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
     description: req.body.description,
     creator: req.body.creator,
     status: req.body.status,
-    creationDate: req.body.date
+    creationDate: req.body.date,
+    uploadedFilePath: reqUploadedFilePath,
+    uploadedFileName: reqUploadedFileName
   });
+
   let updateTicket;
   User.findById(req.userData.userId)
   .then(
@@ -56,7 +104,7 @@ router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
       updateTicket.then(
         result => {
           //nmodified is a field in result which tells if sth was modified
-          if (result.nModified > 0) {
+          if (result.n > 0) {
             res.status(200).json({message: 'Update successful!'})
           }else{
             res.status(401).json({message: 'Not authorized!'})

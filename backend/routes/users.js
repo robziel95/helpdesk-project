@@ -2,15 +2,43 @@ const express =require("express");
 const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require("bcrypt");
+const multer = require("multer");
 const jwt = require("jsonwebtoken");
 const checkAuth = require('../middleware/check-auth');
 
-//npm install --save body-parser
-router.post("/api/users/create", (req, res, next) => {
 
+const MIME_TYPE_MAP = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg'
+};
+
+const avatarStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    //below will be passed null if extension is not in mime type map const
+    const isValid = MIME_TYPE_MAP[file.mimetype];
+    let error = new Error("Invalid file type");
+    if (isValid){
+      //omit error
+      error = null;
+    }
+    //first argument is error, second path
+    cb(error, "backend/files/images");
+  },
+  filename: (req, file, cb) => {
+    const name = file.originalname.toLowerCase().split(' ').join('-');
+    const ext = MIME_TYPE_MAP[file.mimetype];
+    cb(null, name + '-' + Date.now() + '.' + ext);
+  }
+});
+//npm install --save body-parser
+router.post("/api/users/create", multer({storage: avatarStorage}).single("avatar"), (req, res, next) => {
+  const url = req.protocol + '://' + req.get("host");
   //hash user password with package bcrypt so they are not stored in raw form in database
+  console.log(req.body.name);
   bcrypt.hash(req.body.password, 10, ).then(
     hash => {
+      let reqAvatarPath = (req.file !== undefined ? (url + "/files/images/" + req.file.filename) : undefined);
       const user = new User({
         name: req.body.name,
         surname: req.body.surname,
@@ -18,7 +46,8 @@ router.post("/api/users/create", (req, res, next) => {
         //store everything normal, but password's encrypted hash
         password: hash,
         userType: req.body.userType,
-        nickname: req.body.nickname
+        nickname: req.body.nickname,
+        avatarPath: reqAvatarPath
       });
         //.body is from body parser
       user.save().then(
@@ -40,10 +69,15 @@ router.post("/api/users/create", (req, res, next) => {
   );
 });
 
-router.put("/api/users/:id", checkAuth, (req, res, next) => {
-
+router.put("/api/users/:id", checkAuth, multer({storage: avatarStorage}).single("avatar"), (req, res, next) => {
+  const url = req.protocol + '://' + req.get("host");
   bcrypt.hash(req.body.password, 10, ).then(
     hash => {
+      let reqAvatarPath = (req.file !== undefined ? (url + "/files/images/" + req.file.filename) : req.body.avatarPath);
+      //'null' because FormData object which is sent with request transforms null to 'null'
+      if (reqAvatarPath == 'null'){
+        reqAvatarPath = undefined;
+      }
       const user = new User({
         _id: req.body.id,
         name: req.body.name,
@@ -52,9 +86,9 @@ router.put("/api/users/:id", checkAuth, (req, res, next) => {
         //store everything normal, but password's encrypted hash
         password: hash,
         userType: req.body.userType,
-        nickname: req.body.nickname
+        nickname: req.body.nickname,
+        avatarPath: reqAvatarPath
       });
-
       User.updateOne({_id: req.params.id}, user)
       .then(
         result => {

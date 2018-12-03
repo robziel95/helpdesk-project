@@ -32,7 +32,8 @@ export class AuthService {
       email: email,
       userType: "",
       password: password,
-      nickname: null
+      nickname: null,
+      avatarPath: null
     };
     this.http.post<{token: string, expiresIn: number, loggedUser: any}>("http://localhost:3000/api/user/login", authData).subscribe(
       response => {
@@ -48,7 +49,8 @@ export class AuthService {
             email: response.loggedUser.email,
             password: response.loggedUser.password,
             userType: response.loggedUser.userType,
-            nickname: response.loggedUser.nickname
+            nickname: response.loggedUser.nickname,
+            avatarPath: response.loggedUser.avatarPath
           };
           this.authStatusListener.next(true);
           const expiresInDuration = response.expiresIn;
@@ -127,7 +129,8 @@ export class AuthService {
           email: userData.email,
           password: userData.password,
           userType: userData.userType,
-          nickname: userData.nickname
+          nickname: userData.nickname,
+          avatarPath: userData.avatarPath
         };
         this.setAuthTimer(expiresIn);//expiresIn is in miliseconds and Auth timer works with seconds
         this.authStatusListener.next(true);
@@ -157,7 +160,7 @@ export class AuthService {
 
   private clearAuthUser(){
     let clearUser: AuthUser = {
-      id: null, name: null, surname: null, email: null, password: null, userType: null, nickname: null
+      id: null, name: null, surname: null, email: null, password: null, userType: null, nickname: null, avatarPath: null
     };
     return clearUser;
   }
@@ -171,6 +174,7 @@ export class AuthService {
     password: string;
     userType: string;
     nickname: string;
+    avatarPath: string;
   }>('http://localhost:3000/api/users/' + id);
   }
 

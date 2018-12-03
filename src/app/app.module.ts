@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatCardModule, MatButtonModule, MatExpansionModule, MatProgressSpinnerModule, MatSelectModule, MatDialogModule, MatSnackBarModule, MatPaginatorModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -19,6 +19,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TextEditorDirective } from './text-editor/text-editor.directive';
 
 
 @NgModule({
@@ -33,13 +34,15 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       LoginComponent,
       SignupComponent,
       ErrorComponent,
-      PageNotFoundComponent
+      PageNotFoundComponent,
+      TextEditorDirective,
    ],
    imports: [
       BrowserModule,
       AppRoutingModule,
       BrowserAnimationsModule,
       FormsModule,
+      ReactiveFormsModule,
       MatInputModule,
       MatCardModule,
       MatButtonModule,

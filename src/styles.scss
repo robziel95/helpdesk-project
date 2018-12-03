@@ -144,6 +144,27 @@ i.fa{
           }
         }
       }
+      &__uploaded-file{
+        padding: 20px 0;
+        display: flex;
+        justify-content: flex-end;
+        align-content: center;
+        border-top: 1px solid $color-cyan;
+        &__file{
+          align-self: center;
+          display: flex;
+          p{
+            margin-bottom: 0;
+          }
+          &__name{
+            margin-left: 10px;
+            font-weight: 500;
+          }
+        }
+        .btn{
+          margin-left: 20px;
+        }
+      }
     }
     &-content{
       color: $color-font-dark;
@@ -274,6 +295,23 @@ i.fa{
       margin-left: 10px;
     }
   }
+}
+.text-editor{
+  &__editableDivSubstitute{
+    &.mat-form-field-appearance-legacy .mat-form-field-underline{
+      visibility: hidden;
+    }
+    .mat-form-field-label-wrapper{
+      top: 0px;
+    }
+  }
+
+}
+
+.my-icons{
+  display: inline-block;
+  height: 1.1em;
+  width: 1.1em;
 }
 
 @media screen and (min-width: $breakpoint-sm){

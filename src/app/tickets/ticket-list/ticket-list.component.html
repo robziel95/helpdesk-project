@@ -18,7 +18,7 @@
       </mat-expansion-panel-header>
 
       <div class="mat-expansion-panel-body__content">
-        <div>{{ ticket.description }}</div>
+        <div [innerHTML]="ticket.description"></div>
         <div class="mat-expansion-panel-body__content__info">
           <div>
             <p><i class="fa fa-bolt" aria-hidden="true"></i> Priority:</p><span>{{ ticket.priority }}</span>
@@ -28,6 +28,15 @@
           </div>
         </div>
       </div>
+
+      <div class="mat-expansion-panel-body__uploaded-file" *ngIf="ticket.uploadedFilePath">
+          <div class="mat-expansion-panel-body__uploaded-file__file">
+            <p><i class="fa fa-download" aria-hidden="true"></i> Uploaded file:</p>
+            <p class="mat-expansion-panel-body__uploaded-file__file__name">{{ ticket.uploadedFileName }}</p>
+          </div>
+          <a mat-raised-button class="btn btn--orange" target="_self" href="{{ ticket.uploadedFilePath }}" download="{{ ticket.uploadedFilePath }}">Download</a>
+      </div>
+
       <mat-action-row *ngIf="(userIsAuthenticated && loggedInUserId == ticket.creator) || (userIsAuthenticated && loggedInUserIsAdmin)">
         <button mat-raised-button (click)="onDelete(ticket.id)" class="btn btn--pinky">Delete</button>
         <a mat-raised-button [routerLink]="['/edit-ticket', ticket.id]" class="btn btn--cyan">Edit</a>

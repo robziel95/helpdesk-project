@@ -15,9 +15,13 @@ export class TicketsService {
 
   constructor(private http: HttpClient, private router: Router, private sharedService: SharedService) { }
 
-  addTicket(inputTicket: Ticket){
-    const newTicket: Ticket = inputTicket;
-    this.http.post<{message: string, ticketId: string}>('http://localhost:3000/api/tickets', newTicket)
+  addTicket(inputTicket: Ticket, uploadedFile: File = null){
+    let ticketFormData = new FormData;
+    for(var key in inputTicket){
+      ticketFormData.append(key, inputTicket[key]);
+    }
+    ticketFormData.append("uploadedFile", uploadedFile);
+    this.http.post<{message: string, ticketId: string}>('http://localhost:3000/api/tickets', ticketFormData)
     .subscribe(
       (responseData) => {
         this.router.navigate(['/tickets']);
@@ -40,7 +44,9 @@ export class TicketsService {
               description: ticket.description,
               creator: ticket.creator,
               status: ticket.status,
-              creationDate: ticket.creationDate
+              creationDate: ticket.creationDate,
+              uploadedFilePath: ticket.uploadedFilePath,
+              uploadedFileName: ticket.uploadedFileName
             };
           }), maxTickets: ticketData.maxTickets
         };
@@ -68,6 +74,8 @@ export class TicketsService {
       creator: string;
       status: string;
       creationDate: string;
+      uploadedFilePath: string;
+      uploadedFileName: string;
     }>('http://localhost:3000/api/tickets/' + id);
   }
 
@@ -75,17 +83,15 @@ export class TicketsService {
     return this.ticketsUpdated.asObservable();
   }
 
-  updateTicket(inputTicket: Ticket){
-    const ticketToUpdate: Ticket = {
-      id: inputTicket.id,
-      title: inputTicket.title,
-      priority: inputTicket.priority,
-      description: inputTicket.description,
-      creator: inputTicket.creator,
-      status: inputTicket.status,
-      creationDate: inputTicket.creationDate
-    };
-    this.http.put('http://localhost:3000/api/tickets/' + ticketToUpdate.id, ticketToUpdate).subscribe(
+  updateTicket(inputTicket: Ticket, uploadedFile: File = null){
+    let inputTicketFormData = new FormData;
+    for(var key in inputTicket){
+      inputTicketFormData.append(key, inputTicket[key]);
+    }
+    if(uploadedFile !== null){
+      inputTicketFormData.set("uploadedFile", uploadedFile);
+    }
+    this.http.put('http://localhost:3000/api/tickets/' + inputTicket.id, inputTicketFormData).subscribe(
       (response) => {
         this.router.navigate(['/tickets']);
         this.sharedService.openSnackbar.next('Ticket successfully updated');
