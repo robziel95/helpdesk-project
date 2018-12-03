@@ -67,7 +67,13 @@ router.post("/api/tickets", multer({storage: fileStorage}).single("uploadedFile"
   );
 });
 
-router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
+router.put("/api/tickets/:id", checkAuth, multer({storage: fileStorage}).single("uploadedFile"),(req, res, next) => {
+  const url = req.protocol + '://' + req.get("host");
+  let reqFilePath = (req.file !== undefined ? (url + "/files/upload/" + req.file.filename) : req.body.uploadedFilePath);
+  //'null' because FormData object which is sent with request transforms null to 'null'
+  if (reqFilePath == 'null'){
+    reqFilePath = undefined;
+  }
   const ticket = new Ticket({
     _id: req.body.id,
     title: req.body.title,
@@ -76,8 +82,9 @@ router.put("/api/tickets/:id", checkAuth, (req, res, next) => {
     creator: req.body.creator,
     status: req.body.status,
     creationDate: req.body.date,
-    uploadedFilePath: req.body.uploadedFilePath
+    uploadedFilePath: reqFilePath
   });
+
   let updateTicket;
   User.findById(req.userData.userId)
   .then(

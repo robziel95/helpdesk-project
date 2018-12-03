@@ -79,10 +79,15 @@ export class TicketsService {
     return this.ticketsUpdated.asObservable();
   }
 
-  updateTicket(inputTicket: Ticket){
-    const ticketToUpdate: Ticket = inputTicket;
-
-    this.http.put('http://localhost:3000/api/tickets/' + ticketToUpdate.id, ticketToUpdate).subscribe(
+  updateTicket(inputTicket: Ticket, uploadedFile: File = null){
+    let inputTicketFormData = new FormData;
+    for(var key in inputTicket){
+      inputTicketFormData.append(key, inputTicket[key]);
+    }
+    if(uploadedFile !== null){
+      inputTicketFormData.set("uploadedFile", uploadedFile);
+    }
+    this.http.put('http://localhost:3000/api/tickets/' + inputTicket.id, inputTicketFormData).subscribe(
       (response) => {
         this.router.navigate(['/tickets']);
         this.sharedService.openSnackbar.next('Ticket successfully updated');

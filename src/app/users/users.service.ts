@@ -106,9 +106,6 @@ export class UsersService {
     if(avatar !== null){
       userFormData.set("avatar", avatar);
     }
-    //console.log(userFormData);
-    console.log(userFormData.getAll('name'));
-
     //check if someone wants to add admin permission
     //check if person is authenticated and has admin permission
     if(userToUpdate.userType === 'administrator' && (!this.authService.getUserIsAdmin() || !this.authService.getUserIsAuth())){

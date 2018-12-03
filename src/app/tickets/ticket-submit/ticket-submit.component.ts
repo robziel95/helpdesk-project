@@ -62,7 +62,8 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
               title: ticketData.title,
               priority: ticketData.priority,
               status: ticketData.status,
-              description: ticketData.description
+              description: ticketData.description,
+              uploadedFile: null
             });
           });
         }else{
@@ -108,7 +109,7 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
       this.inputTicketData.creator = this.editedTicket.creator;
       this.inputTicketData.creationDate = this.editedTicket.creationDate;
       this.inputTicketData.uploadedFilePath = this.editedTicket.uploadedFilePath;
-      this.ticketsService.updateTicket(this.inputTicketData);
+      this.ticketsService.updateTicket(this.inputTicketData, uploadedFile);
     }
   }
 
