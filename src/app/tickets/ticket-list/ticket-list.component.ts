@@ -77,4 +77,7 @@ export class TicketListComponent implements OnInit {
     this.authStatusSubscription.unsubscribe();
   }
 
+  downloadFile(downloadFilePath: string){
+
+  }
 }
