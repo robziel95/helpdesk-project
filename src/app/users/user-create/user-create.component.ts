@@ -65,7 +65,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
               email: userData.email,
               password: userData.password,
               userType: userData.userType,
-              nickname: userData.nickname || 'null',
+              nickname: userData.nickname || null,
               avatarPath: userData.avatarPath
             };
             this.imagePreview = userData.avatarPath;

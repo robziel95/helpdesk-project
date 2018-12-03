@@ -32,7 +32,7 @@
       <div class="mat-expansion-panel-body__uploaded-file" *ngIf="ticket.uploadedFilePath">
           <div class="mat-expansion-panel-body__uploaded-file__file">
             <p><i class="fa fa-download" aria-hidden="true"></i> Uploaded file:</p>
-            <p class="mat-expansion-panel-body__uploaded-file__file__name">{{ ticket.uploadedFilePath }}</p>
+            <p class="mat-expansion-panel-body__uploaded-file__file__name">{{ ticket.uploadedFileName }}</p>
           </div>
           <a mat-raised-button class="btn btn--orange" target="_self" href="{{ ticket.uploadedFilePath }}" download="{{ ticket.uploadedFilePath }}">Download</a>
       </div>

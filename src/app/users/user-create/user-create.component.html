@@ -50,6 +50,7 @@
             <input id="uploadFileField" type="file" #filePicker (change)="onImageChanged($event)">
           </div>
         </div>
+        <mat-error *ngIf="form.get('avatar').invalid">Wrong file extension</mat-error>
         <mat-form-field>
           <input matInput
           formControlName="password"

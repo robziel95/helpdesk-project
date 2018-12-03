@@ -55,7 +55,8 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
               creator: ticketData.creator,
               status: ticketData.status,
               creationDate: ticketData.creationDate,
-              uploadedFilePath: null
+              uploadedFilePath: null,
+              uploadedFileName: ticketData.uploadedFileName || null,
             };
             this.filePath = this.editedTicket.uploadedFilePath;
             this.form.setValue({
@@ -95,7 +96,8 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
       creator: null,
       status: 'Unassigned',
       creationDate: new Date().toISOString().slice(0,10).replace(/-/g,'/'),
-      uploadedFilePath: null
+      uploadedFilePath: null,
+      uploadedFileName: null
     };
     let uploadedFile = this.form.value.uploadedFile;
     this.spinnerLoading = true;
@@ -109,6 +111,7 @@ export class TicketSubmitComponent implements OnInit, OnDestroy {
       this.inputTicketData.creator = this.editedTicket.creator;
       this.inputTicketData.creationDate = this.editedTicket.creationDate;
       this.inputTicketData.uploadedFilePath = this.editedTicket.uploadedFilePath;
+      this.inputTicketData.uploadedFileName = this.editedTicket.uploadedFileName;
       this.ticketsService.updateTicket(this.inputTicketData, uploadedFile);
     }
   }

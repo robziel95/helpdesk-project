@@ -3,7 +3,7 @@ const Ticket = require('../models/ticket');
 const User = require('../models/user');
 
 mongoose.connect(
-  'mongodb://localhost:27017/helpdeskSeed'
+  'mongodb://localhost:27017/helpdesk'
   //"mongodb+srv://robz:EnyhIPVvwPUkeqeE@cluster0-zpzps.mongodb.net/helpdesk?retryWrites=true"
 )
 
@@ -169,7 +169,9 @@ function populateTickets(){
         "creator": users[6]._id,
         "creationDate": "2018/11/16",
         "__v": 0,
-        "lastModificationDate": "2018/11/16"
+        "lastModificationDate": "2018/11/16",
+        "uploadedFilePath": null,
+        "uploadedFileName": null,
       }
     ),
     new Ticket
@@ -181,7 +183,9 @@ function populateTickets(){
         "description": " Please enter a description",
         "creator": users[6]._id,
         "creationDate": "2018/11/16",
-        "__v": 0
+        "__v": 0,
+        "uploadedFilePath": null,
+        "uploadedFileName": null,
       }
     ),
     new Ticket
@@ -193,7 +197,9 @@ function populateTickets(){
         "description": "Phasellus consecte\u003cb\u003etur commodo libero, sit amet varius ligula fringilla a. \u003c/b\u003e",
         "creator": users[6]._id,
         "creationDate": "2018/11/16",
-        "__v": 0
+        "__v": 0,
+        "uploadedFilePath": null,
+        "uploadedFileName": null,
       }
     ),
     new Ticket
@@ -205,19 +211,9 @@ function populateTickets(){
         "description": "Vivamus vestibulum volutpat bibendum. Quisque porta lacus tellus, non varius orci tincidunt at. Donec ut ligula at est feugiat mollis sed et mauris. Proin finibus neque orci, ac aliquet lacus tincidunt nec. Donec malesuada neque magna, sit amet cursus lacus dignissim at. Suspendisse potenti. Sed malesuada, mauris id tincidunt ultrices, diam odio eleifend est, ac rutrum lac\u003ci\u003eus velit non diam. Praesent a mauris at turpis elementum interdum. Sed ullamcorper velit in felis faucibus tempus. Vestibulum a venenatis elit. Praesent sapien ex, rhoncus ac dapibus a, cursus mattis sem.ads\u003c/i\u003e",
         "creator": users[6]._id,
         "creationDate": "2018/11/16",
-        "__v": 0
-      }
-    ),
-    new Ticket
-    (
-      {
-        "status": "Resolved",
-        "title": "Test4 title",
-        "priority": "Normal",
-        "description": "\u003cbr\u003e",
-        "creator": users[6]._id,
-        "creationDate": "2018/11/16",
-        "__v": 0
+        "__v": 0,
+        "uploadedFilePath": null,
+        "uploadedFileName": null,
       }
     ),
     new Ticket
@@ -229,7 +225,9 @@ function populateTickets(){
         "description": "Ut ut sem at tellus malesuada dapibus.",
         "creator": users[0]._id,
         "creationDate": "2018/11/16",
-        "__v": 0
+        "__v": 0,
+        "uploadedFilePath": null,
+        "uploadedFileName": null,
       }
     ),
     new Ticket
@@ -241,7 +239,9 @@ function populateTickets(){
         "description": "Ut ut sem at tellus malesuada dapibus.",
         "creator": users[0]._id,
         "creationDate": "2018/11/16",
-        "__v": 0
+        "__v": 0,
+        "uploadedFilePath": null,
+        "uploadedFileName": null,
       }
     ),
     new Ticket
@@ -253,45 +253,11 @@ function populateTickets(){
         "description": "Ut ut sem at tellus malesuada dapibus. Sed odio diam, mattis vel diam sit amet, pretium rutrum nisl. Donec lobortis, nibh eu consequat pellentesque, sem lacus laoreet velit, vitae commodo lectus lectus consectetur est. Etiam mauris leo, dignissim ac ex vel, malesuada euismod elit. Nulla consequat magna justo, ut porta sapien fermentum quis. Vivamus libero enim, consequat at pellentesque quis, tincidunt quis orci. Vestibulum magna felis, pharetra at viverra at, tincidunt vel ligula. Integer quis maximus felis. Maecenas sagittis enim non tristique vehicula. In quis tristique orci. Suspendisse pretium leo non leo euismod interdum. Aenean iaculis sem sapien, ut lobortis mauris luctus aliquet. Aenean volutpat placerat aliquet. Quisque pretium, est molestie tincidunt aliquet, est nibh fringilla nulla, sit amet congue turpis sem in urna.  Maecenas hendrerit, est in consectetur maximus, erat justo varius erat, ut vulputate ipsum orci ut purus. Maecenas ultricies erat eget diam molestie imperdiet. Sed libero justo, dignissim non commodo eget, pellentesque vel sapien. Duis accumsan in ipsum nec efficitur. Morbi ut massa sed felis tristique mattis sed eget ligula. Donec vitae sagittis orci. Aenean est velit, tempus ut mollis vitae, ultrices maximus lorem. Morbi quis mi ante. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed et diam vel nunc malesuada vehicula.",
         "creator": users[0]._id,
         "creationDate": "2018/11/16",
-        "__v": 0
+        "__v": 0,
+        "uploadedFilePath": null,
+        "uploadedFileName": null,
       }
-    ),
-    new Ticket
-    (
-      {
-        "status": "Rejected",
-        "title": "asdsadfs",
-        "priority": "Normal",
-        "description": "dsad",
-        "creator": users[0]._id,
-        "creationDate": "2018/11/21",
-        "__v": 0
-      }
-    ),
-    new Ticket
-    (
-      {
-        "status": "Unassigned",
-        "title": "Test descfd",
-        "priority": "High",
-        "description": " This is my description, \u003cb\u003ebold\u003c/b\u003e, \u003ci\u003eitalic\u003c/i\u003e, \u003cu\u003eunderlineadfs\u003c/u\u003e",
-        "creator": users[1]._id,
-        "creationDate": "2018/11/22",
-        "__v": 0
-      }
-    ),
-    new Ticket
-    (
-      {
-        "status": "Resolved",
-        "title": "133",
-        "priority": "High",
-        "description": "\u003cbr\u003e",
-        "creator": users[1]._id,
-        "creationDate": "2018/11/22",
-        "__v": 0
-      }
-    ),
+    )
   ];
 
   var ticketsCount = 0;

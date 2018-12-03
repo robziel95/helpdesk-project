@@ -45,7 +45,8 @@ export class TicketsService {
               creator: ticket.creator,
               status: ticket.status,
               creationDate: ticket.creationDate,
-              uploadedFilePath: ticket.uploadedFilePath
+              uploadedFilePath: ticket.uploadedFilePath,
+              uploadedFileName: ticket.uploadedFileName
             };
           }), maxTickets: ticketData.maxTickets
         };
@@ -74,6 +75,7 @@ export class TicketsService {
       status: string;
       creationDate: string;
       uploadedFilePath: string;
+      uploadedFileName: string;
     }>('http://localhost:3000/api/tickets/' + id);
   }
 

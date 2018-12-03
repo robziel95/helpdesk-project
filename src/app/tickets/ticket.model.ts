@@ -7,4 +7,5 @@ export interface Ticket {
   status: string;
   creationDate: string;
   uploadedFilePath: string;
+  uploadedFileName: string;
 }

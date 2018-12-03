@@ -40,6 +40,7 @@ const fileStorage = multer.diskStorage({
 router.post("/api/tickets", multer({storage: fileStorage}).single("uploadedFile"), checkAuth, (req, res, next) => {
   const url = req.protocol + '://' + req.get("host");
   let reqUploadedFilePath = (req.file !== undefined ? (url + "/files/upload/" + req.file.filename) : null);
+  let reqUploadedFileName =(req.file !== undefined ? req.file.filename : null);
   const ticket = new Ticket({
     title: req.body.title,
     priority: req.body.priority,
@@ -47,7 +48,8 @@ router.post("/api/tickets", multer({storage: fileStorage}).single("uploadedFile"
     creator: req.userData.userId,
     status: req.body.status,
     creationDate: req.body.creationDate,
-    uploadedFilePath: reqUploadedFilePath
+    uploadedFilePath: reqUploadedFilePath,
+    uploadedFileName: reqUploadedFileName
   });
   //.body is from body parser
   ticket.save()
@@ -69,10 +71,11 @@ router.post("/api/tickets", multer({storage: fileStorage}).single("uploadedFile"
 
 router.put("/api/tickets/:id", checkAuth, multer({storage: fileStorage}).single("uploadedFile"),(req, res, next) => {
   const url = req.protocol + '://' + req.get("host");
-  let reqFilePath = (req.file !== undefined ? (url + "/files/upload/" + req.file.filename) : req.body.uploadedFilePath);
+  let reqUploadedFilePath = (req.file !== undefined ? (url + "/files/upload/" + req.file.filename) : req.body.uploadedFilePath);
+  let reqUploadedFileName =(req.file !== undefined ? req.file.filename : null);
   //'null' because FormData object which is sent with request transforms null to 'null'
-  if (reqFilePath == 'null'){
-    reqFilePath = undefined;
+  if (reqUploadedFilePath == 'null'){
+    reqUploadedFilePath = undefined;
   }
   const ticket = new Ticket({
     _id: req.body.id,
@@ -82,7 +85,8 @@ router.put("/api/tickets/:id", checkAuth, multer({storage: fileStorage}).single(
     creator: req.body.creator,
     status: req.body.status,
     creationDate: req.body.date,
-    uploadedFilePath: reqFilePath
+    uploadedFilePath: reqUploadedFilePath,
+    uploadedFileName: reqUploadedFileName
   });
 
   let updateTicket;
